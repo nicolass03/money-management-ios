@@ -4,8 +4,11 @@ struct MainTabView: View {
     let sessionStore: SessionStore
     let themeManager: ThemeManager
 
+    @Environment(\.scenePhase) private var scenePhase
+
     @State private var selectedTab: AppTab = .expenses
     @State private var showSettings = false
+    @State private var settingsDidSave = false
     @State private var deps: AppDependencies
 
     @State private var expensesViewModel: ExpensesViewModel
@@ -67,17 +70,44 @@ struct MainTabView: View {
             .padding(.trailing, 16)
             .padding(.top, 8)
         }
-        .sheet(isPresented: $showSettings) {
+        .sheet(isPresented: $showSettings, onDismiss: handleSettingsDismiss) {
             SettingsView(
                 sessionStore: sessionStore,
                 themeManager: themeManager,
-                viewModel: settingsViewModel
+                viewModel: settingsViewModel,
+                onSaved: { settingsDidSave = true }
             )
             .presentationDetents([.medium, .large])
             .presentationDragIndicator(.visible)
         }
         .task {
-            try? await deps.refreshSharedContext()
+            deps.invalidateAll()
+            await reloadActiveTab(force: true)
+        }
+        .onChange(of: scenePhase) { _, phase in
+            guard phase == .active else { return }
+            deps.invalidateAll()
+            Task { await reloadActiveTab(force: true) }
+        }
+    }
+
+    private func handleSettingsDismiss() {
+        guard settingsDidSave else { return }
+        settingsDidSave = false
+        Task { await reloadActiveTab(force: false) }
+    }
+
+    @MainActor
+    private func reloadActiveTab(force: Bool) async {
+        switch selectedTab {
+        case .expenses:
+            await expensesViewModel.load(force: force)
+        case .budgets:
+            await budgetsViewModel.load(force: force)
+        case .income:
+            await incomeViewModel.load(force: force)
+        case .projections:
+            await projectionsViewModel.load(force: force)
         }
     }
 }

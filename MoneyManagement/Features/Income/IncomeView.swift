@@ -29,7 +29,7 @@ struct IncomeView: View {
       }
     }
     .overlay { if viewModel.isLoading { LoadingOverlay() } }
-    .refreshable { await viewModel.load() }
+    .refreshable { await viewModel.load(force: true) }
     .task { await viewModel.load() }
     .sheet(isPresented: $viewModel.showScheduleForm) {
       IncomeScheduleFormSheet(deps: deps, editing: viewModel.scheduleSheet) {

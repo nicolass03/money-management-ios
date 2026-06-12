@@ -33,7 +33,7 @@ struct PlannedExpensesView: View {
       }
     }
     .overlay { if viewModel.isLoading { LoadingOverlay() } }
-    .refreshable { await viewModel.load() }
+    .refreshable { await viewModel.load(force: true) }
     .task { await viewModel.load() }
     .navigationBarTitleDisplayMode(.inline)
     .sheet(isPresented: $viewModel.showForm) {

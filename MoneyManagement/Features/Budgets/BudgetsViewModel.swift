@@ -36,14 +36,20 @@ final class BudgetsViewModel {
     }
   }
 
-  func load() async {
+  func load(force: Bool = false) async {
     isLoading = true
     errorMessage = nil
     defer { isLoading = false }
 
     do {
+      if force {
+        deps.invalidateAll()
+      }
+
       try await deps.refreshSharedContext()
-      budgets = try await deps.api.getBudgets()
+      budgets = try await deps.dataStore.getBudgets { [deps] in
+        try await deps.api.getBudgets()
+      }
       groupedBudgets = BudgetStatusLogic.grouped(budgets)
     } catch {
       errorMessage = error.localizedDescription
@@ -66,7 +72,9 @@ final class BudgetsViewModel {
     defer { loadingExpenses.remove(budgetId) }
 
     do {
-      budgetExpenses[budgetId] = try await deps.api.getBudgetExpenses(budgetId: budgetId)
+      budgetExpenses[budgetId] = try await deps.dataStore.getBudgetExpenses(budgetId: budgetId) { [deps] in
+        try await deps.api.getBudgetExpenses(budgetId: budgetId)
+      }
     } catch {
       errorMessage = error.localizedDescription
     }
@@ -75,6 +83,7 @@ final class BudgetsViewModel {
   func deleteBudget(_ budget: BudgetWithTags) async {
     do {
       try await deps.api.deleteBudget(id: budget.id)
+      deps.invalidateAfter(.budgetChange)
       expandedBudgetIds.remove(budget.id)
       budgetExpenses.removeValue(forKey: budget.id)
       Haptics.light()
@@ -87,6 +96,8 @@ final class BudgetsViewModel {
   func deleteBudgetExpense(budgetId: String, expense: ExpenseWithTags) async {
     do {
       try await deps.api.deleteBudgetExpense(budgetId: budgetId, expenseId: expense.id)
+      deps.invalidateAfter(.budgetChange)
+      deps.dataStore.invalidate([.budgetExpenses(budgetId)])
       Haptics.light()
       await loadExpenses(for: budgetId)
       await load()
@@ -153,6 +164,7 @@ final class BudgetFormModel {
     } else {
       _ = try await deps.api.createBudget(body)
     }
+    deps.invalidateAfter(.budgetChange)
   }
 }
 
@@ -186,5 +198,7 @@ final class BudgetExpenseFormModel {
       date: date
     )
     _ = try await deps.api.createBudgetExpense(budgetId: budget.id, body)
+    deps.invalidateAfter(.budgetChange)
+    deps.dataStore.invalidate([.budgetExpenses(budget.id)])
   }
 }

@@ -35,15 +35,23 @@ final class IncomeViewModel {
     }
   }
 
-  func load() async {
+  func load(force: Bool = false) async {
     isLoading = true
     errorMessage = nil
     defer { isLoading = false }
 
     do {
+      if force {
+        deps.invalidateAll()
+      }
+
       try await deps.refreshSharedContext()
-      async let schedulesTask = deps.api.getIncomeSchedules()
-      async let incomeTask = deps.api.getIncome()
+      async let schedulesTask = deps.dataStore.getSchedules { [deps] in
+        try await deps.api.getIncomeSchedules()
+      }
+      async let incomeTask = deps.dataStore.getIncome { [deps] in
+        try await deps.api.getIncome()
+      }
       schedules = try await schedulesTask
       incomeEntries = try await incomeTask
       refreshDisplayedEntries()
@@ -59,6 +67,7 @@ final class IncomeViewModel {
   func deleteSchedule(_ schedule: IncomePaySchedule) async {
     do {
       try await deps.api.deleteIncomeSchedule(id: schedule.id)
+      deps.invalidateAfter(.scheduleChange)
       Haptics.light()
       await load()
     } catch {
@@ -69,6 +78,7 @@ final class IncomeViewModel {
   func deleteIncome(_ income: Income) async {
     do {
       try await deps.api.deleteIncome(id: income.id)
+      deps.invalidateAfter(.incomeChange)
       Haptics.light()
       await load()
     } catch {
@@ -127,6 +137,7 @@ final class IncomeScheduleFormModel {
     } else {
       _ = try await deps.api.createIncomeSchedule(body)
     }
+    deps.invalidateAfter(.scheduleChange)
   }
 }
 
@@ -177,5 +188,6 @@ final class IncomeEntryFormModel {
     } else {
       _ = try await deps.api.createIncome(body)
     }
+    deps.invalidateAfter(.incomeChange)
   }
 }

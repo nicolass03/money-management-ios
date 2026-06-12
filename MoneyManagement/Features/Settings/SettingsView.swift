@@ -8,6 +8,7 @@ struct SettingsView: View {
     let sessionStore: SessionStore
     let themeManager: ThemeManager
     @Bindable var viewModel: SettingsViewModel
+    var onSaved: (() -> Void)? = nil
 
     @State private var isSigningOut = false
 
@@ -127,6 +128,7 @@ struct SettingsView: View {
                 TerminalButton(title: viewModel.isSaving ? "saving..." : "save preferences", isLoading: viewModel.isSaving) {
                     Task {
                         if await viewModel.save() {
+                            onSaved?()
                             dismiss()
                         }
                     }

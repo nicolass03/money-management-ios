@@ -31,15 +31,23 @@ final class PlannedExpensesViewModel {
     }
   }
 
-  func load() async {
+  func load(force: Bool = false) async {
     isLoading = true
     errorMessage = nil
     defer { isLoading = false }
 
     do {
+      if force {
+        deps.invalidateAll()
+      }
+
       try await deps.refreshSharedContext()
-      async let plannedTask = deps.api.getPlannedExpenses()
-      async let tagsTask = deps.api.getTags()
+      async let plannedTask = deps.dataStore.getPlannedExpenses { [deps] in
+        try await deps.api.getPlannedExpenses()
+      }
+      async let tagsTask = deps.dataStore.getTags { [deps] in
+        try await deps.api.getTags()
+      }
       items = try await plannedTask.sorted { $0.date < $1.date }
       tags = try await tagsTask
     } catch {
@@ -50,6 +58,7 @@ final class PlannedExpensesViewModel {
   func delete(_ item: PlannedExpenseWithTags) async {
     do {
       try await deps.api.deletePlannedExpense(id: item.id)
+      deps.invalidateAfter(.plannedChange)
       Haptics.light()
       await load()
     } catch {
@@ -108,5 +117,6 @@ final class PlannedExpenseFormModel {
     } else {
       _ = try await deps.api.createPlannedExpense(body)
     }
+    deps.invalidateAfter(.plannedChange)
   }
 }

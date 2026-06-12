@@ -118,12 +118,16 @@ final class ExpensesViewModel {
     return "\(period.startDate) → \(period.endDate)"
   }
 
-  func load() async {
+  func load(force: Bool = false) async {
     isLoading = true
     errorMessage = nil
     defer { isLoading = false }
 
     do {
+      if force {
+        deps.invalidateAll()
+      }
+
       try await deps.refreshSharedContext()
 
       if let scheduleId = deps.settings?.primaryScheduleId {
@@ -132,11 +136,21 @@ final class ExpensesViewModel {
         primarySchedule = nil
       }
 
-      async let expensesTask = deps.api.getExpenses()
-      async let recurringTask = deps.api.getRecurringExpenses()
-      async let plannedTask = deps.api.getPlannedExpenses()
-      async let budgetsTask = deps.api.getBudgets()
-      async let tagsTask = deps.api.getTags()
+      async let expensesTask = deps.dataStore.getExpenses { [deps] in
+        try await deps.api.getExpenses()
+      }
+      async let recurringTask = deps.dataStore.getRecurringExpenses { [deps] in
+        try await deps.api.getRecurringExpenses()
+      }
+      async let plannedTask = deps.dataStore.getPlannedExpenses { [deps] in
+        try await deps.api.getPlannedExpenses()
+      }
+      async let budgetsTask = deps.dataStore.getBudgets { [deps] in
+        try await deps.api.getBudgets()
+      }
+      async let tagsTask = deps.dataStore.getTags { [deps] in
+        try await deps.api.getTags()
+      }
 
       expenses = try await expensesTask
       recurring = try await recurringTask
@@ -151,6 +165,7 @@ final class ExpensesViewModel {
   func deleteExpense(_ expense: ExpenseWithTags) async {
     do {
       try await deps.api.deleteExpense(id: expense.id)
+      deps.invalidateAfter(.expenseChange)
       Haptics.light()
       await load()
     } catch {
@@ -212,6 +227,7 @@ final class ExpenseFormModel {
       isSubscription: isSubscription
     )
     _ = try await deps.api.createExpense(body)
+    deps.invalidateAfter(.expenseChange)
   }
 }
 
@@ -237,6 +253,7 @@ final class ExpenseAmountFormModel {
   func save() async throws {
     guard let amount = amountMinor else { return }
     _ = try await deps.api.updateExpenseAmount(id: expense.id, amount: amount)
+    deps.invalidateAfter(.expenseChange)
   }
 }
 
@@ -273,5 +290,6 @@ final class EarlyPayFormModel {
       plannedExpenseId: item.plannedExpenseId
     )
     _ = try await deps.api.earlyPayExpense(body)
+    deps.invalidateAfter(.expenseChange)
   }
 }

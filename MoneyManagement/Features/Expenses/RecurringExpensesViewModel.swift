@@ -19,15 +19,23 @@ final class RecurringExpensesViewModel {
     self.deps = deps
   }
 
-  func load() async {
+  func load(force: Bool = false) async {
     isLoading = true
     errorMessage = nil
     defer { isLoading = false }
 
     do {
+      if force {
+        deps.invalidateAll()
+      }
+
       try await deps.refreshSharedContext()
-      async let recurringTask = deps.api.getRecurringExpenses()
-      async let tagsTask = deps.api.getTags()
+      async let recurringTask = deps.dataStore.getRecurringExpenses { [deps] in
+        try await deps.api.getRecurringExpenses()
+      }
+      async let tagsTask = deps.dataStore.getTags { [deps] in
+        try await deps.api.getTags()
+      }
       items = try await recurringTask
       tags = try await tagsTask
     } catch {
@@ -38,6 +46,7 @@ final class RecurringExpensesViewModel {
   func delete(_ item: RecurringExpenseWithTags) async {
     do {
       try await deps.api.deleteRecurringExpense(id: item.id)
+      deps.invalidateAfter(.recurringChange)
       Haptics.light()
       await load()
     } catch {
@@ -105,5 +114,6 @@ final class RecurringExpenseFormModel {
     } else {
       _ = try await deps.api.createRecurringExpense(body)
     }
+    deps.invalidateAfter(.recurringChange)
   }
 }

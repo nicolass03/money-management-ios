@@ -41,7 +41,7 @@ struct BudgetsView: View {
       }
     }
     .overlay { if viewModel.isLoading { LoadingOverlay() } }
-    .refreshable { await viewModel.load() }
+    .refreshable { await viewModel.load(force: true) }
     .task { await viewModel.load() }
     .sheet(isPresented: $viewModel.showBudgetForm) {
       BudgetFormSheet(deps: deps, editing: viewModel.editingBudget) {

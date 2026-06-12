@@ -35,7 +35,7 @@ struct ExpensesView: View {
       }
     }
     .overlay { if viewModel.isLoading { LoadingOverlay() } }
-    .refreshable { await viewModel.load() }
+    .refreshable { await viewModel.load(force: true) }
     .task { await viewModel.load() }
     .navigationDestination(for: ExpensesRoute.self) { route in
       switch route {

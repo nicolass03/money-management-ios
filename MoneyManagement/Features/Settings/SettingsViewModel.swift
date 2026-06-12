@@ -19,12 +19,16 @@ final class SettingsViewModel {
         self.deps = deps
     }
 
-    func load() async {
+    func load(force: Bool = false) async {
         isLoading = true
         errorMessage = nil
         defer { isLoading = false }
 
         do {
+            if force {
+                deps.invalidateAll()
+            }
+
             try await deps.refreshSharedContext()
             if let settings = deps.settings {
                 displayCurrency = settings.displayCurrency
@@ -32,7 +36,9 @@ final class SettingsViewModel {
                 projectionInitialFreeMoneyText = String(settings.projectionInitialFreeMoney)
                 projectionStartDate = settings.projectionStartDate ?? ""
             }
-            schedules = try await deps.api.getIncomeSchedules()
+            schedules = try await deps.dataStore.getSchedules { [deps] in
+                try await deps.api.getIncomeSchedules()
+            }
         } catch {
             errorMessage = error.localizedDescription
         }
@@ -57,7 +63,8 @@ final class SettingsViewModel {
 
         do {
             _ = try await deps.api.patchSettings(request)
-            try await deps.refreshSharedContext()
+            deps.invalidateAfter(.settingsChange)
+            try await deps.refreshSharedContext(force: true)
             Haptics.success()
             return true
         } catch {

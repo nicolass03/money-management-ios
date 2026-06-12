@@ -27,20 +27,26 @@ final class ProjectionsViewModel {
     return ProjectionDisplayLogic.visibleRows(from: rows)
   }
 
-  func load() async {
+  func load(force: Bool = false) async {
     isLoading = true
     errorMessage = nil
     needsPrimarySchedule = false
     defer { isLoading = false }
 
     do {
+      if force {
+        deps.invalidateAll()
+      }
+
       try await deps.refreshSharedContext()
       guard deps.settings?.primaryScheduleId != nil else {
         needsPrimarySchedule = true
         response = nil
         return
       }
-      response = try await deps.api.getProjections()
+      response = try await deps.dataStore.getProjections { [deps] in
+        try await deps.api.getProjections()
+      }
     } catch let error as APIError where error.status == 400 {
       needsPrimarySchedule = true
       errorMessage = error.message

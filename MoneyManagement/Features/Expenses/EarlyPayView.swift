@@ -32,7 +32,7 @@ struct EarlyPayView: View {
       }
     }
     .overlay { if viewModel.isLoading { LoadingOverlay() } }
-    .refreshable { await viewModel.load() }
+    .refreshable { await viewModel.load(force: true) }
     .task { await viewModel.load() }
     .navigationBarTitleDisplayMode(.inline)
     .sheet(isPresented: $viewModel.showForm) {
@@ -96,16 +96,26 @@ final class EarlyPayViewModel {
     self.deps = deps
   }
 
-  func load() async {
+  func load(force: Bool = false) async {
     isLoading = true
     errorMessage = nil
     defer { isLoading = false }
 
     do {
+      if force {
+        deps.invalidateAll()
+      }
+
       try await deps.refreshSharedContext()
-      async let expensesTask = deps.api.getExpenses()
-      async let recurringTask = deps.api.getRecurringExpenses()
-      async let plannedTask = deps.api.getPlannedExpenses()
+      async let expensesTask = deps.dataStore.getExpenses { [deps] in
+        try await deps.api.getExpenses()
+      }
+      async let recurringTask = deps.dataStore.getRecurringExpenses { [deps] in
+        try await deps.api.getRecurringExpenses()
+      }
+      async let plannedTask = deps.dataStore.getPlannedExpenses { [deps] in
+        try await deps.api.getPlannedExpenses()
+      }
       let expenses = try await expensesTask
       let recurring = try await recurringTask
       let planned = try await plannedTask
