@@ -5,6 +5,9 @@
 ## User settings
 xcuserdata/
 
+## Local secrets (copy from Secrets.xcconfig.example)
+Config/Secrets.xcconfig
+
 ## Obj-C/Swift specific
 *.hmap
 
