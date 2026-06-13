@@ -76,8 +76,8 @@ struct ProjectionsView: View {
 
           HStack(alignment: .bottom, spacing: 12) {
             projectionAmountColumn(
-              label: "out",
-              amount: row.expenseTotal,
+              label: "accumulated",
+              amount: row.cumulativeFree,
               currency: displayCurrency,
               alignment: .leading
             )
