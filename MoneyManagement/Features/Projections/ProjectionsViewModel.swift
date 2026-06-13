@@ -31,7 +31,9 @@ final class ProjectionsViewModel {
 
   func load(force: Bool = false) async {
     let token = loadGeneration.next()
-    isLoading = true
+    // Paint the last-known projections immediately; only show the skeleton when nothing is cached.
+    if response == nil { response = deps.dataStore.projections }
+    isLoading = (response == nil)
     errorMessage = nil
     needsPrimarySchedule = false
     defer {

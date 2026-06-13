@@ -41,8 +41,15 @@ final class IncomeViewModel {
   func load(force: Bool = false) async {
     let token = loadGeneration.next()
     errorMessage = nil
-    isLoadingSchedules = true
-    isLoadingEntries = true
+    // Seed both sections from the last-known data so cold launch paints instantly instead of
+    // showing skeletons; only show a skeleton for a section that has nothing cached yet.
+    if schedules.isEmpty, let cached = deps.dataStore.schedules { schedules = cached }
+    if incomeEntries.isEmpty, let cached = deps.dataStore.income {
+      incomeEntries = cached
+      refreshDisplayedEntries()
+    }
+    isLoadingSchedules = schedules.isEmpty
+    isLoadingEntries = incomeEntries.isEmpty
     defer {
       if loadGeneration.isCurrent(token) {
         isLoadingSchedules = false
@@ -54,14 +61,19 @@ final class IncomeViewModel {
       deps.invalidateAll()
     }
 
+    // Fetch shared context alongside schedules + entries rather than before them — neither needs
+    // settings to be issued, so awaiting context first only added a round-trip to the skeleton time.
+    async let contextTask: Void = loadSharedContext(loadToken: token)
+    async let schedulesTask: Void = loadSchedules(loadToken: token)
+    async let entriesTask: Void = loadEntries(loadToken: token)
+    _ = await (contextTask, schedulesTask, entriesTask)
+  }
+
+  private func loadSharedContext(loadToken: Int) async {
     do {
       try await deps.refreshSharedContext()
-      guard loadGeneration.isCurrent(token) else { return }
-      async let schedulesTask: Void = loadSchedules(loadToken: token)
-      async let entriesTask: Void = loadEntries(loadToken: token)
-      _ = await (schedulesTask, entriesTask)
     } catch {
-      guard shouldSurfaceLoadError(error, isCurrent: loadGeneration.isCurrent(token)) else { return }
+      guard shouldSurfaceLoadError(error, isCurrent: loadGeneration.isCurrent(loadToken)) else { return }
       errorMessage = error.localizedDescription
     }
   }

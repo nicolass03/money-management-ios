@@ -96,10 +96,14 @@ final class ExpensesViewModel {
   }
 
   func loadPeriod(loadToken: Int? = nil) async {
-    isLoadingPeriod = true
+    let key = periodKey
+    // Paint this period's last-known view instantly (cold launch / switching to a cached period);
+    // only surface the skeleton when this period has nothing cached yet.
+    let cached = deps.dataStore.expensePeriodViews[key.rawValue]
+    if let cached { periodView = cached }
+    isLoadingPeriod = (cached == nil)
     defer { isLoadingPeriod = false }
 
-    let key = periodKey
     do {
       let view = try await deps.dataStore.getExpensePeriodView(period: key.rawValue) { [deps] in
         try await deps.api.getExpensePeriodView(period: key)
@@ -128,7 +132,9 @@ final class ExpensesViewModel {
   }
 
   func loadUpcoming(loadToken: Int? = nil) async {
-    isLoadingUpcoming = true
+    // Seed from the last-known payable items so the section doesn't flash a skeleton on cold launch.
+    if let cached = deps.dataStore.upcomingPayable { upcomingPayable = cached }
+    isLoadingUpcoming = (deps.dataStore.upcomingPayable == nil)
     defer { isLoadingUpcoming = false }
 
     do {

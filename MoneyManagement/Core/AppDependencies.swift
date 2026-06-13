@@ -47,6 +47,12 @@ final class AppDependencies {
             }
         )
         self.api = APIService(client: client)
+
+        // Seed the in-memory cache from disk so the first paint shows last-known data instead of a
+        // skeleton; the tab loads then revalidate in the background (stale-while-revalidate).
+        if let userID = sessionStore.session?.user.id.uuidString {
+            dataStore.hydrate(userID: userID)
+        }
     }
 
     func invalidateAfter(_ event: InvalidationEvent) {
@@ -62,7 +68,9 @@ final class AppDependencies {
             dataStore.invalidate([.settings, .moneyContext])
         }
 
-        isLoadingContext = true
+        // Only surface the context skeleton when there's nothing cached to show; with hydrated
+        // settings + money-context the refresh happens silently in the background.
+        isLoadingContext = (dataStore.settings == nil || dataStore.moneyContext == nil)
         defer { isLoadingContext = false }
 
         async let settingsTask = dataStore.getSettings { [api] in

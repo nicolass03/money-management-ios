@@ -33,6 +33,8 @@ final class SessionStore {
 
     func signOut() async throws {
         try await authService.signOut()
+        // Don't leave the previous user's cached financial data on disk after logout.
+        PersistentCache.deleteStoredFile()
     }
 
     private func listenForAuthChanges() {

@@ -7,6 +7,13 @@ final class DataStore {
   private var invalidatedKeys = Set<ResourceKey>()
   private var inFlightTasks: [ResourceKey: Task<Any, Error>] = [:]
 
+  private let persistentCache: PersistentCache
+  private var userID: String?
+
+  init(persistentCache: PersistentCache? = nil) {
+    self.persistentCache = persistentCache ?? PersistentCache()
+  }
+
   private(set) var settings: UserSettings?
   private(set) var moneyContext: MoneyContextResponse?
   private(set) var expenses: [ExpenseWithTags]?
@@ -172,11 +179,77 @@ final class DataStore {
       let value = try await fetch()
       assign(value)
       markFresh(key)
+      persist()
       return value
     }
     inFlightTasks[key] = task
     defer { inFlightTasks.removeValue(forKey: key) }
 
     return try await task.value as! T
+  }
+
+  // MARK: - Persistence (stale-while-revalidate)
+
+  /// Seeds the in-memory cache from disk for `userID` so the UI can paint last-known data on a cold
+  /// launch. The hydrated values stay available for display, but every key is marked invalidated so
+  /// the next access revalidates against the server. A snapshot for a different user is discarded.
+  func hydrate(userID: String) {
+    self.userID = userID
+    guard let snapshot = persistentCache.load(), snapshot.userID == userID else {
+      persistentCache.clear()
+      return
+    }
+
+    settings = snapshot.settings
+    moneyContext = snapshot.moneyContext
+    expenses = snapshot.expenses
+    recurringExpenses = snapshot.recurringExpenses
+    plannedExpenses = snapshot.plannedExpenses
+    budgets = snapshot.budgets
+    income = snapshot.income
+    schedules = snapshot.schedules
+    projections = snapshot.projections
+    tags = snapshot.tags
+    expensePeriodViews = snapshot.expensePeriodViews ?? [:]
+    upcomingPayable = snapshot.upcomingPayable
+
+    invalidatedKeys = Set(ResourceKey.allBaseKeys)
+    for period in expensePeriodViews.keys {
+      invalidatedKeys.insert(.expensePeriodView(period))
+    }
+    if upcomingPayable != nil {
+      invalidatedKeys.insert(.upcomingPayable(ExpenseDefaults.upcomingPayableHorizonDays))
+    }
+  }
+
+  /// Clears the persisted cache (sign-out). The in-memory state is left untouched — the owning
+  /// `AppDependencies` is torn down with the authenticated session.
+  func clearPersistedCache() {
+    persistentCache.clear()
+  }
+
+  private func persist() {
+    guard let userID else { return }
+    var snapshot = currentSnapshot()
+    snapshot.userID = userID
+    persistentCache.save(snapshot)
+  }
+
+  private func currentSnapshot() -> DataStoreSnapshot {
+    DataStoreSnapshot(
+      userID: userID,
+      settings: settings,
+      moneyContext: moneyContext,
+      expenses: expenses,
+      recurringExpenses: recurringExpenses,
+      plannedExpenses: plannedExpenses,
+      budgets: budgets,
+      income: income,
+      schedules: schedules,
+      projections: projections,
+      tags: tags,
+      expensePeriodViews: expensePeriodViews.isEmpty ? nil : expensePeriodViews,
+      upcomingPayable: upcomingPayable
+    )
   }
 }

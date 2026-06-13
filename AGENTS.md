@@ -12,6 +12,7 @@
 ## Caching
 
 - In-memory **`DataStore`** (`Core/Cache/DataStore.swift`) caches API responses per resource key; invalidated keys refetch on next `load()`.
+- **Persistent disk cache** (`Core/Cache/PersistentCache.swift` + `DataStoreSnapshot.swift`, stale-while-revalidate): on launch `AppDependencies` calls `dataStore.hydrate(userID:)`, which seeds the in-memory cache from a per-user JSON snapshot in `Caches/` so the first paint shows last-known data — then marks every key invalidated so the active tab revalidates in the background. The store persists (merged, debounced ~400ms, off-main write) after each successful fetch. Snapshot is scoped by `userID`; a mismatched user is discarded, and sign-out (`SessionStore.signOut`) deletes the file. **VMs peek-seed** their display property from `deps.dataStore.<key>` and only raise the section skeleton when nothing is cached (`isLoading*` gated on cache presence, not set unconditionally); `AppDependencies.isLoadingContext` likewise stays false when `settings`+`moneyContext` are hydrated.
 - **`InvalidationMap`** (`Core/Cache/InvalidationMap.swift`) mirrors web `src/lib/query/invalidation.ts` — call `deps.invalidateAfter(.expenseChange)` etc. after mutations.
 - **`load(force: true)`** on ViewModels clears cache and refetches everything; pull-to-refresh uses this.
 - **`scenePhase == .active`** in `MainTabView` calls `invalidateAll()` + reloads the active tab (app open / return from background — catches daily cron).
@@ -29,8 +30,9 @@
 
 - `AppDependencies` — created in `MainTabView`, holds `APIService`, `DataStore`, and exposes `settings` / `moneyContext` / `displayCurrency` / `rates`.
 - Per-tab `@Observable` ViewModels call `APIService` and domain helpers in `Core/Domain/`.
-- **Expenses tab** init: `settings` + `money-context`, then parallel `GET /expenses/period-view`, `GET /expenses/upcoming-payable`. No full expense/recurring/planned/budgets/tags fetch on the main tab. `primarySchedule` comes from embedded `GET /settings` response. Per-section **inline skeletons** (`Skeleton.swift`) replace `SectionLoadingMask` on hero and list; shell renders immediately. Tags fetch on expense-form open only.
-- **Budgets, income, projections** tabs use the same pattern — page shell + section skeletons; no `LoadingOverlay` on those tabs (`LoadingIndicator` / `LoadingOverlay` kept for auth, settings, sub-routes).
+- **Expenses tab** init: shared context (`settings` + `money-context`) fires **in parallel with** `GET /expenses/period-view` + `GET /expenses/upcoming-payable` — one network phase, not a waterfall. The section endpoints resolve the pay period server-side from the user's schedule, so they don't wait on `settings`; the no-schedule empty state resolves `settings` on demand (coalesced via `DataStore`, no extra request). No full expense/recurring/planned/budgets/tags fetch on the main tab. `primarySchedule` comes from embedded `GET /settings` response. Per-section **inline skeletons** (`Skeleton.swift`) replace `SectionLoadingMask` on hero and list; shell renders immediately. Tags fetch on expense-form open only.
+- **Budgets, income, projections** tabs use the same parallel pattern — each ViewModel's `load()` runs shared context concurrently with its section fetch(es) via a shared `loadSharedContext(loadToken:)` helper (page shell + section skeletons; no `LoadingOverlay`). Projections issues `GET /projections` alongside context and relies on the API's `400` (no primary schedule) for the empty state, instead of gating on `settings` first.
+- **Networking:** `APIClient` uses a bounded-timeout `URLSession` (`timeoutIntervalForRequest = 20s`, `timeoutIntervalForResource = 30s`, `waitsForConnectivity = true`) so a stalled request fails fast instead of spinning on the 60s default — not `URLSession.shared`.
 - **Foreground sync:** on `scenePhase == .active`, `AppDependencies.syncOnForeground()` fetches `/settings`, compares `cacheRevision` to `lastSeenCacheRevision`, and only `invalidateAll()` + reloads the active tab when it changed (unchanged data is served from cache — no blanket refetch on every resume).
 - Pay-period and calendar period **lists and hero totals** use **`GET /expenses/period-view`** without `includeProjected` (actual spend only). Web passes `includeProjected=true` for planned recurring/planned rows in pay period. **Early pay** is a pushed sub-screen (`ExpensesRoute.earlyPay`) from the quick-action grid, not an inline expand.
 - **Projections tab:** `ProjectionDisplayLogic.visibleRows` shows the **current pay period first**, then up to **10 future periods** (sorted by `payDate`). Past periods are omitted. Header cumulative free uses the last visible row. API horizon is `PROJECTION_MONTHS_FORWARD` (12 months) so monthly schedules can fill all 10 future slots.
@@ -53,8 +55,15 @@ Match the web app terminal aesthetic ([money-management `globals.css`](../money-
 ## Xcode / build
 
 - **App icon:** `MoneyManagement/Resources/Assets.xcassets/AppIcon.appiconset/` — single `AppIcon.png` (1024×1024) referenced in `Contents.json`. Do not use a top-level `Resources/` folder at repo root; `project.yml` only bundles `MoneyManagement/Resources/Assets.xcassets`.
-- Full **Xcode.app** required — Command Line Tools alone cannot run `xcodebuild` or Simulator.
-- If `xcode-select` points at CLT: `sudo xcode-select -s /Applications/Xcode.app/Contents/Developer` (or set `DEVELOPER_DIR=/Applications/Xcode.app/Contents/Developer` for one-off builds).
+- Full **Xcode.app** required — Command Line Tools alone cannot run `xcodebuild` or Simulator. **Xcode 26.5 is installed** at `/Applications/Xcode.app`, so CLI builds work.
+- `xcode-select -p` may still point at CLT (default). Either switch it once — `sudo xcode-select -s /Applications/Xcode.app/Contents/Developer` — or prefix per-command with `DEVELOPER_DIR=/Applications/Xcode.app/Contents/Developer`.
+- **Known-good CLI build** (verified, `BUILD SUCCEEDED`):
+  ```sh
+  DEVELOPER_DIR=/Applications/Xcode.app/Contents/Developer \
+    xcodebuild -project MoneyManagement.xcodeproj -scheme MoneyManagement \
+    -destination 'platform=iOS Simulator,name=iPhone 17 Pro' -configuration Debug build
+  ```
+  List simulators with `xcrun simctl list devices available | grep iPhone`. Quick syntax-only check without the SDK: `swiftc -parse <file>.swift`.
 - **"No supported iOS devices"** on Run means no simulator destination is selected — choose **iPhone 17** (or similar) under the toolbar destination menu, not "Any iOS Device".
 - After changing `project.yml` or adding Swift files under `MoneyManagement/`: `xcodegen generate` (do not hand-edit `project.pbxproj`).
 - `Config/Secrets.xcconfig` must exist locally; copy from `Secrets.xcconfig.example`.

@@ -40,7 +40,12 @@ final class BudgetsViewModel {
 
   func load(force: Bool = false) async {
     let token = loadGeneration.next()
-    isLoading = true
+    // Paint the last-known budgets instantly; only show the skeleton when nothing is cached yet.
+    if budgets.isEmpty, let cached = deps.dataStore.budgets {
+      budgets = cached
+      groupedBudgets = BudgetStatusLogic.grouped(cached)
+    }
+    isLoading = budgets.isEmpty
     errorMessage = nil
     defer {
       if loadGeneration.isCurrent(token) {
@@ -53,14 +58,27 @@ final class BudgetsViewModel {
         deps.invalidateAll()
       }
 
-      try await deps.refreshSharedContext()
-      guard loadGeneration.isCurrent(token) else { return }
-      budgets = try await deps.dataStore.getBudgets { [deps] in
+      // Fetch shared context and budgets together — budgets don't need settings to be issued, so
+      // awaiting context first only added a round-trip to the skeleton time.
+      async let contextTask: Void = loadSharedContext(loadToken: token)
+      let loaded = try await deps.dataStore.getBudgets { [deps] in
         try await deps.api.getBudgets()
       }
-      groupedBudgets = BudgetStatusLogic.grouped(budgets)
+      await contextTask
+      guard loadGeneration.isCurrent(token) else { return }
+      budgets = loaded
+      groupedBudgets = BudgetStatusLogic.grouped(loaded)
     } catch {
       guard shouldSurfaceLoadError(error, isCurrent: loadGeneration.isCurrent(token)) else { return }
+      errorMessage = error.localizedDescription
+    }
+  }
+
+  private func loadSharedContext(loadToken: Int) async {
+    do {
+      try await deps.refreshSharedContext()
+    } catch {
+      guard shouldSurfaceLoadError(error, isCurrent: loadGeneration.isCurrent(loadToken)) else { return }
       errorMessage = error.localizedDescription
     }
   }
