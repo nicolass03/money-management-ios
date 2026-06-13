@@ -165,12 +165,12 @@ final class ExpensesViewModel {
   }
 
   func canEdit(_ item: ProjectionExpenseItem) -> Bool {
-    guard item.itemId != nil, !item.projected, item.isBudgetSummary != true else { return false }
-    return item.recurringId == nil && item.plannedExpenseId == nil && item.budgetId == nil
+    item.itemId != nil && !item.projected && item.isBudgetSummary != true
   }
 
   func canDelete(_ item: ProjectionExpenseItem) -> Bool {
-    canEdit(item)
+    guard canEdit(item) else { return false }
+    return item.recurringId == nil && item.plannedExpenseId == nil && item.budgetId == nil
   }
 
   func beginEditAmount(for item: ProjectionExpenseItem) {

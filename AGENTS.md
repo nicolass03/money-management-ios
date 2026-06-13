@@ -35,7 +35,7 @@
 - Pay-period and calendar period **lists and hero totals** use **`GET /expenses/period-view`** without `includeProjected` (actual spend only). Web passes `includeProjected=true` for planned recurring/planned rows in pay period. **Early pay** is a pushed sub-screen (`ExpensesRoute.earlyPay`) from the quick-action grid, not an inline expand.
 - **Projections tab:** `ProjectionDisplayLogic.visibleRows` shows the **current pay period first**, then up to **10 future periods** (sorted by `payDate`). Past periods are omitted. Header cumulative free uses the last visible row. API horizon is `PROJECTION_MONTHS_FORWARD` (12 months) so monthly schedules can fill all 10 future slots.
 - Amounts are integer minor units in API/domain; IDs are UUID strings (parity with web/API). Form inputs use **`AmountTextField`** (`DesignSystem/FormFields.swift`) with decimal keyboard — users type major units (`45.00`, `1,500.00`); `MoneyFormatter.parseToMinorUnits` / `formatMinorUnitsAsInput` mirror web `parseDollarsToCents` / `formatCentsAsDollarsInput` (strip `$`/`,` thousand separators; COP uses whole numbers).
-- **Expenses period list:** tap a mutable expense row to open the edit-amount sheet; long-press context menu still offers edit amount + delete.
+- **Expenses period list:** tap a persisted expense row (including recurring/planned materializations) to open the edit-amount sheet; long-press context menu offers edit amount. Delete is limited to manual expenses only.
 
 ## Design system
 
