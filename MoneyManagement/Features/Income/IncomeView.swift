@@ -224,7 +224,7 @@ private struct IncomeScheduleFormSheet: View {
       TerminalTextField(label: "name", placeholder: "salary", text: $model.name)
       TerminalTextField(label: "anchor date", placeholder: "YYYY-MM-DD", text: $model.anchorDate, keyboardType: .numbersAndPunctuation)
       FrequencyPicker(selection: $model.frequency)
-      TerminalTextField(label: "amount (minor units)", placeholder: "100000", text: $model.amountText, keyboardType: .numberPad)
+      AmountTextField(text: $model.amountText, placeholder: "1500.00")
       CurrencyPicker(selection: $model.currency)
     }
   }
@@ -268,7 +268,7 @@ private struct IncomeEntryFormSheet: View {
       }
       TerminalTextField(label: "name", placeholder: "bonus", text: $model.name)
       TerminalTextField(label: "date", placeholder: "YYYY-MM-DD", text: $model.date, keyboardType: .numbersAndPunctuation)
-      TerminalTextField(label: "amount (minor units)", placeholder: "50000", text: $model.amountText, keyboardType: .numberPad)
+      AmountTextField(text: $model.amountText, placeholder: "500.00")
       CurrencyPicker(selection: $model.currency)
     }
   }

@@ -146,7 +146,7 @@ struct EarlyPayFormSheet: View {
     FormSheet(title: "mark early pay", isSaving: isSaving, canSave: model.canSave, onSave: { Task { await save() } }) {
       if let errorMessage { ErrorBanner(message: errorMessage) }
       TerminalTextField(label: "paid date", placeholder: "YYYY-MM-DD", text: $model.paidDate, keyboardType: .numbersAndPunctuation)
-      TerminalTextField(label: "amount (minor units)", placeholder: "2500", text: $model.amountText, keyboardType: .numberPad)
+      AmountTextField(text: $model.amountText, placeholder: "45.00")
     }
   }
 

@@ -16,9 +16,20 @@ final class APIClient {
         return e
     }()
 
+    /// Bounded-timeout session: a stalled request fails in ~20s instead of the 60s URLSession
+    /// default (which leaves skeletons spinning), while `waitsForConnectivity` rides out a brief
+    /// cold-radio/Wi-Fi handoff on mobile rather than erroring instantly.
+    private static let defaultSession: URLSession = {
+        let configuration = URLSessionConfiguration.default
+        configuration.timeoutIntervalForRequest = 20
+        configuration.timeoutIntervalForResource = 30
+        configuration.waitsForConnectivity = true
+        return URLSession(configuration: configuration)
+    }()
+
     init(
         baseURL: URL = AppConfig.apiURL,
-        session: URLSession = .shared,
+        session: URLSession = APIClient.defaultSession,
         tokenProvider: @escaping () async throws -> String,
         onUnauthorized: @escaping () async -> Void
     ) {

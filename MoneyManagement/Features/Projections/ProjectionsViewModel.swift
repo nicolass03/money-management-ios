@@ -40,30 +40,37 @@ final class ProjectionsViewModel {
       }
     }
 
-    do {
-      if force {
-        deps.invalidateAll()
-      }
+    if force {
+      deps.invalidateAll()
+    }
 
-      try await deps.refreshSharedContext()
-      guard loadGeneration.isCurrent(token) else { return }
-      guard let settings = deps.settings else {
-        throw APIError(status: 0, message: "Settings unavailable")
-      }
-      guard settings.primaryScheduleId != nil else {
-        needsPrimarySchedule = true
-        response = nil
-        return
-      }
-      response = try await deps.dataStore.getProjections { [deps] in
+    do {
+      // Fetch shared context and projections together. The API returns 400 when no primary schedule
+      // is set (handled below and resolved cheaply server-side before any heavy work), so we don't
+      // need settings to resolve before issuing the projections request — running them in parallel
+      // removes a round-trip from the skeleton time on the heaviest tab.
+      async let contextTask: Void = loadSharedContext(loadToken: token)
+      let projections = try await deps.dataStore.getProjections { [deps] in
         try await deps.api.getProjections()
       }
+      await contextTask
+      guard loadGeneration.isCurrent(token) else { return }
+      response = projections
     } catch let error as APIError where error.status == 400 {
       guard loadGeneration.isCurrent(token) else { return }
       needsPrimarySchedule = true
       response = nil
     } catch {
       guard shouldSurfaceLoadError(error, isCurrent: loadGeneration.isCurrent(token)) else { return }
+      errorMessage = error.localizedDescription
+    }
+  }
+
+  private func loadSharedContext(loadToken: Int) async {
+    do {
+      try await deps.refreshSharedContext()
+    } catch {
+      guard shouldSurfaceLoadError(error, isCurrent: loadGeneration.isCurrent(loadToken)) else { return }
       errorMessage = error.localizedDescription
     }
   }

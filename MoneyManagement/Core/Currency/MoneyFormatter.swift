@@ -65,10 +65,29 @@ enum MoneyFormatter {
         "\(sign)\(format(amountMinor, currency: currency, displayCurrency: displayCurrency, rates: rates))"
     }
 
-    static func parseToMinorUnits(_ text: String, currency: CurrencyCode) -> Int? {
-        let cleaned = text.replacingOccurrences(of: ",", with: ".")
-            .filter { "0123456789.-".contains($0) }
-        guard let value = Double(cleaned) else { return nil }
-        return Int((value * Double(CurrencyConverter.minorDivisor(for: currency))).rounded())
+  /// Decimal input for forms — parity with web `formatCentsAsDollarsInput`.
+  static func formatMinorUnitsAsInput(_ amountMinor: Int, currency: CurrencyCode) -> String {
+    let major = Double(amountMinor) / Double(CurrencyConverter.minorDivisor(for: currency))
+    if currency == .cop {
+      return String(Int(major.rounded()))
     }
+    return String(format: "%.2f", major)
+  }
+
+  static func parseToMinorUnits(_ text: String, currency: CurrencyCode) -> Int? {
+    parseSignedToMinorUnits(text, currency: currency).flatMap { $0 >= 0 ? $0 : nil }
+  }
+
+  /// Parity with web `parseSignedDollarsToCents` (settings projection balance).
+  static func parseSignedToMinorUnits(_ text: String, currency: CurrencyCode) -> Int? {
+    let trimmed = text.trimmingCharacters(in: .whitespaces)
+    if trimmed.isEmpty { return 0 }
+
+    let cleaned = trimmed
+      .replacingOccurrences(of: "$", with: "")
+      .replacingOccurrences(of: ",", with: "")
+
+    guard let value = Double(cleaned), value.isFinite else { return nil }
+    return Int((value * Double(CurrencyConverter.minorDivisor(for: currency))).rounded())
+  }
 }

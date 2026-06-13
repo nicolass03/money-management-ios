@@ -145,11 +145,10 @@ struct SettingsView: View {
                     .font(AppFont.mono(size: 12))
                     .foregroundStyle(palette.muted)
 
-                TerminalTextField(
-                    label: "initial free money (minor units)",
-                    placeholder: "0",
+                AmountTextField(
                     text: $viewModel.projectionInitialFreeMoneyText,
-                    keyboardType: .numberPad
+                    label: "initial free money",
+                    placeholder: "0.00"
                 )
 
                 TerminalTextField(

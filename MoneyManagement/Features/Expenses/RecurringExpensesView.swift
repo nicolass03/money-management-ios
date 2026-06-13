@@ -2,8 +2,13 @@ import SwiftUI
 
 struct RecurringExpensesView: View {
   @Environment(\.appPalette) private var palette
-  @Bindable var viewModel: RecurringExpensesViewModel
+  @State private var viewModel: RecurringExpensesViewModel
   let deps: AppDependencies
+
+  init(deps: AppDependencies) {
+    self.deps = deps
+    _viewModel = State(initialValue: RecurringExpensesViewModel(deps: deps))
+  }
 
   var body: some View {
     TerminalScreen {
@@ -19,7 +24,7 @@ struct RecurringExpensesView: View {
           viewModel.showForm = true
         }
 
-        if viewModel.items.isEmpty {
+        if viewModel.items.isEmpty && !viewModel.isLoading {
           EmptyStateCard(message: "> no recurring expenses yet.")
         } else {
           ForEach(viewModel.items) { item in
@@ -126,7 +131,7 @@ private struct RecurringExpenseFormSheet: View {
       TerminalTextField(label: "name", placeholder: "netflix", text: $model.name)
       TerminalTextField(label: "anchor date", placeholder: "YYYY-MM-DD", text: $model.anchorDate, keyboardType: .numbersAndPunctuation)
       FrequencyPicker(selection: $model.frequency)
-      TerminalTextField(label: "amount (minor units)", placeholder: "1500", text: $model.amountText, keyboardType: .numberPad)
+      AmountTextField(text: $model.amountText, placeholder: "1500.00")
       CurrencyPicker(selection: $model.currency)
       TagsInputField(tagsText: $model.tagsText, knownTags: knownTags)
       SubscriptionToggle(isSubscription: $model.isSubscription)

@@ -39,9 +39,9 @@ struct ExpensesView: View {
     .navigationDestination(for: ExpensesRoute.self) { route in
       switch route {
       case .recurring:
-        RecurringExpensesView(viewModel: RecurringExpensesViewModel(deps: deps), deps: deps)
+        RecurringExpensesView(deps: deps)
       case .planned:
-        PlannedExpensesView(viewModel: PlannedExpensesViewModel(deps: deps), deps: deps)
+        PlannedExpensesView(deps: deps)
       case .earlyPay:
         EarlyPayView(deps: deps)
       }
@@ -209,6 +209,12 @@ struct ExpensesView: View {
     .frame(maxWidth: .infinity, alignment: .leading)
     .background(palette.surface)
     .overlay(Rectangle().stroke(palette.border, lineWidth: 1))
+    .contentShape(Rectangle())
+    .onTapGesture {
+      if canMutate {
+        viewModel.beginEditAmount(for: item)
+      }
+    }
     .contextMenu {
       if canMutate {
         Button("edit amount") {
@@ -252,7 +258,7 @@ private struct ExpenseFormSheet: View {
     FormSheet(title: "add expense", isSaving: isSaving, canSave: model.canSave, onSave: { Task { await save() } }) {
       if let errorMessage { ErrorBanner(message: errorMessage) }
       TerminalTextField(label: "name", placeholder: "groceries", text: $model.name)
-      TerminalTextField(label: "amount (minor units)", placeholder: "2500", text: $model.amountText, keyboardType: .numberPad)
+      AmountTextField(text: $model.amountText, placeholder: "45.00")
       CurrencyPicker(selection: $model.currency)
       TerminalTextField(label: "date", placeholder: "YYYY-MM-DD", text: $model.date, keyboardType: .numbersAndPunctuation)
       TagsInputField(tagsText: $model.tagsText, knownTags: knownTags)
@@ -303,7 +309,7 @@ private struct ExpenseAmountFormSheet: View {
   var body: some View {
     FormSheet(title: "edit amount", isSaving: isSaving, canSave: model.canSave, onSave: { Task { await save() } }) {
       if let errorMessage { ErrorBanner(message: errorMessage) }
-      TerminalTextField(label: "amount (minor units)", placeholder: "2500", text: $model.amountText, keyboardType: .numberPad)
+      AmountTextField(text: $model.amountText, placeholder: "45.00")
     }
   }
 

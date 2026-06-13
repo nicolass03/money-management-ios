@@ -76,14 +76,21 @@ final class ExpensesViewModel {
       deps.invalidateAll()
     }
 
+    // Fire shared context (settings + money-context) alongside the section fetches rather than
+    // before them: `period-view` and `upcoming-payable` are resolved server-side from the user's
+    // schedule and don't need settings to be issued. Awaiting context first only added a round-trip
+    // to the skeleton time — costly on high-latency mobile connections.
+    async let contextTask: Void = loadSharedContext(loadToken: token)
+    async let periodTask: Void = loadPeriod(loadToken: token)
+    async let upcomingTask: Void = loadUpcoming(loadToken: token)
+    _ = await (contextTask, periodTask, upcomingTask)
+  }
+
+  private func loadSharedContext(loadToken: Int) async {
     do {
       try await deps.refreshSharedContext()
-      guard loadGeneration.isCurrent(token) else { return }
-      async let periodTask: Void = loadPeriod(loadToken: token)
-      async let upcomingTask: Void = loadUpcoming(loadToken: token)
-      _ = await (periodTask, upcomingTask)
     } catch {
-      guard shouldSurfaceLoadError(error, isCurrent: loadGeneration.isCurrent(token)) else { return }
+      guard shouldSurfaceLoadError(error, isCurrent: loadGeneration.isCurrent(loadToken)) else { return }
       errorMessage = error.localizedDescription
     }
   }
@@ -106,7 +113,13 @@ final class ExpensesViewModel {
       guard key == periodKey else { return }
       if let loadToken, !loadGeneration.isCurrent(loadToken) { return }
       if !shouldSurfaceLoadError(error, isCurrent: true) { return }
-      if periodKey == .lastPeriod, let settings = deps.settings, settings.primaryScheduleId == nil {
+      // Context now loads in parallel, so settings may not be resolved yet. Resolve it (coalesced
+      // with the in-flight shared-context load — no extra request) so a missing primary schedule is
+      // shown as an empty state rather than a spurious error.
+      if deps.settings == nil {
+        try? await deps.refreshSharedContext()
+      }
+      if periodKey == .lastPeriod, deps.settings?.primaryScheduleId == nil {
         periodView = nil
       } else {
         errorMessage = error.localizedDescription
@@ -191,7 +204,7 @@ final class ExpenseFormModel {
   }
 
   var amountMinor: Int? {
-    MoneyFormatter.parseToMinorUnits(amountText, currency: currency) ?? Int(amountText)
+    MoneyFormatter.parseToMinorUnits(amountText, currency: currency)
   }
 
   func save() async throws {
@@ -221,13 +234,13 @@ final class ExpenseAmountFormModel {
     self.deps = deps
     self.expenseId = expenseId
     self.currency = currency
-    amountText = String(initialAmount)
+    amountText = MoneyFormatter.formatMinorUnitsAsInput(initialAmount, currency: currency)
   }
 
   var canSave: Bool { amountMinor != nil }
 
   var amountMinor: Int? {
-    MoneyFormatter.parseToMinorUnits(amountText, currency: currency) ?? Int(amountText)
+    MoneyFormatter.parseToMinorUnits(amountText, currency: currency)
   }
 
   func save() async throws {
@@ -249,13 +262,13 @@ final class EarlyPayFormModel {
   init(deps: AppDependencies, item: PayableFutureItem) {
     self.deps = deps
     self.item = item
-    amountText = String(item.amount)
+    amountText = MoneyFormatter.formatMinorUnitsAsInput(item.amount, currency: item.currency)
   }
 
   var canSave: Bool { amountMinor != nil }
 
   var amountMinor: Int? {
-    MoneyFormatter.parseToMinorUnits(amountText, currency: item.currency) ?? Int(amountText)
+    MoneyFormatter.parseToMinorUnits(amountText, currency: item.currency)
   }
 
   func save() async throws {

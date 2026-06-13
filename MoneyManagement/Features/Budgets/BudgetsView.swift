@@ -221,7 +221,7 @@ private struct BudgetFormSheet: View {
     ) {
       if let errorMessage { ErrorBanner(message: errorMessage) }
       TerminalTextField(label: "name", placeholder: "vacation", text: $model.name)
-      TerminalTextField(label: "amount (minor units)", placeholder: "200000", text: $model.amountText, keyboardType: .numberPad)
+      AmountTextField(text: $model.amountText, placeholder: "1500.00")
       CurrencyPicker(selection: $model.currency)
       TerminalTextField(label: "start date (optional)", placeholder: "YYYY-MM-DD", text: $model.startDate, keyboardType: .numbersAndPunctuation)
       TerminalTextField(label: "end date (optional)", placeholder: "YYYY-MM-DD", text: $model.endDate, keyboardType: .numbersAndPunctuation)
@@ -265,7 +265,7 @@ private struct BudgetExpenseFormSheet: View {
     ) {
       if let errorMessage { ErrorBanner(message: errorMessage) }
       TerminalTextField(label: "name (optional)", placeholder: "item", text: $model.name)
-      TerminalTextField(label: "amount (minor units)", placeholder: "5000", text: $model.amountText, keyboardType: .numberPad)
+      AmountTextField(text: $model.amountText, placeholder: "50.00")
       TerminalTextField(label: "date", placeholder: "YYYY-MM-DD", text: $model.date, keyboardType: .numbersAndPunctuation)
     }
   }

@@ -33,7 +33,10 @@ final class SettingsViewModel {
             if let settings = deps.settings {
                 displayCurrency = settings.displayCurrency
                 primaryScheduleId = settings.primaryScheduleId
-                projectionInitialFreeMoneyText = String(settings.projectionInitialFreeMoney)
+                projectionInitialFreeMoneyText = MoneyFormatter.formatMinorUnitsAsInput(
+                    settings.projectionInitialFreeMoney,
+                    currency: settings.displayCurrency
+                )
                 projectionStartDate = settings.projectionStartDate ?? ""
             }
             schedules = try await deps.dataStore.getSchedules { [deps] in
@@ -49,7 +52,14 @@ final class SettingsViewModel {
         errorMessage = nil
         defer { isSaving = false }
 
-        let freeMoney = Int(projectionInitialFreeMoneyText) ?? 0
+        guard let freeMoney = MoneyFormatter.parseSignedToMinorUnits(
+            projectionInitialFreeMoneyText,
+            currency: displayCurrency
+        ) else {
+            errorMessage = "invalid initial free money amount"
+            Haptics.warning()
+            return false
+        }
         var request = PatchSettingsRequest(
             displayCurrency: displayCurrency,
             primaryScheduleId: primaryScheduleId,

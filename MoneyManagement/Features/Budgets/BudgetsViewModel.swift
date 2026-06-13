@@ -136,7 +136,7 @@ final class BudgetFormModel {
     self.editing = editing
     if let editing {
       name = editing.name
-      amountText = String(editing.amount)
+      amountText = MoneyFormatter.formatMinorUnitsAsInput(editing.amount, currency: editing.currency)
       currency = editing.currency
       startDate = editing.startDate ?? ""
       endDate = editing.endDate ?? ""
@@ -151,7 +151,7 @@ final class BudgetFormModel {
   }
 
   var amountMinor: Int? {
-    MoneyFormatter.parseToMinorUnits(amountText, currency: currency) ?? Int(amountText)
+    MoneyFormatter.parseToMinorUnits(amountText, currency: currency)
   }
 
   var parsedTags: [String] {
@@ -196,7 +196,7 @@ final class BudgetExpenseFormModel {
   var canSave: Bool { amountMinor != nil }
 
   var amountMinor: Int? {
-    MoneyFormatter.parseToMinorUnits(amountText, currency: budget.currency) ?? Int(amountText)
+    MoneyFormatter.parseToMinorUnits(amountText, currency: budget.currency)
   }
 
   func save() async throws {

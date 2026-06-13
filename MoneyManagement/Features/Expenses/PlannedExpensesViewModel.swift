@@ -51,6 +51,7 @@ final class PlannedExpensesViewModel {
       items = try await plannedTask.sorted { $0.date < $1.date }
       tags = try await tagsTask
     } catch {
+      guard shouldSurfaceLoadError(error, isCurrent: true) else { return }
       errorMessage = error.localizedDescription
     }
   }
@@ -87,7 +88,7 @@ final class PlannedExpenseFormModel {
     if let editing {
       name = editing.name
       date = editing.date
-      amountText = String(editing.amount)
+      amountText = MoneyFormatter.formatMinorUnitsAsInput(editing.amount, currency: editing.currency)
       currency = editing.currency
       tagsText = editing.tags.joined(separator: ", ")
     } else {
@@ -100,7 +101,7 @@ final class PlannedExpenseFormModel {
   }
 
   var amountMinor: Int? {
-    MoneyFormatter.parseToMinorUnits(amountText, currency: currency) ?? Int(amountText)
+    MoneyFormatter.parseToMinorUnits(amountText, currency: currency)
   }
 
   func save() async throws {

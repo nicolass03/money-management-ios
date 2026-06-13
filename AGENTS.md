@@ -34,7 +34,8 @@
 - **Foreground sync:** on `scenePhase == .active`, `AppDependencies.syncOnForeground()` fetches `/settings`, compares `cacheRevision` to `lastSeenCacheRevision`, and only `invalidateAll()` + reloads the active tab when it changed (unchanged data is served from cache — no blanket refetch on every resume).
 - Pay-period and calendar period **lists and hero totals** use **`GET /expenses/period-view`** without `includeProjected` (actual spend only). Web passes `includeProjected=true` for planned recurring/planned rows in pay period. **Early pay** is a pushed sub-screen (`ExpensesRoute.earlyPay`) from the quick-action grid, not an inline expand.
 - **Projections tab:** `ProjectionDisplayLogic.visibleRows` shows the **current pay period first**, then up to **10 future periods** (sorted by `payDate`). Past periods are omitted. Header cumulative free uses the last visible row. API horizon is `PROJECTION_MONTHS_FORWARD` (12 months) so monthly schedules can fill all 10 future slots.
-- Amounts are integer minor units; IDs are UUID strings (parity with web/API).
+- Amounts are integer minor units in API/domain; IDs are UUID strings (parity with web/API). Form inputs use **`AmountTextField`** (`DesignSystem/FormFields.swift`) with decimal keyboard — users type major units (`45.00`, `1,500.00`); `MoneyFormatter.parseToMinorUnits` / `formatMinorUnitsAsInput` mirror web `parseDollarsToCents` / `formatCentsAsDollarsInput` (strip `$`/`,` thousand separators; COP uses whole numbers).
+- **Expenses period list:** tap a mutable expense row to open the edit-amount sheet; long-press context menu still offers edit amount + delete.
 
 ## Design system
 
@@ -62,7 +63,7 @@ Match the web app terminal aesthetic ([money-management `globals.css`](../money-
 
 - **Main shell:** `MainTabView` — custom `TerminalTabBar` (4 tabs) + floating `FloatingSettingsButton` top-trailing (sheet).
 - **Tabs** (default `expenses`): expenses, budgets, income, projections. Settings is **not** a tab.
-- **Expenses tab:** `NavigationStack` with push routes for recurring (`ExpensesRoute.recurring`) and one-time/planned (`ExpensesRoute.planned`). CRUD via sheets.
+- **Expenses tab:** `NavigationStack` with push routes for recurring (`ExpensesRoute.recurring`) and one-time/planned (`ExpensesRoute.planned`). CRUD via sheets. Pushed sub-screens (`RecurringExpensesView`, `PlannedExpensesView`, `EarlyPayView`) must own their `@Observable` view models via `@State` in the view's `init` — do **not** construct view models inline in `.navigationDestination`, or parent `ExpensesView` re-renders recreate them and cancel `.task` loads (blank list, no error).
 - **Settings sheet:** currency, primary pay schedule, projection prefs (API-backed), theme, logout.
 
 ## Auth session

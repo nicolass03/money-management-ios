@@ -39,6 +39,7 @@ final class RecurringExpensesViewModel {
       items = try await recurringTask
       tags = try await tagsTask
     } catch {
+      guard shouldSurfaceLoadError(error, isCurrent: true) else { return }
       errorMessage = error.localizedDescription
     }
   }
@@ -79,7 +80,7 @@ final class RecurringExpenseFormModel {
       name = editing.name
       anchorDate = editing.anchorDate
       frequency = editing.frequency
-      amountText = String(editing.amount)
+      amountText = MoneyFormatter.formatMinorUnitsAsInput(editing.amount, currency: editing.currency)
       currency = editing.currency
       tagsText = editing.tags.joined(separator: ", ")
       isSubscription = editing.isSubscription
@@ -94,7 +95,7 @@ final class RecurringExpenseFormModel {
   }
 
   var amountMinor: Int? {
-    MoneyFormatter.parseToMinorUnits(amountText, currency: currency) ?? Int(amountText)
+    MoneyFormatter.parseToMinorUnits(amountText, currency: currency)
   }
 
   func save() async throws {

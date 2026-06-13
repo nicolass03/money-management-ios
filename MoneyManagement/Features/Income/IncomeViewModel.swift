@@ -159,7 +159,7 @@ final class IncomeScheduleFormModel {
       name = editing.name
       anchorDate = editing.anchorDate
       frequency = editing.frequency
-      amountText = String(editing.amount)
+      amountText = MoneyFormatter.formatMinorUnitsAsInput(editing.amount, currency: editing.currency)
       currency = editing.currency
     } else {
       currency = deps.displayCurrency
@@ -171,7 +171,7 @@ final class IncomeScheduleFormModel {
   }
 
   var amountMinor: Int? {
-    MoneyFormatter.parseToMinorUnits(amountText, currency: currency) ?? Int(amountText)
+    MoneyFormatter.parseToMinorUnits(amountText, currency: currency)
   }
 
   func save() async throws {
@@ -211,7 +211,7 @@ final class IncomeEntryFormModel {
     if let editing {
       name = editing.name
       date = editing.date
-      amountText = String(editing.amount)
+      amountText = MoneyFormatter.formatMinorUnitsAsInput(editing.amount, currency: editing.currency)
       currency = editing.currency
     } else {
       currency = deps.displayCurrency
@@ -223,7 +223,7 @@ final class IncomeEntryFormModel {
   }
 
   var amountMinor: Int? {
-    MoneyFormatter.parseToMinorUnits(amountText, currency: currency) ?? Int(amountText)
+    MoneyFormatter.parseToMinorUnits(amountText, currency: currency)
   }
 
   func save() async throws {

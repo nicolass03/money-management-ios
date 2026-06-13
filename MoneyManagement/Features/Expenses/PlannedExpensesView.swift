@@ -2,8 +2,13 @@ import SwiftUI
 
 struct PlannedExpensesView: View {
   @Environment(\.appPalette) private var palette
-  @Bindable var viewModel: PlannedExpensesViewModel
+  @State private var viewModel: PlannedExpensesViewModel
   let deps: AppDependencies
+
+  init(deps: AppDependencies) {
+    self.deps = deps
+    _viewModel = State(initialValue: PlannedExpensesViewModel(deps: deps))
+  }
 
   var body: some View {
     TerminalScreen {
@@ -23,7 +28,7 @@ struct PlannedExpensesView: View {
           viewModel.showForm = true
         }
 
-        if viewModel.items.isEmpty {
+        if viewModel.items.isEmpty && !viewModel.isLoading {
           EmptyStateCard(message: "> no planned expenses yet.")
         } else {
           ForEach(viewModel.items) { item in
@@ -117,7 +122,7 @@ private struct PlannedExpenseFormSheet: View {
       if let errorMessage { ErrorBanner(message: errorMessage) }
       TerminalTextField(label: "name", placeholder: "car repair", text: $model.name)
       TerminalTextField(label: "date", placeholder: "YYYY-MM-DD", text: $model.date, keyboardType: .numbersAndPunctuation)
-      TerminalTextField(label: "amount (minor units)", placeholder: "50000", text: $model.amountText, keyboardType: .numberPad)
+      AmountTextField(text: $model.amountText, placeholder: "500.00")
       CurrencyPicker(selection: $model.currency)
       TagsInputField(tagsText: $model.tagsText, knownTags: knownTags)
     }

@@ -1,5 +1,20 @@
 import SwiftUI
 
+struct AmountTextField: View {
+  @Binding var text: String
+  var label = "amount"
+  var placeholder = "0.00"
+
+  var body: some View {
+    TerminalTextField(
+      label: label,
+      placeholder: placeholder,
+      text: $text,
+      keyboardType: .decimalPad
+    )
+  }
+}
+
 struct CurrencyPicker: View {
   @Binding var selection: CurrencyCode
 
