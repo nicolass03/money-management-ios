@@ -31,6 +31,7 @@ struct SettingsView: View {
                         themeSection
                         currencySection
                         projectionSection
+                        extraExpenseSection
                         logoutSection
                     }
                     .padding(.horizontal, 16)
@@ -157,6 +158,40 @@ struct SettingsView: View {
                     text: $viewModel.projectionStartDate,
                     keyboardType: .numbersAndPunctuation
                 )
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+        }
+    }
+
+    private var extraExpenseSection: some View {
+        TerminalCard {
+            VStack(alignment: .leading, spacing: 12) {
+                Text("> extra expenses")
+                    .font(AppFont.mono(size: 12))
+                    .foregroundStyle(palette.muted)
+
+                Text("per pay-period limit for unplanned treats and one-off spend")
+                    .font(AppFont.mono(size: 11))
+                    .foregroundStyle(palette.muted)
+
+                CurrencyPicker(selection: $viewModel.extraExpenseLimitCurrency)
+
+                AmountTextField(
+                    text: $viewModel.extraExpenseLimitText,
+                    label: "limit per period",
+                    placeholder: viewModel.extraExpenseLimitCurrency == .cop ? "150000" : "500.00"
+                )
+
+                TerminalButton(
+                    title: viewModel.isSaving ? "saving..." : "save limit",
+                    isLoading: viewModel.isSaving
+                ) {
+                    Task {
+                        if await viewModel.saveExtraExpenseLimit() {
+                            onSaved?()
+                        }
+                    }
+                }
             }
             .frame(maxWidth: .infinity, alignment: .leading)
         }

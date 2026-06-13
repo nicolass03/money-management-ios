@@ -10,6 +10,8 @@ final class SettingsViewModel {
     var primaryScheduleId: String?
     var projectionInitialFreeMoneyText = "0"
     var projectionStartDate = ""
+    var extraExpenseLimitText = ""
+    var extraExpenseLimitCurrency: CurrencyCode = .usd
     var schedules: [IncomePaySchedule] = []
     var isLoading = false
     var isSaving = false
@@ -38,6 +40,17 @@ final class SettingsViewModel {
                     currency: settings.displayCurrency
                 )
                 projectionStartDate = settings.projectionStartDate ?? ""
+                if let limit = settings.extraExpenseLimit,
+                   let currency = settings.extraExpenseLimitCurrency {
+                    extraExpenseLimitText = MoneyFormatter.formatMinorUnitsAsInput(
+                        limit,
+                        currency: currency
+                    )
+                    extraExpenseLimitCurrency = currency
+                } else {
+                    extraExpenseLimitText = ""
+                    extraExpenseLimitCurrency = settings.displayCurrency
+                }
             }
             schedules = try await deps.dataStore.getSchedules { [deps] in
                 try await deps.api.getIncomeSchedules()
@@ -69,6 +82,41 @@ final class SettingsViewModel {
             request.clearProjectionStartDate = true
         } else {
             request.projectionStartDate = projectionStartDate
+        }
+
+        do {
+            _ = try await deps.api.patchSettings(request)
+            deps.invalidateAfter(.settingsChange)
+            try await deps.refreshSharedContext(force: true)
+            Haptics.success()
+            return true
+        } catch {
+            errorMessage = error.localizedDescription
+            Haptics.warning()
+            return false
+        }
+    }
+
+    func saveExtraExpenseLimit() async -> Bool {
+        isSaving = true
+        errorMessage = nil
+        defer { isSaving = false }
+
+        var request = PatchSettingsRequest()
+        let trimmed = extraExpenseLimitText.trimmingCharacters(in: .whitespacesAndNewlines)
+        if trimmed.isEmpty {
+            request.clearExtraExpenseLimit = true
+        } else {
+            guard let amount = MoneyFormatter.parseToMinorUnits(
+                trimmed,
+                currency: extraExpenseLimitCurrency
+            ) else {
+                errorMessage = "invalid extra expense limit"
+                Haptics.warning()
+                return false
+            }
+            request.extraExpenseLimit = amount
+            request.extraExpenseLimitCurrency = extraExpenseLimitCurrency
         }
 
         do {

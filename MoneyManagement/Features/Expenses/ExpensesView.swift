@@ -29,6 +29,9 @@ struct ExpensesView: View {
           TerminalButton(title: "open settings", action: onOpenSettings)
         } else {
           heroCard
+          if viewModel.periodKey == .lastPeriod {
+            extraStatsRow
+          }
           quickActions
           expenseList
         }
@@ -102,6 +105,76 @@ struct ExpensesView: View {
           .frame(maxWidth: .infinity, alignment: .leading)
         }
       }
+    }
+  }
+
+  private var extraStatsRow: some View {
+    Group {
+      if isPeriodContentLoading {
+        ExpenseStatsSkeleton()
+      } else {
+        HStack(spacing: 8) {
+          extraStatCard(
+            title: "> extra spent",
+            value: Text(MoneyFormatter.format(
+              viewModel.periodView?.extraSpend ?? 0,
+              currency: deps.displayCurrency
+            ))
+            .font(AppFont.mono(size: 20, weight: .medium))
+            .foregroundStyle(isExtraOverLimit ? palette.danger : palette.text),
+            footnote: extraLimitFootnote
+          )
+
+          extraStatCard(
+            title: "> planned used",
+            value: Text(plannedUsedLabel)
+              .font(AppFont.mono(size: 20, weight: .medium))
+              .foregroundStyle(palette.text),
+            footnote: nil
+          )
+        }
+      }
+    }
+  }
+
+  private var isExtraOverLimit: Bool {
+    guard let periodView = viewModel.periodView,
+          let limit = periodView.extraSpendLimitConverted else {
+      return false
+    }
+    return (periodView.extraSpend ?? 0) > limit
+  }
+
+  private var extraLimitFootnote: String? {
+    guard let limit = viewModel.periodView?.extraSpendLimitConverted else { return nil }
+    return "> limit \(MoneyFormatter.format(limit, currency: deps.displayCurrency))"
+  }
+
+  private var plannedUsedLabel: String {
+    if let percent = viewModel.periodView?.plannedUsedPercent {
+      return "\(percent)%"
+    }
+    return "—"
+  }
+
+  private func extraStatCard<Content: View>(
+    title: String,
+    value: Content,
+    footnote: String?
+  ) -> some View {
+    TerminalCard {
+      VStack(alignment: .leading, spacing: 6) {
+        Text(title)
+          .font(AppFont.mono(size: 12))
+          .foregroundStyle(palette.muted)
+        value
+        if let footnote {
+          Text(footnote)
+            .font(AppFont.mono(size: 11))
+            .foregroundStyle(palette.muted)
+        }
+      }
+      .frame(maxWidth: .infinity, alignment: .leading)
     }
   }
 

@@ -34,6 +34,8 @@ struct UserSettings: Codable, Equatable {
     let primarySchedule: IncomePaySchedule?
     let projectionInitialFreeMoney: Int
     let projectionStartDate: String?
+    let extraExpenseLimit: Int?
+    let extraExpenseLimitCurrency: CurrencyCode?
     let cacheRevision: Int
     let updatedAt: String
 }
@@ -214,10 +216,14 @@ struct PatchSettingsRequest: Encodable {
     var projectionInitialFreeMoney: Int?
     var projectionStartDate: String?
     var clearProjectionStartDate = false
+    var extraExpenseLimit: Int?
+    var extraExpenseLimitCurrency: CurrencyCode?
+    var clearExtraExpenseLimit = false
 
     enum CodingKeys: String, CodingKey {
         case displayCurrency, primaryScheduleId
         case projectionInitialFreeMoney, projectionStartDate
+        case extraExpenseLimit, extraExpenseLimitCurrency
     }
 
     func encode(to encoder: Encoder) throws {
@@ -237,6 +243,13 @@ struct PatchSettingsRequest: Encodable {
             try container.encodeNil(forKey: .projectionStartDate)
         } else if let projectionStartDate {
             try container.encode(projectionStartDate, forKey: .projectionStartDate)
+        }
+        if clearExtraExpenseLimit {
+            try container.encodeNil(forKey: .extraExpenseLimit)
+            try container.encodeNil(forKey: .extraExpenseLimitCurrency)
+        } else if let extraExpenseLimit, let extraExpenseLimitCurrency {
+            try container.encode(extraExpenseLimit, forKey: .extraExpenseLimit)
+            try container.encode(extraExpenseLimitCurrency, forKey: .extraExpenseLimitCurrency)
         }
     }
 }
@@ -355,6 +368,13 @@ struct ExpensePeriodViewResponse: Codable, Equatable {
     let items: [ProjectionExpenseItem]
     let totalSpend: Int
     let isPayPeriod: Bool
+    let extraSpend: Int?
+    let extraSpendLimit: Int?
+    let extraSpendLimitCurrency: CurrencyCode?
+    let extraSpendLimitConverted: Int?
+    let plannedSpend: Int?
+    let plannedTotal: Int?
+    let plannedUsedPercent: Int?
 }
 
 struct PayPeriodResponse: Codable, Equatable {

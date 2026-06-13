@@ -35,6 +35,33 @@ struct ExpenseHeroSkeleton: View {
   }
 }
 
+struct ExpenseStatsSkeleton: View {
+  var body: some View {
+    HStack(spacing: 8) {
+      TerminalCard {
+        VStack(alignment: .leading, spacing: 6) {
+          Skeleton()
+            .frame(width: 72, height: 10)
+          Skeleton()
+            .frame(width: 64, height: 20)
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+      }
+      TerminalCard {
+        VStack(alignment: .leading, spacing: 6) {
+          Skeleton()
+            .frame(width: 80, height: 10)
+          Skeleton()
+            .frame(width: 40, height: 20)
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+      }
+    }
+    .accessibilityElement(children: .combine)
+    .accessibilityLabel("loading period stats")
+  }
+}
+
 struct ExpensePeriodListSkeleton: View {
   @Environment(\.appPalette) private var palette
 
