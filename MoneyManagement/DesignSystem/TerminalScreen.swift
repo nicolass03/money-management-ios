@@ -1,5 +1,17 @@
 import SwiftUI
 
+struct TerminalScrollView<Content: View>: View {
+    var axes: Axis.Set = .vertical
+    @ViewBuilder let content: () -> Content
+
+    var body: some View {
+        ScrollView(axes) {
+            content()
+        }
+        .scrollIndicators(.hidden)
+    }
+}
+
 struct TerminalScreen<Content: View>: View {
     @Environment(\.appPalette) private var palette
     let content: Content
@@ -12,7 +24,7 @@ struct TerminalScreen<Content: View>: View {
         ZStack {
             palette.bg.ignoresSafeArea()
 
-            ScrollView {
+            TerminalScrollView {
                 content
                     .padding(.horizontal, 16)
                     .padding(.top, 52)

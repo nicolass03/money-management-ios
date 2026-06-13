@@ -15,7 +15,7 @@ struct FormSheet<Content: View>: View {
       ZStack {
         palette.bg.ignoresSafeArea()
 
-        ScrollView {
+        TerminalScrollView {
           VStack(alignment: .leading, spacing: 16) {
             content()
           }

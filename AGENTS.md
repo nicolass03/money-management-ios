@@ -42,6 +42,7 @@ Match the web app terminal aesthetic ([money-management `globals.css`](../money-
 - Dark default; theme cycles dark → light → system (`UserDefaults` key `theme`)
 - Zero corner radius on cards, inputs, buttons; scanline overlay on screens
 - Shared UI: `TerminalRow`, `TerminalBadge`, `FormSheet`, `MoneyLabel`, `TerminalSegmentedControl`
+- Scrolling: use `TerminalScrollView` (hides scroll indicators app-wide); do not use raw `ScrollView`.
 - Loading: `LoadingIndicator` (page + inline variants), `TerminalSpinner`, `LoadingOverlay` — parity with web `loading-indicator.tsx`
 
 ## Xcode / build

@@ -41,7 +41,7 @@ struct TagsInputField: View {
       )
 
       if !knownTags.isEmpty {
-        ScrollView(.horizontal, showsIndicators: false) {
+        TerminalScrollView(axes: .horizontal) {
           HStack(spacing: 6) {
             ForEach(knownTags.prefix(12), id: \.self) { tag in
               TerminalTagChip(tag: tag) {

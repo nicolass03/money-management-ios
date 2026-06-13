@@ -17,7 +17,7 @@ struct SettingsView: View {
             ZStack {
                 palette.bg.ignoresSafeArea()
 
-                ScrollView {
+                TerminalScrollView {
                     VStack(alignment: .leading, spacing: 24) {
                         SectionHeader(title: "settings", subtitle: "configure app preferences")
 
