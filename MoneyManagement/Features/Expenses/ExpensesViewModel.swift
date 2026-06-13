@@ -93,24 +93,6 @@ final class ExpensesViewModel {
     }
   }
 
-  var subscriptionShareLabel: String {
-    let subs = actualPeriodExpenses.filter(\.isSubscription)
-    guard !actualPeriodExpenses.isEmpty else { return "subscriptions: 0%" }
-    let pct = Int((Double(subs.count) / Double(actualPeriodExpenses.count) * 100).rounded())
-    return "subscriptions: \(pct)%"
-  }
-
-  var topTagLabel: String {
-    var counts: [String: Int] = [:]
-    for expense in actualPeriodExpenses {
-      for tag in expense.tags {
-        counts[tag, default: 0] += 1
-      }
-    }
-    guard let top = counts.max(by: { $0.value < $1.value }) else { return "top spending: —" }
-    return "top spending: \(top.key)"
-  }
-
   var periodSubtitle: String? {
     guard let period = ExpensePeriodFilter.resolvePeriodDates(periodKey: periodKey, primarySchedule: primarySchedule) else {
       return nil

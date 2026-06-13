@@ -3,7 +3,6 @@ import SwiftUI
 struct TerminalTabBar: View {
     @Environment(\.appPalette) private var palette
     @Binding var selectedTab: AppTab
-    @Namespace private var activeTabNamespace
 
     var body: some View {
         VStack(spacing: 0) {
@@ -31,31 +30,25 @@ struct TerminalTabBar: View {
                 selectedTab = tab
             }
         } label: {
-            ZStack {
-                if isSelected {
-                    palette.glowPulse
-                        .matchedGeometryEffect(id: "activeTab", in: activeTabNamespace)
-                }
+            VStack(spacing: 3) {
+                Image(systemName: tab.systemImage)
+                    .font(.system(size: 18, weight: isSelected ? .semibold : .regular))
+                    .symbolRenderingMode(.monochrome)
+                    .symbolVariant(isSelected ? .fill : .none)
 
-                VStack(spacing: 3) {
-                    Image(systemName: tab.systemImage)
-                        .font(.system(size: 18, weight: .regular))
-                        .symbolRenderingMode(.monochrome)
-
-                    HStack(spacing: 0) {
-                        if isSelected {
-                            Text(">")
-                                .font(AppFont.mono(size: 9, weight: .medium))
-                        }
-                        Text(tab.label)
-                            .font(AppFont.mono(size: 11, weight: isSelected ? .medium : .regular))
-                            .lineLimit(1)
-                            .minimumScaleFactor(0.8)
+                HStack(spacing: 0) {
+                    if isSelected {
+                        Text(">")
+                            .font(AppFont.mono(size: 9, weight: .medium))
                     }
+                    Text(tab.label)
+                        .font(AppFont.mono(size: 11, weight: isSelected ? .medium : .regular))
+                        .lineLimit(1)
+                        .minimumScaleFactor(0.8)
                 }
-                .foregroundStyle(isSelected ? palette.accentGlow : palette.muted)
-                .frame(maxWidth: .infinity, maxHeight: .infinity)
             }
+            .foregroundStyle(isSelected ? palette.accentGlow : palette.muted)
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
             .contentShape(Rectangle())
         }
         .buttonStyle(.plain)

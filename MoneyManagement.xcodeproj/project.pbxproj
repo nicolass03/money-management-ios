@@ -73,7 +73,7 @@
 
 /* Begin PBXFileReference section */
 		01FDEA4728A051DB7662479F /* RecurringExpensesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecurringExpensesView.swift; sourceTree = "<group>"; };
-		02D666CF932699EAF07F0E0E /* MoneyManagement.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = MoneyManagement.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		02D666CF932699EAF07F0E0E /* Spendfly.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Spendfly.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		03A6925A0F38B30A4AD8B4C5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		071D55C1613CEC30B95901FB /* FloatingSettingsButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingSettingsButton.swift; sourceTree = "<group>"; };
 		0E645F17C001D4128F8FCB8D /* TerminalButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerminalButton.swift; sourceTree = "<group>"; };
@@ -303,7 +303,7 @@
 		86F51444319A78DA9237396C /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				02D666CF932699EAF07F0E0E /* MoneyManagement.app */,
+				02D666CF932699EAF07F0E0E /* Spendfly.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -424,7 +424,7 @@
 				8B1D36C366F281581EF661C4 /* Supabase */,
 			);
 			productName = MoneyManagement;
-			productReference = 02D666CF932699EAF07F0E0E /* MoneyManagement.app */;
+			productReference = 02D666CF932699EAF07F0E0E /* Spendfly.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -435,12 +435,6 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
 				LastUpgradeCheck = 1500;
-				TargetAttributes = {
-					86B843960D6BC50ACA96B829 = {
-						DevelopmentTeam = "";
-						ProvisioningStyle = Automatic;
-					};
-				};
 			};
 			buildConfigurationList = 746EF1F58CACF26667806361 /* Build configuration list for PBXProject "MoneyManagement" */;
 			developmentRegion = en;
@@ -607,10 +601,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = G6Y64763QH;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = MoneyManagement/Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -620,6 +614,7 @@
 				MARKETING_VERSION = 0.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.nicolass03.spendfly;
 				PRODUCT_NAME = Spendfly;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				SWIFT_VERSION = 5.9;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -630,10 +625,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = G6Y64763QH;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = MoneyManagement/Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -643,6 +638,7 @@
 				MARKETING_VERSION = 0.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.nicolass03.spendfly;
 				PRODUCT_NAME = Spendfly;
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
 				SWIFT_VERSION = 5.9;
 				TARGETED_DEVICE_FAMILY = "1,2";

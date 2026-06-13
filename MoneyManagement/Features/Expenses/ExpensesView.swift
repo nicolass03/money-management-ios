@@ -25,10 +25,7 @@ struct ExpensesView: View {
           )
           TerminalButton(title: "open settings", action: onOpenSettings)
         } else {
-          VStack(alignment: .leading, spacing: 8) {
-            heroCard
-            summaryStatCards
-          }
+          heroCard
           quickActions
           expenseList
         }
@@ -78,7 +75,7 @@ struct ExpensesView: View {
   private var heroCard: some View {
     TerminalCard {
       VStack(alignment: .leading, spacing: 8) {
-        Text("> total spend")
+        Text("> total spent")
           .font(AppFont.mono(size: 12))
           .foregroundStyle(palette.muted)
 
@@ -91,25 +88,6 @@ struct ExpensesView: View {
       }
       .frame(maxWidth: .infinity, alignment: .leading)
     }
-  }
-
-  private var summaryStatCards: some View {
-    HStack(spacing: 8) {
-      summaryMiniCard(viewModel.subscriptionShareLabel)
-      summaryMiniCard(viewModel.topTagLabel)
-    }
-  }
-
-  private func summaryMiniCard(_ text: String) -> some View {
-    Text(text)
-      .font(AppFont.mono(size: 11))
-      .foregroundStyle(palette.muted)
-      .lineLimit(2)
-      .minimumScaleFactor(0.85)
-      .frame(maxWidth: .infinity, alignment: .leading)
-      .padding(12)
-      .background(palette.surface)
-      .overlay(Rectangle().stroke(palette.border, lineWidth: 1))
   }
 
   private var quickActions: some View {
