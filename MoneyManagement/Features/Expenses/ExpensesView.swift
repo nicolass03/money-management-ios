@@ -9,14 +9,17 @@ struct ExpensesView: View {
   var body: some View {
     TerminalScreen {
       VStack(alignment: .leading, spacing: 20) {
-        SectionHeader(title: "expenses", subtitle: viewModel.periodSubtitle ?? "analytics and spend by period")
+        SectionHeader(
+          title: "expenses",
+          subtitle: viewModel.periodSubtitle ?? "analytics and spend by period",
+          subtitleLoading: isPeriodContentLoading && viewModel.periodSubtitle == nil
+        )
 
         if let error = viewModel.errorMessage {
           ErrorBanner(message: error) { Task { await viewModel.load() } }
         }
 
         TerminalSegmentedControl(selection: $viewModel.periodKey, options: ExpensePeriodKey.allCases)
-          .onChange(of: viewModel.periodKey) { _, _ in }
 
         if viewModel.needsPrimarySchedule {
           EmptyStateCard(
@@ -31,7 +34,6 @@ struct ExpensesView: View {
         }
       }
     }
-    .overlay { if viewModel.isLoading { LoadingOverlay() } }
     .refreshable { await viewModel.load(force: true) }
     .task { await viewModel.load() }
     .navigationDestination(for: ExpensesRoute.self) { route in
@@ -45,15 +47,22 @@ struct ExpensesView: View {
       }
     }
     .sheet(isPresented: $viewModel.showExpenseForm) {
-      ExpenseFormSheet(deps: deps, knownTags: viewModel.tags) {
+      ExpenseFormSheet(deps: deps, knownTags: viewModel.formTags) {
         viewModel.showExpenseForm = false
         Task { await viewModel.load() }
       }
       .presentationDetents([.medium, .large])
     }
     .sheet(isPresented: $viewModel.showEditAmountForm) {
-      if let expense = viewModel.editAmountExpense {
-        ExpenseAmountFormSheet(deps: deps, expense: expense) {
+      if let id = viewModel.editAmountExpenseId,
+         let amount = viewModel.editAmountInitial,
+         let currency = viewModel.editAmountCurrency {
+        ExpenseAmountFormSheet(
+          deps: deps,
+          expenseId: id,
+          initialAmount: amount,
+          currency: currency
+        ) {
           viewModel.showEditAmountForm = false
           Task { await viewModel.load() }
         }
@@ -61,32 +70,38 @@ struct ExpensesView: View {
       }
     }
     .confirmationDialog("Delete expense?", isPresented: Binding(
-      get: { viewModel.deleteExpenseTarget != nil },
-      set: { if !$0 { viewModel.deleteExpenseTarget = nil } }
+      get: { viewModel.deleteExpenseId != nil },
+      set: { if !$0 { viewModel.deleteExpenseId = nil } }
     )) {
       Button("delete", role: .destructive) {
-        if let target = viewModel.deleteExpenseTarget {
-          Task { await viewModel.deleteExpense(target) }
+        if let id = viewModel.deleteExpenseId {
+          Task { await viewModel.deleteExpense(id: id) }
         }
       }
     }
   }
 
   private var heroCard: some View {
-    TerminalCard {
-      VStack(alignment: .leading, spacing: 8) {
-        Text("> total spent")
-          .font(AppFont.mono(size: 12))
-          .foregroundStyle(palette.muted)
+    Group {
+      if isPeriodContentLoading {
+        ExpenseHeroSkeleton()
+      } else {
+        TerminalCard {
+          VStack(alignment: .leading, spacing: 8) {
+            Text("> total spent")
+              .font(AppFont.mono(size: 12))
+              .foregroundStyle(palette.muted)
 
-        MoneyLabel(
-          amount: viewModel.totalSpend,
-          currency: deps.displayCurrency,
-          size: 36,
-          weight: .medium
-        )
+            MoneyLabel(
+              amount: viewModel.totalSpend,
+              currency: deps.displayCurrency,
+              size: 36,
+              weight: .medium
+            )
+          }
+          .frame(maxWidth: .infinity, alignment: .leading)
+        }
       }
-      .frame(maxWidth: .infinity, alignment: .leading)
     }
   }
 
@@ -103,7 +118,10 @@ struct ExpensesView: View {
       .buttonStyle(.plain)
 
       Button {
-        viewModel.showExpenseForm = true
+        Task {
+          await viewModel.loadFormTags()
+          viewModel.showExpenseForm = true
+        }
       } label: {
         quickActionLabel(title: "add", systemImage: "plus")
       }
@@ -135,7 +153,9 @@ struct ExpensesView: View {
     VStack(alignment: .leading, spacing: 8) {
       SectionHeader(title: "spendings")
 
-      if viewModel.periodItems.isEmpty {
+      if isPeriodContentLoading {
+        ExpensePeriodListSkeleton()
+      } else if viewModel.periodItems.isEmpty {
         EmptyStateCard(message: "> no expenses in this period.")
       } else {
         ForEach(viewModel.periodItems) { item in
@@ -146,8 +166,7 @@ struct ExpensesView: View {
   }
 
   private func expenseItemRow(_ item: ProjectionExpenseItem) -> some View {
-    let expense = viewModel.expenseForItem(item)
-    let canMutate = expense.map { !$0.isSystemGenerated } ?? false
+    let canMutate = viewModel.canEdit(item)
 
     return VStack(alignment: .leading, spacing: 8) {
       HStack(alignment: .firstTextBaseline, spacing: 0) {
@@ -191,18 +210,22 @@ struct ExpensesView: View {
     .background(palette.surface)
     .overlay(Rectangle().stroke(palette.border, lineWidth: 1))
     .contextMenu {
-      if canMutate, let expense {
+      if canMutate {
         Button("edit amount") {
-          viewModel.editAmountExpense = expense
-          viewModel.showEditAmountForm = true
+          viewModel.beginEditAmount(for: item)
         }
         Button("delete", role: .destructive) {
-          viewModel.deleteExpenseTarget = expense
+          if let id = item.itemId {
+            viewModel.deleteExpenseId = id
+          }
         }
       }
     }
   }
 
+  private var isPeriodContentLoading: Bool {
+    viewModel.isLoadingPeriod || viewModel.isLoadingSharedContext
+  }
 }
 
 enum ExpensesRoute: Hashable {
@@ -259,8 +282,21 @@ private struct ExpenseAmountFormSheet: View {
   @State private var errorMessage: String?
   let onSaved: () -> Void
 
-  init(deps: AppDependencies, expense: ExpenseWithTags, onSaved: @escaping () -> Void) {
-    _model = State(initialValue: ExpenseAmountFormModel(deps: deps, expense: expense))
+  init(
+    deps: AppDependencies,
+    expenseId: String,
+    initialAmount: Int,
+    currency: CurrencyCode,
+    onSaved: @escaping () -> Void
+  ) {
+    _model = State(
+      initialValue: ExpenseAmountFormModel(
+        deps: deps,
+        expenseId: expenseId,
+        initialAmount: initialAmount,
+        currency: currency
+      )
+    )
     self.onSaved = onSaved
   }
 

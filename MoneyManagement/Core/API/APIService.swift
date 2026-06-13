@@ -75,6 +75,22 @@ struct APIService {
         try await client.request("GET", path: "expenses")
     }
 
+    func getExpensePeriodView(period: ExpensePeriodKey) async throws -> ExpensePeriodViewResponse {
+        try await client.request(
+            "GET",
+            path: "expenses/period-view",
+            query: [URLQueryItem(name: "period", value: period.rawValue)]
+        )
+    }
+
+    func getUpcomingPayable(horizonDays: Int = ExpenseDefaults.upcomingPayableHorizonDays) async throws -> [PayableFutureItem] {
+        try await client.request(
+            "GET",
+            path: "expenses/upcoming-payable",
+            query: [URLQueryItem(name: "horizonDays", value: String(horizonDays))]
+        )
+    }
+
     func createExpense(_ body: CreateExpenseRequest) async throws -> ExpenseWithTags {
         try await client.request("POST", path: "expenses", body: body)
     }

@@ -11,19 +11,28 @@ struct BudgetsView: View {
         HStack {
           SectionHeader(title: "budgets", subtitle: "allocated spending pools")
           Spacer()
-          TerminalBadge(text: deps.formatMoney(viewModel.totalAllocated, currency: deps.displayCurrency), style: .accent)
+          if viewModel.isLoading || deps.isLoadingContext {
+            Skeleton()
+              .frame(width: 96, height: 20)
+          } else if !viewModel.budgets.isEmpty {
+            TerminalBadge(text: deps.formatMoney(viewModel.totalAllocated, currency: deps.displayCurrency), style: .accent)
+          }
         }
 
         if let error = viewModel.errorMessage {
           ErrorBanner(message: error) { Task { await viewModel.load() } }
         }
 
-        TerminalButton(title: "+ add budget") {
-          viewModel.editingBudget = nil
-          viewModel.showBudgetForm = true
+        if !viewModel.isLoading && !deps.isLoadingContext {
+          TerminalButton(title: "+ add budget") {
+            viewModel.editingBudget = nil
+            viewModel.showBudgetForm = true
+          }
         }
 
-        if viewModel.budgets.isEmpty {
+        if viewModel.isLoading || deps.isLoadingContext {
+          CardListSkeleton(count: 3, label: "loading budgets")
+        } else if viewModel.budgets.isEmpty {
           EmptyStateCard(message: "> no budgets yet.")
         } else {
           ForEach(viewModel.groupedBudgets, id: \.0) { status, items in
@@ -40,7 +49,6 @@ struct BudgetsView: View {
         }
       }
     }
-    .overlay { if viewModel.isLoading { LoadingOverlay() } }
     .refreshable { await viewModel.load(force: true) }
     .task { await viewModel.load() }
     .sheet(isPresented: $viewModel.showBudgetForm) {
@@ -154,12 +162,7 @@ struct BudgetsView: View {
             }
 
             if viewModel.loadingExpenses.contains(budget.id) {
-              HStack(spacing: 8) {
-                TerminalSpinner()
-                Text("loading")
-                  .font(AppFont.mono(size: 11))
-                  .foregroundStyle(palette.muted)
-              }
+              CardListSkeleton(count: 1, label: "loading budget expenses")
             } else if let expenses = viewModel.budgetExpenses[budget.id], !expenses.isEmpty {
               ForEach(expenses) { expense in
                 HStack {

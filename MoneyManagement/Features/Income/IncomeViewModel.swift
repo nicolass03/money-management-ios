@@ -10,7 +10,8 @@ final class IncomeViewModel {
   var schedules: [IncomePaySchedule] = []
   var incomeEntries: [Income] = []
   var displayedEntries: [Income] = []
-  var isLoading = false
+  var isLoadingSchedules = false
+  var isLoadingEntries = false
   var errorMessage: String?
 
   var scheduleSheet: IncomePaySchedule?
@@ -19,6 +20,8 @@ final class IncomeViewModel {
   var showIncomeForm = false
   var deleteScheduleTarget: IncomePaySchedule?
   var deleteIncomeTarget: Income?
+
+  private var loadGeneration = LoadGeneration()
 
   init(deps: AppDependencies) {
     self.deps = deps
@@ -36,26 +39,74 @@ final class IncomeViewModel {
   }
 
   func load(force: Bool = false) async {
-    isLoading = true
+    let token = loadGeneration.next()
     errorMessage = nil
-    defer { isLoading = false }
+    isLoadingSchedules = true
+    isLoadingEntries = true
+    defer {
+      if loadGeneration.isCurrent(token) {
+        isLoadingSchedules = false
+        isLoadingEntries = false
+      }
+    }
+
+    if force {
+      deps.invalidateAll()
+    }
 
     do {
-      if force {
-        deps.invalidateAll()
-      }
-
       try await deps.refreshSharedContext()
-      async let schedulesTask = deps.dataStore.getSchedules { [deps] in
+      guard loadGeneration.isCurrent(token) else { return }
+      async let schedulesTask: Void = loadSchedules(loadToken: token)
+      async let entriesTask: Void = loadEntries(loadToken: token)
+      _ = await (schedulesTask, entriesTask)
+    } catch {
+      guard shouldSurfaceLoadError(error, isCurrent: loadGeneration.isCurrent(token)) else { return }
+      errorMessage = error.localizedDescription
+    }
+  }
+
+  func loadSchedules(loadToken: Int? = nil) async {
+    let managesLoading = loadToken == nil
+    if managesLoading {
+      isLoadingSchedules = true
+    }
+    defer {
+      if managesLoading {
+        isLoadingSchedules = false
+      }
+    }
+
+    do {
+      schedules = try await deps.dataStore.getSchedules { [deps] in
         try await deps.api.getIncomeSchedules()
       }
-      async let incomeTask = deps.dataStore.getIncome { [deps] in
+    } catch {
+      if let loadToken, !loadGeneration.isCurrent(loadToken) { return }
+      if !shouldSurfaceLoadError(error, isCurrent: true) { return }
+      errorMessage = error.localizedDescription
+    }
+  }
+
+  func loadEntries(loadToken: Int? = nil) async {
+    let managesLoading = loadToken == nil
+    if managesLoading {
+      isLoadingEntries = true
+    }
+    defer {
+      if managesLoading {
+        isLoadingEntries = false
+      }
+    }
+
+    do {
+      incomeEntries = try await deps.dataStore.getIncome { [deps] in
         try await deps.api.getIncome()
       }
-      schedules = try await schedulesTask
-      incomeEntries = try await incomeTask
       refreshDisplayedEntries()
     } catch {
+      if let loadToken, !loadGeneration.isCurrent(loadToken) { return }
+      if !shouldSurfaceLoadError(error, isCurrent: true) { return }
       errorMessage = error.localizedDescription
     }
   }

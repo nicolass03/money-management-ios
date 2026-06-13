@@ -169,3 +169,22 @@ struct LoadingCardOverlay: View {
             }
     }
 }
+
+struct SectionLoadingMask: View {
+    @Environment(\.appPalette) private var palette
+
+    var label: String = "loading"
+    var minHeight: CGFloat = 120
+
+    var body: some View {
+        ZStack {
+            palette.surface.opacity(0.85)
+            LoadingIndicator(label: label, variant: .inline)
+        }
+        .frame(maxWidth: .infinity)
+        .frame(minHeight: minHeight)
+        .overlay(Rectangle().stroke(palette.border, lineWidth: 1))
+        .accessibilityElement(children: .combine)
+        .accessibilityLabel(label)
+    }
+}

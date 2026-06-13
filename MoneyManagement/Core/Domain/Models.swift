@@ -31,8 +31,10 @@ struct UserSettings: Codable, Equatable {
     let id: String
     let displayCurrency: CurrencyCode
     let primaryScheduleId: String?
+    let primarySchedule: IncomePaySchedule?
     let projectionInitialFreeMoney: Int
     let projectionStartDate: String?
+    let cacheRevision: Int
     let updatedAt: String
 }
 
@@ -333,7 +335,7 @@ struct PayPeriod: Equatable {
     let endDate: String
 }
 
-struct PayableFutureItem: Identifiable, Equatable {
+struct PayableFutureItem: Identifiable, Equatable, Codable {
     let key: String
     let sourceType: String
     let recurringId: String?
@@ -346,4 +348,23 @@ struct PayableFutureItem: Identifiable, Equatable {
     let isSubscription: Bool
 
     var id: String { key }
+}
+
+struct ExpensePeriodViewResponse: Codable, Equatable {
+    let period: PayPeriodResponse
+    let items: [ProjectionExpenseItem]
+    let totalSpend: Int
+    let isPayPeriod: Bool
+}
+
+struct PayPeriodResponse: Codable, Equatable {
+    let payDate: String
+    let startDate: String
+    let endDate: String
+}
+
+/// Default horizon (days) for the upcoming-payable query. Shared so the request, the cache
+/// key, and `InvalidationMap` can never drift apart.
+enum ExpenseDefaults {
+    static let upcomingPayableHorizonDays = 30
 }

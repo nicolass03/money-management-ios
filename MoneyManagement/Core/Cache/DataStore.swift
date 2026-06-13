@@ -17,9 +17,12 @@ final class DataStore {
   private(set) var schedules: [IncomePaySchedule]?
   private(set) var projections: ProjectionsResponse?
   private(set) var tags: [String]?
+  private(set) var expensePeriodViews: [String: ExpensePeriodViewResponse] = [:]
+  private(set) var upcomingPayable: [PayableFutureItem]?
   private(set) var budgetExpenses: [String: [ExpenseWithTags]] = [:]
 
   func invalidate(_ keys: Set<ResourceKey>) {
+    cancelInFlightTasks(for: keys)
     invalidatedKeys.formUnion(keys)
     for key in keys {
       switch key {
@@ -33,6 +36,10 @@ final class DataStore {
       case .schedules: schedules = nil
       case .projections: projections = nil
       case .tags: tags = nil
+      case .expensePeriodView(let period):
+        expensePeriodViews.removeValue(forKey: period)
+      case .upcomingPayable:
+        upcomingPayable = nil
       case .budgetExpenses(let id):
         budgetExpenses.removeValue(forKey: id)
       }
@@ -40,6 +47,7 @@ final class DataStore {
   }
 
   func invalidateAll() {
+    cancelInFlightTasks()
     invalidatedKeys = Set(ResourceKey.allBaseKeys)
     settings = nil
     moneyContext = nil
@@ -51,11 +59,27 @@ final class DataStore {
     schedules = nil
     projections = nil
     tags = nil
+    expensePeriodViews = [:]
+    upcomingPayable = nil
     budgetExpenses = [:]
   }
 
   func invalidateAfter(_ event: InvalidationEvent) {
     invalidate(InvalidationMap.keys(for: event))
+  }
+
+  private func cancelInFlightTasks(for keys: Set<ResourceKey>? = nil) {
+    if let keys {
+      for key in keys {
+        inFlightTasks[key]?.cancel()
+        inFlightTasks.removeValue(forKey: key)
+      }
+    } else {
+      for task in inFlightTasks.values {
+        task.cancel()
+      }
+      inFlightTasks.removeAll()
+    }
   }
 
   private func isInvalidated(_ key: ResourceKey) -> Bool {
@@ -106,35 +130,34 @@ final class DataStore {
     try await get(.tags, cached: tags, assign: { self.tags = $0 }, fetch: fetch)
   }
 
+  func getExpensePeriodView(
+    period: String,
+    fetch: @escaping () async throws -> ExpensePeriodViewResponse
+  ) async throws -> ExpensePeriodViewResponse {
+    let key = ResourceKey.expensePeriodView(period)
+    return try await get(key, cached: expensePeriodViews[period], assign: { self.expensePeriodViews[period] = $0 }, fetch: fetch)
+  }
+
+  func getUpcomingPayable(
+    horizonDays: Int,
+    fetch: @escaping () async throws -> [PayableFutureItem]
+  ) async throws -> [PayableFutureItem] {
+    let key = ResourceKey.upcomingPayable(horizonDays)
+    return try await get(key, cached: upcomingPayable, assign: { self.upcomingPayable = $0 }, fetch: fetch)
+  }
+
   func getBudgetExpenses(
     budgetId: String,
     fetch: @escaping () async throws -> [ExpenseWithTags]
   ) async throws -> [ExpenseWithTags] {
     let key = ResourceKey.budgetExpenses(budgetId)
-    if !isInvalidated(key), let cached = budgetExpenses[budgetId] {
-      return cached
-    }
-
-    if let existing = inFlightTasks[key] {
-      return try await existing.value as! [ExpenseWithTags]
-    }
-
-    let task = Task<Any, Error> {
-      let value = try await fetch()
-      budgetExpenses[budgetId] = value
-      markFresh(key)
-      return value
-    }
-    inFlightTasks[key] = task
-    defer { inFlightTasks.removeValue(forKey: key) }
-
-    return try await task.value as! [ExpenseWithTags]
+    return try await get(key, cached: budgetExpenses[budgetId], assign: { self.budgetExpenses[budgetId] = $0 }, fetch: fetch)
   }
 
   private func get<T>(
     _ key: ResourceKey,
     cached: T?,
-    assign: @escaping (T) -> Void,
+    assign: @escaping @MainActor (T) -> Void,
     fetch: @escaping () async throws -> T
   ) async throws -> T {
     if !isInvalidated(key), let cached {
@@ -145,7 +168,7 @@ final class DataStore {
       return try await existing.value as! T
     }
 
-    let task = Task<Any, Error> {
+    let task = Task<Any, Error> { @MainActor in
       let value = try await fetch()
       assign(value)
       markFresh(key)

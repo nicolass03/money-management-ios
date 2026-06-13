@@ -18,6 +18,10 @@ final class AppDependencies {
 
     private(set) var isLoadingContext = false
 
+    /// Last `cacheRevision` observed from `/settings`. Used to skip a full invalidate+reload on
+    /// foreground when server-side data is unchanged.
+    private(set) var lastSeenCacheRevision: Int?
+
     var displayCurrency: CurrencyCode {
         dataStore.moneyContext?.displayCurrency
             ?? dataStore.settings?.displayCurrency
@@ -69,6 +73,26 @@ final class AppDependencies {
         }
         _ = try await settingsTask
         _ = try await moneyTask
+        lastSeenCacheRevision = dataStore.settings?.cacheRevision
+    }
+
+    /// Called when the app returns to the foreground. Fetches the authoritative `/settings`
+    /// `cacheRevision`; only invalidates the in-memory caches when it changed (mirrors the web
+    /// app relying on TanStack Query's revision-keyed cache). Returns `true` when the caller
+    /// should reload the active tab. On error, invalidates conservatively to avoid stale data.
+    func syncOnForeground() async -> Bool {
+        do {
+            let settings = try await api.getSettings()
+            let changed = lastSeenCacheRevision != settings.cacheRevision
+            lastSeenCacheRevision = settings.cacheRevision
+            if changed {
+                dataStore.invalidateAll()
+            }
+            return changed
+        } catch {
+            dataStore.invalidateAll()
+            return true
+        }
     }
 
     func formatMoney(_ amount: Int, currency: CurrencyCode) -> String {

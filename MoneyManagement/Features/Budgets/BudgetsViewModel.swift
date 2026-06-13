@@ -21,6 +21,8 @@ final class BudgetsViewModel {
   var deleteBudgetTarget: BudgetWithTags?
   var deleteExpenseTarget: (budgetId: String, expense: ExpenseWithTags)?
 
+  private var loadGeneration = LoadGeneration()
+
   init(deps: AppDependencies) {
     self.deps = deps
   }
@@ -37,9 +39,14 @@ final class BudgetsViewModel {
   }
 
   func load(force: Bool = false) async {
+    let token = loadGeneration.next()
     isLoading = true
     errorMessage = nil
-    defer { isLoading = false }
+    defer {
+      if loadGeneration.isCurrent(token) {
+        isLoading = false
+      }
+    }
 
     do {
       if force {
@@ -47,11 +54,13 @@ final class BudgetsViewModel {
       }
 
       try await deps.refreshSharedContext()
+      guard loadGeneration.isCurrent(token) else { return }
       budgets = try await deps.dataStore.getBudgets { [deps] in
         try await deps.api.getBudgets()
       }
       groupedBudgets = BudgetStatusLogic.grouped(budgets)
     } catch {
+      guard shouldSurfaceLoadError(error, isCurrent: loadGeneration.isCurrent(token)) else { return }
       errorMessage = error.localizedDescription
     }
   }

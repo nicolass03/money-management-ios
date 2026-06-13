@@ -6,147 +6,143 @@ import Observation
 final class ExpensesViewModel {
   private let deps: AppDependencies
 
-  var periodKey: ExpensePeriodKey = .lastPeriod
-  var expenses: [ExpenseWithTags] = []
-  var recurring: [RecurringExpenseWithTags] = []
-  var planned: [PlannedExpenseWithTags] = []
-  var budgets: [BudgetWithTags] = []
-  var tags: [String] = []
-  var primarySchedule: IncomePaySchedule?
+  var periodKey: ExpensePeriodKey = .lastPeriod {
+    didSet {
+      if oldValue != periodKey {
+        Task { await loadPeriod() }
+      }
+    }
+  }
 
-  var isLoading = false
+  var periodView: ExpensePeriodViewResponse?
+  var upcomingPayable: [PayableFutureItem] = []
+  var formTags: [String] = []
+
+  var isLoadingPeriod = false
+  var isLoadingUpcoming = false
   var errorMessage: String?
 
   var showExpenseForm = false
-  var editingExpense: ExpenseWithTags?
-  var editAmountExpense: ExpenseWithTags?
+  var editAmountExpenseId: String?
+  var editAmountInitial: Int?
+  var editAmountCurrency: CurrencyCode?
   var showEditAmountForm = false
-  var deleteExpenseTarget: ExpenseWithTags?
+  var deleteExpenseId: String?
+
+  private var loadGeneration = LoadGeneration()
 
   init(deps: AppDependencies) {
     self.deps = deps
   }
 
-  var needsPrimarySchedule: Bool {
-    periodKey == .lastPeriod && deps.settings?.primaryScheduleId == nil
+  var primarySchedule: IncomePaySchedule? {
+    deps.settings?.primarySchedule
   }
 
-  var actualPeriodExpenses: [ExpenseWithTags] {
-    ExpensePeriodFilter.filterExpenses(
-      expenses,
-      periodKey: periodKey,
-      primarySchedule: primarySchedule
-    )
+  var needsPrimarySchedule: Bool {
+    guard periodKey == .lastPeriod, let settings = deps.settings else { return false }
+    return settings.primaryScheduleId == nil
+  }
+
+  var isLoadingSharedContext: Bool {
+    deps.isLoadingContext
   }
 
   var periodItems: [ProjectionExpenseItem] {
-    guard ExpensePeriodFilter.resolvePeriodDates(
-      periodKey: periodKey,
-      primarySchedule: primarySchedule
-    ) != nil else { return [] }
-
-    return mapActualExpensesToItems(actualPeriodExpenses)
-  }
-
-  private func mapActualExpensesToItems(_ expenses: [ExpenseWithTags]) -> [ProjectionExpenseItem] {
-    let rates = deps.rates ?? ExchangeRates(base: "USD", rates: [:], fetchedAt: "")
-    return expenses
-      .sorted { $0.date < $1.date }
-      .map { expense in
-        ProjectionExpenseItem(
-          itemId: expense.id,
-          recurringId: expense.recurringId,
-          plannedExpenseId: expense.plannedExpenseId,
-          budgetId: expense.budgetId,
-          budgetTotal: nil,
-          budgetSpent: nil,
-          isBudgetSummary: nil,
-          name: expense.name,
-          date: expense.date,
-          scheduledDate: expense.scheduledDate,
-          amount: expense.amount,
-          currency: expense.currency,
-          originalAmount: nil,
-          originalCurrency: nil,
-          convertedAmount: CurrencyConverter.convert(
-            amountMinor: expense.amount,
-            from: expense.currency,
-            to: deps.displayCurrency,
-            rates: rates
-          ),
-          tags: expense.tags,
-          isSubscription: expense.isSubscription,
-          projected: false
-        )
-      }
+    periodView?.items ?? []
   }
 
   var totalSpend: Int {
-    let rates = deps.rates ?? ExchangeRates(base: "USD", rates: [:], fetchedAt: "")
-    return actualPeriodExpenses.reduce(0) { partial, expense in
-      partial + CurrencyConverter.convert(
-        amountMinor: expense.amount,
-        from: expense.currency,
-        to: deps.displayCurrency,
-        rates: rates
-      )
-    }
+    periodView?.totalSpend ?? 0
   }
 
   var periodSubtitle: String? {
-    guard let period = ExpensePeriodFilter.resolvePeriodDates(periodKey: periodKey, primarySchedule: primarySchedule) else {
+    if let period = periodView?.period {
+      return "\(period.startDate) → \(period.endDate)"
+    }
+    guard let period = ExpensePeriodFilter.resolvePeriodDates(
+      periodKey: periodKey,
+      primarySchedule: primarySchedule
+    ) else {
       return nil
     }
     return "\(period.startDate) → \(period.endDate)"
   }
 
   func load(force: Bool = false) async {
-    isLoading = true
+    let token = loadGeneration.next()
     errorMessage = nil
-    defer { isLoading = false }
+    if force {
+      deps.invalidateAll()
+    }
 
     do {
-      if force {
-        deps.invalidateAll()
-      }
-
       try await deps.refreshSharedContext()
-
-      if let scheduleId = deps.settings?.primaryScheduleId {
-        primarySchedule = try? await deps.api.getIncomeSchedule(id: scheduleId)
-      } else {
-        primarySchedule = nil
-      }
-
-      async let expensesTask = deps.dataStore.getExpenses { [deps] in
-        try await deps.api.getExpenses()
-      }
-      async let recurringTask = deps.dataStore.getRecurringExpenses { [deps] in
-        try await deps.api.getRecurringExpenses()
-      }
-      async let plannedTask = deps.dataStore.getPlannedExpenses { [deps] in
-        try await deps.api.getPlannedExpenses()
-      }
-      async let budgetsTask = deps.dataStore.getBudgets { [deps] in
-        try await deps.api.getBudgets()
-      }
-      async let tagsTask = deps.dataStore.getTags { [deps] in
-        try await deps.api.getTags()
-      }
-
-      expenses = try await expensesTask
-      recurring = try await recurringTask
-      planned = try await plannedTask
-      budgets = try await budgetsTask
-      tags = try await tagsTask
+      guard loadGeneration.isCurrent(token) else { return }
+      async let periodTask: Void = loadPeriod(loadToken: token)
+      async let upcomingTask: Void = loadUpcoming(loadToken: token)
+      _ = await (periodTask, upcomingTask)
     } catch {
+      guard shouldSurfaceLoadError(error, isCurrent: loadGeneration.isCurrent(token)) else { return }
       errorMessage = error.localizedDescription
     }
   }
 
-  func deleteExpense(_ expense: ExpenseWithTags) async {
+  func loadPeriod(loadToken: Int? = nil) async {
+    isLoadingPeriod = true
+    defer { isLoadingPeriod = false }
+
+    let key = periodKey
     do {
-      try await deps.api.deleteExpense(id: expense.id)
+      let view = try await deps.dataStore.getExpensePeriodView(period: key.rawValue) { [deps] in
+        try await deps.api.getExpensePeriodView(period: key)
+      }
+      // The `periodKey` didSet spawns loads without a generation token, so a slower fetch
+      // for a period the user already toggled away from must not overwrite the current view.
+      guard key == periodKey else { return }
+      if let loadToken, !loadGeneration.isCurrent(loadToken) { return }
+      periodView = view
+    } catch {
+      guard key == periodKey else { return }
+      if let loadToken, !loadGeneration.isCurrent(loadToken) { return }
+      if !shouldSurfaceLoadError(error, isCurrent: true) { return }
+      if periodKey == .lastPeriod, let settings = deps.settings, settings.primaryScheduleId == nil {
+        periodView = nil
+      } else {
+        errorMessage = error.localizedDescription
+      }
+    }
+  }
+
+  func loadUpcoming(loadToken: Int? = nil) async {
+    isLoadingUpcoming = true
+    defer { isLoadingUpcoming = false }
+
+    do {
+      let horizon = ExpenseDefaults.upcomingPayableHorizonDays
+      upcomingPayable = try await deps.dataStore.getUpcomingPayable(horizonDays: horizon) { [deps] in
+        try await deps.api.getUpcomingPayable(horizonDays: horizon)
+      }
+    } catch {
+      if let loadToken, !loadGeneration.isCurrent(loadToken) { return }
+      if !shouldSurfaceLoadError(error, isCurrent: true) { return }
+      errorMessage = error.localizedDescription
+    }
+  }
+
+  func loadFormTags() async {
+    do {
+      formTags = try await deps.dataStore.getTags { [deps] in
+        try await deps.api.getTags()
+      }
+    } catch {
+      formTags = []
+    }
+  }
+
+  func deleteExpense(id: String) async {
+    do {
+      try await deps.api.deleteExpense(id: id)
       deps.invalidateAfter(.expenseChange)
       Haptics.light()
       await load()
@@ -156,20 +152,20 @@ final class ExpensesViewModel {
   }
 
   func canEdit(_ item: ProjectionExpenseItem) -> Bool {
-    guard let id = item.itemId,
-          let expense = expenses.first(where: { $0.id == id }) else { return false }
-    return !expense.isSystemGenerated || (expense.recurringId == nil && expense.plannedExpenseId == nil && expense.budgetId == nil)
+    guard item.itemId != nil, !item.projected, item.isBudgetSummary != true else { return false }
+    return item.recurringId == nil && item.plannedExpenseId == nil && item.budgetId == nil
   }
 
   func canDelete(_ item: ProjectionExpenseItem) -> Bool {
-    guard let id = item.itemId,
-          let expense = expenses.first(where: { $0.id == id }) else { return false }
-    return !expense.isSystemGenerated
+    canEdit(item)
   }
 
-  func expenseForItem(_ item: ProjectionExpenseItem) -> ExpenseWithTags? {
-    guard let id = item.itemId else { return nil }
-    return expenses.first { $0.id == id }
+  func beginEditAmount(for item: ProjectionExpenseItem) {
+    guard let id = item.itemId else { return }
+    editAmountExpenseId = id
+    editAmountInitial = item.amount
+    editAmountCurrency = item.currency
+    showEditAmountForm = true
   }
 }
 
@@ -217,24 +213,26 @@ final class ExpenseFormModel {
 @MainActor
 final class ExpenseAmountFormModel {
   var amountText = ""
-  private let expense: ExpenseWithTags
+  private let expenseId: String
+  private let currency: CurrencyCode
   private let deps: AppDependencies
 
-  init(deps: AppDependencies, expense: ExpenseWithTags) {
+  init(deps: AppDependencies, expenseId: String, initialAmount: Int, currency: CurrencyCode) {
     self.deps = deps
-    self.expense = expense
-    amountText = String(expense.amount)
+    self.expenseId = expenseId
+    self.currency = currency
+    amountText = String(initialAmount)
   }
 
   var canSave: Bool { amountMinor != nil }
 
   var amountMinor: Int? {
-    MoneyFormatter.parseToMinorUnits(amountText, currency: expense.currency) ?? Int(amountText)
+    MoneyFormatter.parseToMinorUnits(amountText, currency: currency) ?? Int(amountText)
   }
 
   func save() async throws {
     guard let amount = amountMinor else { return }
-    _ = try await deps.api.updateExpenseAmount(id: expense.id, amount: amount)
+    _ = try await deps.api.updateExpenseAmount(id: expenseId, amount: amount)
     deps.invalidateAfter(.expenseChange)
   }
 }

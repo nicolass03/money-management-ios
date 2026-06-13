@@ -4,6 +4,7 @@ struct SectionHeader: View {
     @Environment(\.appPalette) private var palette
     let title: String
     var subtitle: String?
+    var subtitleLoading: Bool = false
 
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
@@ -15,7 +16,10 @@ struct SectionHeader: View {
             }
             .font(AppFont.mono(size: 18, weight: .medium))
 
-            if let subtitle {
+            if subtitleLoading {
+                Skeleton()
+                    .frame(width: 180, height: 10)
+            } else if let subtitle {
                 Text(subtitle)
                     .font(AppFont.mono(size: 12))
                     .foregroundStyle(palette.muted)

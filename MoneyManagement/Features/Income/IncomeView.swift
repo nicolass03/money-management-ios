@@ -11,7 +11,12 @@ struct IncomeView: View {
         HStack {
           SectionHeader(title: "income", subtitle: "pay schedules and entries")
           Spacer()
-          TerminalBadge(text: deps.formatMoney(viewModel.totalIncome, currency: deps.displayCurrency), style: .accent)
+          if viewModel.isLoadingEntries || deps.isLoadingContext {
+            Skeleton()
+              .frame(width: 72, height: 20)
+          } else if !viewModel.displayedEntries.isEmpty {
+            TerminalBadge(text: deps.formatMoney(viewModel.totalIncome, currency: deps.displayCurrency), style: .accent)
+          }
         }
 
         if let error = viewModel.errorMessage {
@@ -28,7 +33,6 @@ struct IncomeView: View {
         }
       }
     }
-    .overlay { if viewModel.isLoading { LoadingOverlay() } }
     .refreshable { await viewModel.load(force: true) }
     .task { await viewModel.load() }
     .sheet(isPresented: $viewModel.showScheduleForm) {
@@ -69,12 +73,16 @@ struct IncomeView: View {
 
   private var schedulesSection: some View {
     VStack(alignment: .leading, spacing: 12) {
-      TerminalButton(title: "+ add schedule") {
-        viewModel.scheduleSheet = nil
-        viewModel.showScheduleForm = true
+      if !viewModel.isLoadingSchedules && !deps.isLoadingContext {
+        TerminalButton(title: "+ add schedule") {
+          viewModel.scheduleSheet = nil
+          viewModel.showScheduleForm = true
+        }
       }
 
-      if viewModel.schedules.isEmpty {
+      if viewModel.isLoadingSchedules || deps.isLoadingContext {
+        CardListSkeleton(count: 2, label: "loading pay schedules")
+      } else if viewModel.schedules.isEmpty {
         EmptyStateCard(message: "> no pay schedules yet.")
       } else {
         ForEach(viewModel.schedules) { schedule in
@@ -130,12 +138,16 @@ struct IncomeView: View {
 
   private var entriesSection: some View {
     VStack(alignment: .leading, spacing: 12) {
-      TerminalButton(title: "+ add income") {
-        viewModel.incomeSheet = nil
-        viewModel.showIncomeForm = true
+      if !viewModel.isLoadingEntries && !deps.isLoadingContext {
+        TerminalButton(title: "+ add income") {
+          viewModel.incomeSheet = nil
+          viewModel.showIncomeForm = true
+        }
       }
 
-      if viewModel.displayedEntries.isEmpty {
+      if viewModel.isLoadingEntries || deps.isLoadingContext {
+        CardListSkeleton(count: 3, label: "loading income entries")
+      } else if viewModel.displayedEntries.isEmpty {
         EmptyStateCard(message: "> no income entries yet.")
       } else {
         ForEach(viewModel.displayedEntries) { entry in

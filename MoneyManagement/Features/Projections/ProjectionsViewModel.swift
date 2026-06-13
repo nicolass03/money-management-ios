@@ -12,6 +12,8 @@ final class ProjectionsViewModel {
   var errorMessage: String?
   var needsPrimarySchedule = false
 
+  private var loadGeneration = LoadGeneration()
+
   init(deps: AppDependencies) {
     self.deps = deps
   }
@@ -28,10 +30,15 @@ final class ProjectionsViewModel {
   }
 
   func load(force: Bool = false) async {
+    let token = loadGeneration.next()
     isLoading = true
     errorMessage = nil
     needsPrimarySchedule = false
-    defer { isLoading = false }
+    defer {
+      if loadGeneration.isCurrent(token) {
+        isLoading = false
+      }
+    }
 
     do {
       if force {
@@ -39,7 +46,11 @@ final class ProjectionsViewModel {
       }
 
       try await deps.refreshSharedContext()
-      guard deps.settings?.primaryScheduleId != nil else {
+      guard loadGeneration.isCurrent(token) else { return }
+      guard let settings = deps.settings else {
+        throw APIError(status: 0, message: "Settings unavailable")
+      }
+      guard settings.primaryScheduleId != nil else {
         needsPrimarySchedule = true
         response = nil
         return
@@ -48,9 +59,11 @@ final class ProjectionsViewModel {
         try await deps.api.getProjections()
       }
     } catch let error as APIError where error.status == 400 {
+      guard loadGeneration.isCurrent(token) else { return }
       needsPrimarySchedule = true
-      errorMessage = error.message
+      response = nil
     } catch {
+      guard shouldSurfaceLoadError(error, isCurrent: loadGeneration.isCurrent(token)) else { return }
       errorMessage = error.localizedDescription
     }
   }

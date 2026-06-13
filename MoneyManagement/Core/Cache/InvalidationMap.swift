@@ -11,6 +11,8 @@ enum ResourceKey: Hashable {
   case schedules
   case projections
   case tags
+  case expensePeriodView(String)
+  case upcomingPayable(Int)
   case budgetExpenses(String)
 
   static var allBaseKeys: [ResourceKey] {
@@ -31,23 +33,25 @@ enum ResourceKey: Hashable {
 
 enum InvalidationMap {
   static func keys(for event: InvalidationEvent) -> Set<ResourceKey> {
+    let periodViews: [ResourceKey] = ExpensePeriodKey.allCases.map { .expensePeriodView($0.rawValue) }
+    let upcoming: ResourceKey = .upcomingPayable(ExpenseDefaults.upcomingPayableHorizonDays)
     switch event {
     case .expenseChange:
-      return [.expenses, .projections]
+      return Set([.expenses, .projections, upcoming] + periodViews)
     case .recurringChange:
-      return [.recurringExpenses, .expenses, .projections]
+      return Set([.recurringExpenses, .expenses, .projections, upcoming] + periodViews)
     case .plannedChange:
-      return [.plannedExpenses, .expenses, .projections]
+      return Set([.plannedExpenses, .expenses, .projections, upcoming] + periodViews)
     case .budgetChange:
-      return [.budgets, .expenses, .projections]
+      return Set([.budgets, .expenses, .projections, upcoming] + periodViews)
     case .incomeChange:
-      return [.income, .projections]
+      return Set([.income, .projections])
     case .scheduleChange:
-      return [.schedules, .income, .projections, .settings]
+      return Set([.schedules, .income, .projections, .settings] + periodViews)
     case .settingsChange:
-      return [.settings, .moneyContext, .projections, .income, .expenses]
+      return Set([.settings, .moneyContext, .projections, .income, .expenses, upcoming] + periodViews)
     case .moneyContextRefresh:
-      return [.moneyContext]
+      return Set([.moneyContext])
     }
   }
 }

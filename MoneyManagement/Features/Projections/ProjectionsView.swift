@@ -12,7 +12,10 @@ struct ProjectionsView: View {
         HStack {
           SectionHeader(title: "projections", subtitle: "cash flow by pay period")
           Spacer()
-          if let cumulative = viewModel.latestCumulativeFree, let response = viewModel.response {
+          if viewModel.isLoading || deps.isLoadingContext {
+            Skeleton()
+              .frame(width: 80, height: 20)
+          } else if let cumulative = viewModel.latestCumulativeFree, let response = viewModel.response {
             TerminalBadge(
               text: MoneyFormatter.format(cumulative, currency: response.displayCurrency),
               style: cumulative >= 0 ? .success : .danger
@@ -24,7 +27,9 @@ struct ProjectionsView: View {
           ErrorBanner(message: error) { Task { await viewModel.load() } }
         }
 
-        if viewModel.needsPrimarySchedule {
+        if (viewModel.isLoading || deps.isLoadingContext) && viewModel.response == nil {
+          ProjectionsListSkeleton()
+        } else if viewModel.needsPrimarySchedule {
           EmptyStateCard(
             message: "> no primary pay schedule.",
             footnote: "> configure in settings to see projections."
@@ -42,12 +47,9 @@ struct ProjectionsView: View {
               projectionRow(row, displayCurrency: response.displayCurrency, rates: response.rates)
             }
           }
-        } else if !viewModel.isLoading {
-          EmptyStateCard(message: "> loading projections...")
         }
       }
     }
-    .overlay { if viewModel.isLoading { LoadingOverlay() } }
     .refreshable { await viewModel.load(force: true) }
     .task { await viewModel.load() }
   }

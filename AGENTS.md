@@ -29,7 +29,10 @@
 
 - `AppDependencies` — created in `MainTabView`, holds `APIService`, `DataStore`, and exposes `settings` / `moneyContext` / `displayCurrency` / `rates`.
 - Per-tab `@Observable` ViewModels call `APIService` and domain helpers in `Core/Domain/`.
-- Pay-period and calendar period **lists and hero totals** use **actual expenses** in the period date range (`ExpensePeriodFilter` on `GET /expenses`) — not projected items. **Early pay** is a pushed sub-screen (`ExpensesRoute.earlyPay`) from the quick-action grid, not an inline expand.
+- **Expenses tab** init: `settings` + `money-context`, then parallel `GET /expenses/period-view`, `GET /expenses/upcoming-payable`. No full expense/recurring/planned/budgets/tags fetch on the main tab. `primarySchedule` comes from embedded `GET /settings` response. Per-section **inline skeletons** (`Skeleton.swift`) replace `SectionLoadingMask` on hero and list; shell renders immediately. Tags fetch on expense-form open only.
+- **Budgets, income, projections** tabs use the same pattern — page shell + section skeletons; no `LoadingOverlay` on those tabs (`LoadingIndicator` / `LoadingOverlay` kept for auth, settings, sub-routes).
+- **Foreground sync:** on `scenePhase == .active`, `AppDependencies.syncOnForeground()` fetches `/settings`, compares `cacheRevision` to `lastSeenCacheRevision`, and only `invalidateAll()` + reloads the active tab when it changed (unchanged data is served from cache — no blanket refetch on every resume).
+- Pay-period and calendar period **lists and hero totals** use **`GET /expenses/period-view`** without `includeProjected` (actual spend only). Web passes `includeProjected=true` for planned recurring/planned rows in pay period. **Early pay** is a pushed sub-screen (`ExpensesRoute.earlyPay`) from the quick-action grid, not an inline expand.
 - **Projections tab:** `ProjectionDisplayLogic.visibleRows` shows the **current pay period first**, then up to **10 future periods** (sorted by `payDate`). Past periods are omitted. Header cumulative free uses the last visible row. API horizon is `PROJECTION_MONTHS_FORWARD` (12 months) so monthly schedules can fill all 10 future slots.
 - Amounts are integer minor units; IDs are UUID strings (parity with web/API).
 
@@ -43,7 +46,8 @@ Match the web app terminal aesthetic ([money-management `globals.css`](../money-
 - Zero corner radius on cards, inputs, buttons; scanline overlay on screens
 - Shared UI: `TerminalRow`, `TerminalBadge`, `FormSheet`, `MoneyLabel`, `TerminalSegmentedControl`
 - Scrolling: use `TerminalScrollView` (hides scroll indicators app-wide); do not use raw `ScrollView`.
-- Loading: `LoadingIndicator` (page + inline variants), `TerminalSpinner`, `LoadingOverlay` — parity with web `loading-indicator.tsx`
+- Loading: `LoadingIndicator` (page + inline variants), `TerminalSpinner`, `LoadingOverlay`, `SectionLoadingMask`, `Skeleton` / `CardListSkeleton` / `ExpensePeriodListSkeleton` / `ProjectionsListSkeleton` — parity with web skeleton loading on main tabs
+- `DataStore` fetch tasks run on `@MainActor`; `invalidate` / `invalidateAll` cancel in-flight tasks so foreground refresh does not surface stale cancellation errors (`LoadGeneration` guards in tab ViewModels).
 
 ## Xcode / build
 

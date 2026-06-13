@@ -80,14 +80,15 @@ struct MainTabView: View {
             .presentationDetents([.medium, .large])
             .presentationDragIndicator(.visible)
         }
-        .task {
-            deps.invalidateAll()
-            await reloadActiveTab(force: true)
-        }
         .onChange(of: scenePhase) { _, phase in
             guard phase == .active else { return }
-            deps.invalidateAll()
-            Task { await reloadActiveTab(force: true) }
+            Task {
+                // Only reload when the server's cacheRevision changed while backgrounded;
+                // syncOnForeground() invalidates the caches itself when needed.
+                if await deps.syncOnForeground() {
+                    await reloadActiveTab(force: false)
+                }
+            }
         }
     }
 
