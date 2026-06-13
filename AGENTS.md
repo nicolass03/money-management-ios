@@ -46,6 +46,7 @@ Match the web app terminal aesthetic ([money-management `globals.css`](../money-
 
 ## Xcode / build
 
+- **App icon:** `MoneyManagement/Resources/Assets.xcassets/AppIcon.appiconset/` — single `AppIcon.png` (1024×1024) referenced in `Contents.json`. Do not use a top-level `Resources/` folder at repo root; `project.yml` only bundles `MoneyManagement/Resources/Assets.xcassets`.
 - Full **Xcode.app** required — Command Line Tools alone cannot run `xcodebuild` or Simulator.
 - If `xcode-select` points at CLT: `sudo xcode-select -s /Applications/Xcode.app/Contents/Developer` (or set `DEVELOPER_DIR=/Applications/Xcode.app/Contents/Developer` for one-off builds).
 - **"No supported iOS devices"** on Run means no simulator destination is selected — choose **iPhone 17** (or similar) under the toolbar destination menu, not "Any iOS Device".
