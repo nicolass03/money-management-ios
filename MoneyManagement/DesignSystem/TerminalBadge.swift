@@ -26,7 +26,7 @@ struct TerminalBadge: View {
     case .accent: palette.accent
     case .success: palette.success
     case .danger: palette.danger
-    case .warning: palette.accent
+    case .warning: palette.warning
     }
   }
 

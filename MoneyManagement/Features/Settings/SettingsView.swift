@@ -31,6 +31,7 @@ struct SettingsView: View {
                         themeSection
                         currencySection
                         projectionSection
+                        extraSpentSection
                         logoutSection
                     }
                     .padding(.horizontal, 16)
@@ -158,6 +159,27 @@ struct SettingsView: View {
                     text: $viewModel.projectionStartDate,
                     keyboardType: .numbersAndPunctuation
                 )
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+        }
+    }
+
+    private var extraSpentSection: some View {
+        TerminalCard {
+            VStack(alignment: .leading, spacing: 12) {
+                Text("> extra spent limit")
+                    .font(AppFont.mono(size: 12))
+                    .foregroundStyle(palette.muted)
+
+                AmountTextField(
+                    text: $viewModel.extraSpentLimitText,
+                    label: "limit (empty = none)",
+                    placeholder: "no limit"
+                )
+
+                Text("> optimal limit for unplanned spending (not recurring, planned, or budgets)")
+                    .font(AppFont.mono(size: 11))
+                    .foregroundStyle(palette.muted)
             }
             .frame(maxWidth: .infinity, alignment: .leading)
         }

@@ -11,6 +11,7 @@ enum AppColors {
         let accent: Color
         let accentGlow: Color
         let success: Color
+        let warning: Color
         let danger: Color
         let scanline: Color
         let glow: Color
@@ -30,6 +31,7 @@ enum AppColors {
                 accent: Color(hex: 0xD4D4D4),
                 accentGlow: Color(hex: 0xFFFFFF),
                 success: Color(hex: 0xA3E635),
+                warning: Color(hex: 0xFACC15),
                 danger: Color(hex: 0xF87171),
                 scanline: Color.black.opacity(0.03),
                 glow: Color.white.opacity(0.12),
@@ -46,6 +48,7 @@ enum AppColors {
                 accent: Color(hex: 0x404040),
                 accentGlow: Color(hex: 0x0A0A0A),
                 success: Color(hex: 0x4D7C0F),
+                warning: Color(hex: 0xB45309),
                 danger: Color(hex: 0xF87171),
                 scanline: Color.black.opacity(0.015),
                 glow: Color.black.opacity(0.08),

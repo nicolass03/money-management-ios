@@ -10,6 +10,7 @@ final class SettingsViewModel {
     var primaryScheduleId: String?
     var projectionInitialFreeMoneyText = "0"
     var projectionStartDate = ""
+    var extraSpentLimitText = ""
     var schedules: [IncomePaySchedule] = []
     var isLoading = false
     var isSaving = false
@@ -38,6 +39,9 @@ final class SettingsViewModel {
                     currency: settings.displayCurrency
                 )
                 projectionStartDate = settings.projectionStartDate ?? ""
+                extraSpentLimitText = settings.extraSpentLimit.map {
+                    MoneyFormatter.formatMinorUnitsAsInput($0, currency: settings.displayCurrency)
+                } ?? ""
             }
             schedules = try await deps.dataStore.getSchedules { [deps] in
                 try await deps.api.getIncomeSchedules()
@@ -69,6 +73,20 @@ final class SettingsViewModel {
             request.clearProjectionStartDate = true
         } else {
             request.projectionStartDate = projectionStartDate
+        }
+
+        // Empty input clears the limit; any value must be a positive amount.
+        let trimmedLimit = extraSpentLimitText.trimmingCharacters(in: .whitespaces)
+        if trimmedLimit.isEmpty {
+            request.clearExtraSpentLimit = true
+        } else {
+            guard let limit = MoneyFormatter.parseToMinorUnits(trimmedLimit, currency: displayCurrency),
+                  limit > 0 else {
+                errorMessage = "invalid extra spent limit"
+                Haptics.warning()
+                return false
+            }
+            request.extraSpentLimit = limit
         }
 
         do {

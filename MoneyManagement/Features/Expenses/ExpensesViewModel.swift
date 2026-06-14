@@ -56,6 +56,23 @@ final class ExpensesViewModel {
     periodView?.totalSpend ?? 0
   }
 
+  var extraSpent: Int {
+    periodView?.extraSpent ?? 0
+  }
+
+  /// Limit comparison only applies to the pay period; calendar ranges show extra spend alone.
+  var extraSpentLimit: Int? {
+    guard periodView?.isPayPeriod == true else { return nil }
+    guard let limit = periodView?.extraSpentLimit, limit > 0 else { return nil }
+    return limit
+  }
+
+  /// Fraction of the limit used, or nil when no limit applies. Drives the KPI warning color.
+  var extraSpentUsage: Double? {
+    guard let limit = extraSpentLimit else { return nil }
+    return Double(extraSpent) / Double(limit)
+  }
+
   var periodSubtitle: String? {
     if let period = periodView?.period {
       return "\(period.startDate) → \(period.endDate)"

@@ -29,6 +29,7 @@ struct ExpensesView: View {
           TerminalButton(title: "open settings", action: onOpenSettings)
         } else {
           heroCard
+          extraSpentCard
           quickActions
           expenseList
         }
@@ -105,6 +106,43 @@ struct ExpensesView: View {
     }
   }
 
+  private var extraSpentCard: some View {
+    Group {
+      if isPeriodContentLoading {
+        ExpenseHeroSkeleton()
+      } else {
+        TerminalCard {
+          VStack(alignment: .leading, spacing: 8) {
+            Text("> extra spent")
+              .font(AppFont.mono(size: 12))
+              .foregroundStyle(palette.muted)
+
+            HStack(alignment: .firstTextBaseline, spacing: 8) {
+              Text(deps.formatMoney(viewModel.extraSpent, currency: deps.displayCurrency))
+                .font(AppFont.mono(size: 28, weight: .medium))
+                .foregroundStyle(extraSpentColor)
+
+              if let limit = viewModel.extraSpentLimit {
+                Text("> / \(deps.formatMoney(limit, currency: deps.displayCurrency)) limit")
+                  .font(AppFont.mono(size: 11))
+                  .foregroundStyle(palette.muted)
+              }
+            }
+          }
+          .frame(maxWidth: .infinity, alignment: .leading)
+        }
+      }
+    }
+  }
+
+  // Yellow within 30% of the limit (>=70% used), red within 8% or over it (>=92% used).
+  private var extraSpentColor: Color {
+    guard let usage = viewModel.extraSpentUsage else { return palette.text }
+    if usage >= 0.92 { return palette.danger }
+    if usage >= 0.70 { return palette.warning }
+    return palette.text
+  }
+
   private var quickActions: some View {
     LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 8) {
       NavigationLink(value: ExpensesRoute.recurring) {
@@ -170,10 +208,16 @@ struct ExpensesView: View {
 
     return VStack(alignment: .leading, spacing: 8) {
       HStack(alignment: .firstTextBaseline, spacing: 0) {
-        Text(item.name)
-          .font(AppFont.mono(size: 14))
-          .foregroundStyle(palette.text)
-          .lineLimit(1)
+        HStack(spacing: 6) {
+          Text(item.name)
+            .font(AppFont.mono(size: 14))
+            .foregroundStyle(palette.text)
+            .lineLimit(1)
+
+          if viewModel.canDelete(item) {
+            TerminalBadge(text: "extra", style: .warning)
+          }
+        }
 
         Text(" · ")
           .font(AppFont.mono(size: 14))

@@ -34,6 +34,7 @@ struct UserSettings: Codable, Equatable {
     let primarySchedule: IncomePaySchedule?
     let projectionInitialFreeMoney: Int
     let projectionStartDate: String?
+    let extraSpentLimit: Int?
     let cacheRevision: Int
     let updatedAt: String
 }
@@ -214,10 +215,13 @@ struct PatchSettingsRequest: Encodable {
     var projectionInitialFreeMoney: Int?
     var projectionStartDate: String?
     var clearProjectionStartDate = false
+    var extraSpentLimit: Int?
+    var clearExtraSpentLimit = false
 
     enum CodingKeys: String, CodingKey {
         case displayCurrency, primaryScheduleId
         case projectionInitialFreeMoney, projectionStartDate
+        case extraSpentLimit
     }
 
     func encode(to encoder: Encoder) throws {
@@ -237,6 +241,11 @@ struct PatchSettingsRequest: Encodable {
             try container.encodeNil(forKey: .projectionStartDate)
         } else if let projectionStartDate {
             try container.encode(projectionStartDate, forKey: .projectionStartDate)
+        }
+        if clearExtraSpentLimit {
+            try container.encodeNil(forKey: .extraSpentLimit)
+        } else if let extraSpentLimit {
+            try container.encode(extraSpentLimit, forKey: .extraSpentLimit)
         }
     }
 }
@@ -355,6 +364,11 @@ struct ExpensePeriodViewResponse: Codable, Equatable {
     let items: [ProjectionExpenseItem]
     let totalSpend: Int
     let isPayPeriod: Bool
+    // Actual unplanned spend in the period (expenses not tied to recurring/planned/budget),
+    // converted to the display currency. extraSpentLimit is only surfaced for the pay period.
+    // Optional so the client still decodes responses from an API that predates this field.
+    let extraSpent: Int?
+    let extraSpentLimit: Int?
 }
 
 struct PayPeriodResponse: Codable, Equatable {
