@@ -83,11 +83,53 @@ enum MoneyFormatter {
     let trimmed = text.trimmingCharacters(in: .whitespaces)
     if trimmed.isEmpty { return 0 }
 
-    let cleaned = trimmed
-      .replacingOccurrences(of: "$", with: "")
-      .replacingOccurrences(of: ",", with: "")
-
-    guard let value = Double(cleaned), value.isFinite else { return nil }
+    guard let normalized = normalizeAmountInput(trimmed) else { return nil }
+    guard let value = Double(normalized), value.isFinite else { return nil }
     return Int((value * Double(CurrencyConverter.minorDivisor(for: currency))).rounded())
+  }
+
+  private static func normalizeAmountInput(_ text: String) -> String? {
+    var value = text
+      .replacingOccurrences(of: "$", with: "")
+      .replacingOccurrences(of: "€", with: "")
+      .replacingOccurrences(of: " ", with: "")
+
+    var sign = ""
+    if value.first == "-" {
+      sign = "-"
+      value.removeFirst()
+    }
+
+    guard !value.isEmpty else { return nil }
+
+    let parts = value.split(separator: ".", omittingEmptySubsequences: false)
+    guard parts.count <= 2 else { return nil }
+
+    let integerPart = String(parts[0])
+    let fractionPart = parts.count == 2 ? String(parts[1]) : nil
+    guard isValidIntegerPart(integerPart), isValidFractionPart(fractionPart) else { return nil }
+    guard integerPart.contains(where: \.isNumber) || fractionPart?.contains(where: \.isNumber) == true else { return nil }
+
+    let normalizedInteger = integerPart.replacingOccurrences(of: ",", with: "")
+    return sign + normalizedInteger + (fractionPart.map { ".\($0)" } ?? "")
+  }
+
+  private static func isValidIntegerPart(_ value: String) -> Bool {
+    if value.isEmpty { return true }
+
+    if value.contains(",") {
+      let groups = value.split(separator: ",", omittingEmptySubsequences: false)
+      guard let first = groups.first, (1...3).contains(first.count), first.allSatisfy(\.isNumber) else {
+        return false
+      }
+      return groups.dropFirst().allSatisfy { $0.count == 3 && $0.allSatisfy(\.isNumber) }
+    }
+
+    return value.allSatisfy(\.isNumber)
+  }
+
+  private static func isValidFractionPart(_ value: String?) -> Bool {
+    guard let value else { return true }
+    return value.count <= 2 && value.allSatisfy(\.isNumber)
   }
 }

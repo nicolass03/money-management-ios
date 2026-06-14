@@ -4,14 +4,40 @@ struct AmountTextField: View {
   @Binding var text: String
   var label = "amount"
   var placeholder = "0.00"
+  var allowsNegative = false
 
   var body: some View {
     TerminalTextField(
       label: label,
       placeholder: placeholder,
-      text: $text,
-      keyboardType: .decimalPad
+      text: sanitizedText,
+      keyboardType: .numbersAndPunctuation
     )
+  }
+
+  private var sanitizedText: Binding<String> {
+    Binding(
+      get: { text },
+      set: { text = Self.sanitize($0, allowsNegative: allowsNegative) }
+    )
+  }
+
+  private static func sanitize(_ value: String, allowsNegative: Bool) -> String {
+    var result = ""
+    var hasDecimalSeparator = false
+
+    for character in value {
+      if character.isNumber {
+        result.append(character)
+      } else if character == ".", !hasDecimalSeparator {
+        result.append(character)
+        hasDecimalSeparator = true
+      } else if character == "-", allowsNegative, result.isEmpty {
+        result.append(character)
+      }
+    }
+
+    return result
   }
 }
 

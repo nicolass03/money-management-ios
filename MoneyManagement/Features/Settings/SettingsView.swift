@@ -148,7 +148,8 @@ struct SettingsView: View {
                 AmountTextField(
                     text: $viewModel.projectionInitialFreeMoneyText,
                     label: "initial free money",
-                    placeholder: "0.00"
+                    placeholder: "0.00",
+                    allowsNegative: true
                 )
 
                 TerminalTextField(
