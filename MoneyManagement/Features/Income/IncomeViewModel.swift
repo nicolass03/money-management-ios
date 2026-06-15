@@ -18,6 +18,8 @@ final class IncomeViewModel {
   var showScheduleForm = false
   var incomeSheet: Income?
   var showIncomeForm = false
+  var amountEditEntry: Income?
+  var showAmountForm = false
   var deleteScheduleTarget: IncomePaySchedule?
   var deleteIncomeTarget: Income?
 
@@ -112,7 +114,12 @@ final class IncomeViewModel {
   }
 
   func refreshDisplayedEntries() {
-    displayedEntries = IncomeFilterLogic.filterEntriesForDisplay(entries: incomeEntries, schedules: schedules)
+    displayedEntries = IncomeFilterLogic.filterEntriesForDisplay(entries: incomeEntries)
+  }
+
+  func beginEditAmount(_ entry: Income) {
+    amountEditEntry = entry
+    showAmountForm = true
   }
 
   func deleteSchedule(_ schedule: IncomePaySchedule) async {
@@ -239,6 +246,41 @@ final class IncomeEntryFormModel {
     } else {
       _ = try await deps.api.createIncome(body)
     }
+    deps.invalidateAfter(.incomeChange)
+  }
+}
+
+@Observable
+@MainActor
+final class IncomeAmountFormModel {
+  var amountText = ""
+
+  private let entry: Income
+  private let deps: AppDependencies
+
+  init(deps: AppDependencies, entry: Income) {
+    self.deps = deps
+    self.entry = entry
+    amountText = MoneyFormatter.formatMinorUnitsAsInput(entry.amount, currency: entry.currency)
+  }
+
+  var canSave: Bool { amountMinor != nil }
+
+  var amountMinor: Int? {
+    MoneyFormatter.parseToMinorUnits(amountText, currency: entry.currency)
+  }
+
+  // Amount-only override for materialized scheduled income. Schedule-owned name/date/currency
+  // are sent unchanged; the API applies just the amount override for scheduled rows.
+  func save() async throws {
+    guard let amount = amountMinor else { return }
+    let body = CreateIncomeRequest(
+      name: entry.name,
+      amount: amount,
+      currency: entry.currency,
+      date: entry.date
+    )
+    _ = try await deps.api.updateIncome(id: entry.id, body)
     deps.invalidateAfter(.incomeChange)
   }
 }

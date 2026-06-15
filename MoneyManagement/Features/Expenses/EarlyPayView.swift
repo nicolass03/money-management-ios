@@ -14,8 +14,8 @@ struct EarlyPayView: View {
     TerminalScreen {
       VStack(alignment: .leading, spacing: 20) {
         SectionHeader(
-          title: "early pay",
-          subtitle: "mark upcoming charges as paid in this period"
+          title: L10n.t("early pay"),
+          subtitle: L10n.t("mark upcoming charges as paid in this period")
         )
 
         if let error = viewModel.errorMessage {
@@ -23,7 +23,7 @@ struct EarlyPayView: View {
         }
 
         if viewModel.items.isEmpty && !viewModel.isLoading {
-          EmptyStateCard(message: "> no upcoming charges in the next 30 days.")
+          EmptyStateCard(message: L10n.t("> no upcoming charges in the next 30 days."))
         } else {
           ForEach(viewModel.items) { item in
             earlyPayRow(item)
@@ -57,11 +57,11 @@ struct EarlyPayView: View {
           .foregroundStyle(palette.text)
           .lineLimit(1)
 
-        Text(" · ")
+        Text(L10n.t(" · "))
           .font(AppFont.mono(size: 14))
           .foregroundStyle(palette.muted)
 
-        Text("due \(item.scheduledDate)")
+        Text(String(format: L10n.t("due %@"), item.scheduledDate))
           .font(AppFont.mono(size: 12))
           .foregroundStyle(palette.muted)
           .lineLimit(1)
@@ -143,10 +143,11 @@ struct EarlyPayFormSheet: View {
   }
 
   var body: some View {
-    FormSheet(title: "mark early pay", isSaving: isSaving, canSave: model.canSave, onSave: { Task { await save() } }) {
+    FormSheet(title: L10n.t("mark early pay"), isSaving: isSaving, canSave: model.canSave, onSave: { Task { await save() } }) {
       if let errorMessage { ErrorBanner(message: errorMessage) }
-      TerminalTextField(label: "paid date", placeholder: "YYYY-MM-DD", text: $model.paidDate, keyboardType: .numbersAndPunctuation)
+      TerminalTextField(label: L10n.t("paid date"), placeholder: L10n.t("YYYY-MM-DD"), text: $model.paidDate, keyboardType: .numbersAndPunctuation)
       AmountTextField(text: $model.amountText, placeholder: "45.00")
+      CurrencyPicker(selection: $model.currency)
     }
   }
 

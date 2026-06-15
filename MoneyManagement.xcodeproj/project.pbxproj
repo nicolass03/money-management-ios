@@ -29,10 +29,12 @@
 		46E284A9752709FF6F8B5443 /* RememberedEmailStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7D28A9512AAD18BFE5D61CF /* RememberedEmailStore.swift */; };
 		5065689CF6CD9E85EC343B97 /* LoadingIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F04B35927A4113F40EB9EC /* LoadingIndicator.swift */; };
 		5389E894FE1C9E433ED5B25E /* ProjectionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3685A38DFE9C9424B05C6623 /* ProjectionsViewModel.swift */; };
+		6594B8EAB64934B427B48A20 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 5B1530DC6E723F2BC90A9453 /* Localizable.xcstrings */; };
 		6CC9FC3C1DBEA2844098C28E /* TerminalTagChip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75B5EC51A228D56C98AC1805 /* TerminalTagChip.swift */; };
 		6D59588BCAAE2A48B21B4BFE /* TerminalScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86974C8D4A6C1FEA7D3C7A2D /* TerminalScreen.swift */; };
 		6E5D82AC9CB44C92D6E34DC2 /* PayPeriodLogic.swift in Sources */ = {isa = PBXBuildFile; fileRef = BBBF6DDD2BBCBC8490694B78 /* PayPeriodLogic.swift */; };
 		71FFA7379490452DF90D9739 /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E9A45A0FD9C9E12FCCEA8EA /* APIClient.swift */; };
+		721983DB2181AC386F520A60 /* LanguageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 27F6303290EFF49DCFE78DC8 /* LanguageManager.swift */; };
 		76E4AEFA8AD04BF9C771C693 /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FF0BFE8ADD11190E5219A85 /* APIError.swift */; };
 		7948C9F849FCF88256B161F5 /* ScanlineOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC84F743D4E126BBA38E5973 /* ScanlineOverlay.swift */; };
 		7D636738A6E222FF89417949 /* LoadGeneration.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7B2431E6E998D30577C85DA /* LoadGeneration.swift */; };
@@ -75,7 +77,7 @@
 
 /* Begin PBXFileReference section */
 		01FDEA4728A051DB7662479F /* RecurringExpensesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecurringExpensesView.swift; sourceTree = "<group>"; };
-		02D666CF932699EAF07F0E0E /* Spendfly.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Spendfly.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		02D666CF932699EAF07F0E0E /* MoneyManagement.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = MoneyManagement.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		03A6925A0F38B30A4AD8B4C5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		071D55C1613CEC30B95901FB /* FloatingSettingsButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingSettingsButton.swift; sourceTree = "<group>"; };
 		0E645F17C001D4128F8FCB8D /* TerminalButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerminalButton.swift; sourceTree = "<group>"; };
@@ -88,6 +90,7 @@
 		1E9A45A0FD9C9E12FCCEA8EA /* APIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
 		2175CB7D6CE5104E3B32C874 /* Skeleton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Skeleton.swift; sourceTree = "<group>"; };
 		2306789D19BFA4F8B4BF5E0E /* DataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataStore.swift; sourceTree = "<group>"; };
+		27F6303290EFF49DCFE78DC8 /* LanguageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageManager.swift; sourceTree = "<group>"; };
 		29431F06A9549EC5C4D778DE /* AppConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfig.swift; sourceTree = "<group>"; };
 		2B3953111D13F2294C4A219B /* ExpensesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpensesView.swift; sourceTree = "<group>"; };
 		2B96714C3F865A12FC5DCC41 /* AppDependencies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDependencies.swift; sourceTree = "<group>"; };
@@ -101,6 +104,7 @@
 		5084B3EB3939ADAF5C485A70 /* IncomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncomeViewModel.swift; sourceTree = "<group>"; };
 		578A4B78F8BE959132FBC110 /* TerminalTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerminalTabBar.swift; sourceTree = "<group>"; };
 		58908E2F82D15FBA6A852B51 /* AppColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppColors.swift; sourceTree = "<group>"; };
+		5B1530DC6E723F2BC90A9453 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		608C825292CC570C30595678 /* UpcomingPayableLogic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpcomingPayableLogic.swift; sourceTree = "<group>"; };
 		61ABD1526E9373464ACBD88C /* MoneyManagementApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoneyManagementApp.swift; sourceTree = "<group>"; };
 		66A9CA9A9619966CFBD1E9A6 /* TerminalRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerminalRow.swift; sourceTree = "<group>"; };
@@ -274,6 +278,7 @@
 				24C03A0108119CEF2187A9B5 /* Config */,
 				BEA686ACE22C4091D8F9B464 /* Currency */,
 				0040DC3F81501AB82A4C8488 /* Domain */,
+				E066F3633DC1474C39CD624B /* Localization */,
 				954C56CB5CACC69F46087156 /* Storage */,
 			);
 			path = Core;
@@ -309,7 +314,7 @@
 		86F51444319A78DA9237396C /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				02D666CF932699EAF07F0E0E /* Spendfly.app */,
+				02D666CF932699EAF07F0E0E /* MoneyManagement.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -326,6 +331,7 @@
 			isa = PBXGroup;
 			children = (
 				03A6925A0F38B30A4AD8B4C5 /* Assets.xcassets */,
+				5B1530DC6E723F2BC90A9453 /* Localizable.xcstrings */,
 				45171A12B45F989C61D0D8BF /* Fonts */,
 			);
 			path = Resources;
@@ -392,6 +398,14 @@
 			path = Projections;
 			sourceTree = "<group>";
 		};
+		E066F3633DC1474C39CD624B /* Localization */ = {
+			isa = PBXGroup;
+			children = (
+				27F6303290EFF49DCFE78DC8 /* LanguageManager.swift */,
+			);
+			path = Localization;
+			sourceTree = "<group>";
+		};
 		EB3228509D2AAE837B50FCA9 /* Budgets */ = {
 			isa = PBXGroup;
 			children = (
@@ -430,7 +444,7 @@
 				8B1D36C366F281581EF661C4 /* Supabase */,
 			);
 			productName = MoneyManagement;
-			productReference = 02D666CF932699EAF07F0E0E /* Spendfly.app */;
+			productReference = 02D666CF932699EAF07F0E0E /* MoneyManagement.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -443,6 +457,7 @@
 				LastUpgradeCheck = 1500;
 				TargetAttributes = {
 					86B843960D6BC50ACA96B829 = {
+						DevelopmentTeam = "";
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -453,6 +468,7 @@
 			knownRegions = (
 				Base,
 				en,
+				es,
 			);
 			mainGroup = 82948D5B66B8E8334C2268DD;
 			minimizedProjectReferenceProxies = 1;
@@ -477,6 +493,7 @@
 				08DD72596EB8666714874A7A /* Assets.xcassets in Resources */,
 				FC39E62ACD9E57F1AC671A69 /* JetBrainsMono-Medium.ttf in Resources */,
 				23A44BA165603EBB391D4E2F /* JetBrainsMono-Regular.ttf in Resources */,
+				6594B8EAB64934B427B48A20 /* Localizable.xcstrings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -512,6 +529,7 @@
 				FF5C1307F00421BECFD8FB81 /* IncomeView.swift in Sources */,
 				8C2085B865A9D5F5FA3F2D80 /* IncomeViewModel.swift in Sources */,
 				C23A893EC8775180F4D995D3 /* InvalidationMap.swift in Sources */,
+				721983DB2181AC386F520A60 /* LanguageManager.swift in Sources */,
 				7D636738A6E222FF89417949 /* LoadGeneration.swift in Sources */,
 				5065689CF6CD9E85EC343B97 /* LoadingIndicator.swift in Sources */,
 				FFDA0231E9904932B59F9F89 /* LoginView.swift in Sources */,
@@ -617,7 +635,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = G6Y64763QH;
+				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = MoneyManagement/Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -640,7 +658,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = G6Y64763QH;
+				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = MoneyManagement/Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (

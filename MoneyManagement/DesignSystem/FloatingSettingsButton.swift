@@ -18,6 +18,6 @@ struct FloatingSettingsButton: View {
                 .shadow(color: palette.glow, radius: 8, x: 0, y: 2)
         }
         .buttonStyle(.plain)
-        .accessibilityLabel("Settings")
+        .accessibilityLabel(L10n.t("Settings"))
     }
 }

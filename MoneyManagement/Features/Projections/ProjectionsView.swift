@@ -10,7 +10,7 @@ struct ProjectionsView: View {
     TerminalScreen {
       VStack(alignment: .leading, spacing: 20) {
         HStack {
-          SectionHeader(title: "projections", subtitle: "cash flow by pay period")
+          SectionHeader(title: L10n.t("projections"), subtitle: L10n.t("cash flow by pay period"))
           Spacer()
           if viewModel.isLoading || deps.isLoadingContext {
             Skeleton()
@@ -31,17 +31,17 @@ struct ProjectionsView: View {
           ProjectionsListSkeleton()
         } else if viewModel.needsPrimarySchedule {
           EmptyStateCard(
-            message: "> no primary pay schedule.",
-            footnote: "> configure in settings to see projections."
+            message: L10n.t("> no primary pay schedule."),
+            footnote: L10n.t("> configure in settings to see projections.")
           )
-          TerminalButton(title: "open settings", action: onOpenSettings)
+          TerminalButton(title: L10n.t("open settings"), action: onOpenSettings)
         } else if let response = viewModel.response {
-          Text("> \(response.primarySchedule.name) · \(response.displayCurrency.label)")
+          Text(String(format: L10n.t("> %@ · %@"), response.primarySchedule.name, response.displayCurrency.label))
             .font(AppFont.mono(size: 12))
             .foregroundStyle(palette.muted)
 
           if viewModel.displayRows.isEmpty {
-            EmptyStateCard(message: "> no projection rows.")
+            EmptyStateCard(message: L10n.t("> no projection rows."))
           } else {
             ForEach(viewModel.displayRows) { row in
               projectionRow(row, displayCurrency: response.displayCurrency, rates: response.rates)
@@ -76,7 +76,7 @@ struct ProjectionsView: View {
 
           HStack(alignment: .bottom, spacing: 12) {
             projectionAmountColumn(
-              label: "accumulated",
+              label: L10n.t("accumulated"),
               amount: row.cumulativeFree,
               currency: displayCurrency,
               alignment: .leading
@@ -85,7 +85,7 @@ struct ProjectionsView: View {
             Spacer(minLength: 12)
 
             projectionAmountColumn(
-              label: "free",
+              label: L10n.t("free"),
               amount: row.periodFree,
               currency: displayCurrency,
               alignment: .trailing
@@ -104,7 +104,7 @@ struct ProjectionsView: View {
               .foregroundStyle(palette.text)
               .lineLimit(1)
 
-            Text(" · ")
+            Text(L10n.t(" · "))
               .font(AppFont.mono(size: 12))
               .foregroundStyle(palette.muted)
 
@@ -152,7 +152,7 @@ struct ProjectionsView: View {
     alignment: HorizontalAlignment
   ) -> some View {
     VStack(alignment: alignment == .leading ? .leading : .trailing, spacing: 4) {
-      Text("> \(label)")
+      Text(String(format: L10n.t("> %@"), label))
         .font(AppFont.mono(size: 10))
         .foregroundStyle(palette.muted)
 
@@ -167,7 +167,7 @@ struct ProjectionsView: View {
 
   private func formatPeriodEndLabel(_ iso: String) -> String {
     guard let date = Self.isoDateFormatter.date(from: iso) else { return iso }
-    return Self.periodEndFormatter.string(from: date)
+    return Self.periodEndFormatter().string(from: date)
   }
 
   private func formatPeriodRange(_ start: String, _ end: String) -> String {
@@ -178,8 +178,9 @@ struct ProjectionsView: View {
       return "\(start) – \(end)"
     }
 
-    let startLabel = Self.periodRangeFormatter.string(from: startDate)
-    let endLabel = Self.periodRangeFormatter.string(from: endDate)
+    let formatter = Self.periodRangeFormatter()
+    let startLabel = formatter.string(from: startDate)
+    let endLabel = formatter.string(from: endDate)
     return "\(startLabel) – \(endLabel)"
   }
 
@@ -190,19 +191,19 @@ struct ProjectionsView: View {
     return formatter
   }()
 
-  private static let periodEndFormatter: DateFormatter = {
+  private static func periodEndFormatter() -> DateFormatter {
     let formatter = DateFormatter()
-    formatter.locale = Locale(identifier: "en_US")
+    formatter.locale = Locale.current
     formatter.dateFormat = "MMM, dd"
     formatter.timeZone = TimeZone.current
     return formatter
-  }()
+  }
 
-  private static let periodRangeFormatter: DateFormatter = {
+  private static func periodRangeFormatter() -> DateFormatter {
     let formatter = DateFormatter()
-    formatter.locale = Locale(identifier: "en_US")
+    formatter.locale = Locale.current
     formatter.dateFormat = "MMM d, yyyy"
     formatter.timeZone = TimeZone.current
     return formatter
-  }()
+  }
 }

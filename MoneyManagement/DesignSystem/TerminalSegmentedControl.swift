@@ -35,8 +35,8 @@ enum IncomeSection: String, CaseIterable, Identifiable, CustomStringConvertible 
   var id: String { rawValue }
   var description: String {
     switch self {
-    case .schedules: "schedules"
-    case .entries: "entries"
+    case .schedules: L10n.t("schedules")
+    case .entries: L10n.t("entries")
     }
   }
 }

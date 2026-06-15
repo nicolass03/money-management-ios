@@ -31,7 +31,7 @@ struct ExpenseHeroSkeleton: View {
       .frame(maxWidth: .infinity, alignment: .leading)
     }
     .accessibilityElement(children: .combine)
-    .accessibilityLabel("loading period")
+    .accessibilityLabel(L10n.t("loading period"))
   }
 }
 
@@ -61,13 +61,13 @@ struct ExpensePeriodListSkeleton: View {
       }
     }
     .accessibilityElement(children: .combine)
-    .accessibilityLabel("loading spendings")
+    .accessibilityLabel(L10n.t("loading spendings"))
   }
 }
 
 struct CardListSkeleton: View {
   var count: Int = 3
-  var label: String = "loading"
+  var label: String = L10n.t("loading")
 
   var body: some View {
     VStack(spacing: 16) {
@@ -139,6 +139,6 @@ struct ProjectionsListSkeleton: View {
       }
     }
     .accessibilityElement(children: .combine)
-    .accessibilityLabel("loading projections")
+    .accessibilityLabel(L10n.t("loading projections"))
   }
 }

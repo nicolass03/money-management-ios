@@ -6,6 +6,7 @@ import Observation
 final class SettingsViewModel {
     private let deps: AppDependencies
 
+    var language: AppLanguage = .en
     var displayCurrency: CurrencyCode = .eur
     var primaryScheduleId: String?
     var projectionInitialFreeMoneyText = "0"
@@ -32,6 +33,7 @@ final class SettingsViewModel {
 
             try await deps.refreshSharedContext()
             if let settings = deps.settings {
+                language = settings.language
                 displayCurrency = settings.displayCurrency
                 primaryScheduleId = settings.primaryScheduleId
                 projectionInitialFreeMoneyText = MoneyFormatter.formatMinorUnitsAsInput(
@@ -60,7 +62,7 @@ final class SettingsViewModel {
             projectionInitialFreeMoneyText,
             currency: displayCurrency
         ) else {
-            errorMessage = "invalid initial free money amount"
+            errorMessage = L10n.t("invalid initial free money amount")
             Haptics.warning()
             return false
         }
@@ -82,7 +84,7 @@ final class SettingsViewModel {
         } else {
             guard let limit = MoneyFormatter.parseToMinorUnits(trimmedLimit, currency: displayCurrency),
                   limit > 0 else {
-                errorMessage = "invalid extra spent limit"
+                errorMessage = L10n.t("invalid extra spent limit")
                 Haptics.warning()
                 return false
             }
@@ -93,6 +95,21 @@ final class SettingsViewModel {
             _ = try await deps.api.patchSettings(request)
             deps.invalidateAfter(.settingsChange)
             try await deps.refreshSharedContext(force: true)
+            Haptics.success()
+            return true
+        } catch {
+            errorMessage = error.localizedDescription
+            Haptics.warning()
+            return false
+        }
+    }
+
+    func updateLanguage(_ language: AppLanguage) async -> Bool {
+        do {
+            _ = try await deps.api.patchSettings(PatchSettingsRequest(language: language))
+            deps.invalidateAfter(.settingsChange)
+            try await deps.refreshSharedContext(force: true)
+            self.language = language
             Haptics.success()
             return true
         } catch {

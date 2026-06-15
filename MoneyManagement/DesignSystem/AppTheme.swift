@@ -7,16 +7,19 @@ enum AppThemeMode: String, CaseIterable {
 
     var label: String {
         switch self {
-        case .dark: "theme: dark"
-        case .light: "theme: light"
-        case .system: "theme: system"
+        case .dark: L10n.t("theme: dark")
+        case .light: L10n.t("theme: light")
+        case .system: L10n.t("theme: system")
         }
     }
 
     func label(resolvedScheme: ColorScheme) -> String {
         switch self {
         case .system:
-            "theme: system (\(resolvedScheme == .dark ? "dark" : "light"))"
+            String(
+                format: L10n.t("theme: system (%@)"),
+                L10n.t(resolvedScheme == .dark ? "dark" : "light")
+            )
         default:
             label
         }

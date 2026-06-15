@@ -9,7 +9,7 @@ struct BudgetsView: View {
     TerminalScreen {
       VStack(alignment: .leading, spacing: 20) {
         HStack {
-          SectionHeader(title: "budgets", subtitle: "allocated spending pools")
+          SectionHeader(title: L10n.t("budgets"), subtitle: L10n.t("allocated spending pools"))
           Spacer()
           if viewModel.isLoading || deps.isLoadingContext {
             Skeleton()
@@ -24,20 +24,20 @@ struct BudgetsView: View {
         }
 
         if !viewModel.isLoading && !deps.isLoadingContext {
-          TerminalButton(title: "+ add budget") {
+          TerminalButton(title: L10n.t("+ add budget")) {
             viewModel.editingBudget = nil
             viewModel.showBudgetForm = true
           }
         }
 
         if viewModel.isLoading || deps.isLoadingContext {
-          CardListSkeleton(count: 3, label: "loading budgets")
+          CardListSkeleton(count: 3, label: L10n.t("loading budgets"))
         } else if viewModel.budgets.isEmpty {
-          EmptyStateCard(message: "> no budgets yet.")
+          EmptyStateCard(message: L10n.t("> no budgets yet."))
         } else {
           ForEach(viewModel.groupedBudgets, id: \.0) { status, items in
             VStack(alignment: .leading, spacing: 10) {
-              Text("> \(status.label)")
+              Text(String(format: L10n.t("> %@"), status.label))
                 .font(AppFont.mono(size: 12, weight: .medium))
                 .foregroundStyle(palette.muted)
 
@@ -71,21 +71,21 @@ struct BudgetsView: View {
         .presentationDetents([.medium])
       }
     }
-    .confirmationDialog("Delete budget?", isPresented: Binding(
+    .confirmationDialog(L10n.t("Delete budget?"), isPresented: Binding(
       get: { viewModel.deleteBudgetTarget != nil },
       set: { if !$0 { viewModel.deleteBudgetTarget = nil } }
     )) {
-      Button("delete", role: .destructive) {
+      Button(L10n.t("delete"), role: .destructive) {
         if let target = viewModel.deleteBudgetTarget {
           Task { await viewModel.deleteBudget(target) }
         }
       }
     }
-    .confirmationDialog("Delete expense?", isPresented: Binding(
+    .confirmationDialog(L10n.t("Delete expense?"), isPresented: Binding(
       get: { viewModel.deleteExpenseTarget != nil },
       set: { if !$0 { viewModel.deleteExpenseTarget = nil } }
     )) {
-      Button("delete", role: .destructive) {
+      Button(L10n.t("delete"), role: .destructive) {
         if let target = viewModel.deleteExpenseTarget {
           Task { await viewModel.deleteBudgetExpense(budgetId: target.budgetId, expense: target.expense) }
         }
@@ -113,18 +113,18 @@ struct BudgetsView: View {
             }
 
             if let start = budget.startDate, let end = budget.endDate {
-              Text("> \(start) → \(end)")
+              Text(String(format: L10n.t("> %@ → %@"), start, end))
                 .font(AppFont.mono(size: 11))
                 .foregroundStyle(palette.muted)
             } else {
-              Text("> open-ended")
+              Text(L10n.t("> open-ended"))
                 .font(AppFont.mono(size: 11))
                 .foregroundStyle(palette.muted)
             }
 
             HStack {
               MoneyLabel(amount: budget.spent, currency: budget.currency, displayCurrency: deps.displayCurrency, rates: deps.rates, size: 12)
-              Text("/")
+              Text(L10n.t("/"))
                 .font(AppFont.mono(size: 12))
                 .foregroundStyle(palette.muted)
               MoneyLabel(amount: budget.amount, currency: budget.currency, displayCurrency: deps.displayCurrency, rates: deps.rates, size: 12)
@@ -138,14 +138,14 @@ struct BudgetsView: View {
         if isExpanded {
           VStack(alignment: .leading, spacing: 8) {
             HStack(spacing: 8) {
-              Button("edit") {
+              Button(L10n.t("edit")) {
                 viewModel.editingBudget = budget
                 viewModel.showBudgetForm = true
               }
               .font(AppFont.mono(size: 12))
               .foregroundStyle(palette.accent)
 
-              Button("delete") {
+              Button(L10n.t("delete")) {
                 viewModel.deleteBudgetTarget = budget
               }
               .font(AppFont.mono(size: 12))
@@ -153,7 +153,7 @@ struct BudgetsView: View {
 
               Spacer()
 
-              Button("+ expense") {
+              Button(L10n.t("+ expense")) {
                 viewModel.expenseBudgetId = budget.id
                 viewModel.showExpenseForm = true
               }
@@ -162,7 +162,7 @@ struct BudgetsView: View {
             }
 
             if viewModel.loadingExpenses.contains(budget.id) {
-              CardListSkeleton(count: 1, label: "loading budget expenses")
+              CardListSkeleton(count: 1, label: L10n.t("loading budget expenses"))
             } else if let expenses = viewModel.budgetExpenses[budget.id], !expenses.isEmpty {
               ForEach(expenses) { expense in
                 HStack {
@@ -170,7 +170,7 @@ struct BudgetsView: View {
                     Text(expense.name)
                       .font(AppFont.mono(size: 12))
                       .foregroundStyle(palette.text)
-                    Text("> \(expense.date)")
+                    Text(String(format: L10n.t("> %@"), expense.date))
                       .font(AppFont.mono(size: 10))
                       .foregroundStyle(palette.muted)
                   }
@@ -188,7 +188,7 @@ struct BudgetsView: View {
                 .padding(.vertical, 4)
               }
             } else {
-              Text("> no expenses in this budget.")
+              Text(L10n.t("> no expenses in this budget."))
                 .font(AppFont.mono(size: 11))
                 .foregroundStyle(palette.muted)
             }
@@ -214,17 +214,17 @@ private struct BudgetFormSheet: View {
 
   var body: some View {
     FormSheet(
-      title: model.isEditing ? "edit budget" : "add budget",
+      title: model.isEditing ? L10n.t("edit budget") : L10n.t("add budget"),
       isSaving: isSaving,
       canSave: model.canSave,
       onSave: { Task { await save() } }
     ) {
       if let errorMessage { ErrorBanner(message: errorMessage) }
-      TerminalTextField(label: "name", placeholder: "vacation", text: $model.name)
+      TerminalTextField(label: L10n.t("name"), placeholder: L10n.t("vacation"), text: $model.name)
       AmountTextField(text: $model.amountText, placeholder: "1500.00")
       CurrencyPicker(selection: $model.currency)
-      TerminalTextField(label: "start date (optional)", placeholder: "YYYY-MM-DD", text: $model.startDate, keyboardType: .numbersAndPunctuation)
-      TerminalTextField(label: "end date (optional)", placeholder: "YYYY-MM-DD", text: $model.endDate, keyboardType: .numbersAndPunctuation)
+      TerminalTextField(label: L10n.t("start date (optional)"), placeholder: L10n.t("YYYY-MM-DD"), text: $model.startDate, keyboardType: .numbersAndPunctuation)
+      TerminalTextField(label: L10n.t("end date (optional)"), placeholder: L10n.t("YYYY-MM-DD"), text: $model.endDate, keyboardType: .numbersAndPunctuation)
       TagsInputField(tagsText: $model.tagsText)
     }
   }
@@ -258,15 +258,15 @@ private struct BudgetExpenseFormSheet: View {
 
   var body: some View {
     FormSheet(
-      title: "add budget expense",
+      title: L10n.t("add budget expense"),
       isSaving: isSaving,
       canSave: model.canSave,
       onSave: { Task { await save() } }
     ) {
       if let errorMessage { ErrorBanner(message: errorMessage) }
-      TerminalTextField(label: "name (optional)", placeholder: "item", text: $model.name)
+      TerminalTextField(label: L10n.t("name (optional)"), placeholder: L10n.t("item"), text: $model.name)
       AmountTextField(text: $model.amountText, placeholder: "50.00")
-      TerminalTextField(label: "date", placeholder: "YYYY-MM-DD", text: $model.date, keyboardType: .numbersAndPunctuation)
+      TerminalTextField(label: L10n.t("date"), placeholder: L10n.t("YYYY-MM-DD"), text: $model.date, keyboardType: .numbersAndPunctuation)
     }
   }
 

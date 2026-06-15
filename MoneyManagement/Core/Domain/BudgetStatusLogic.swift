@@ -3,7 +3,15 @@ import Foundation
 enum BudgetStatus: String, CaseIterable, Hashable {
     case active, upcoming, open, ended, depleted
 
-    var label: String { rawValue }
+    var label: String {
+        switch self {
+        case .active: L10n.t("active")
+        case .upcoming: L10n.t("upcoming")
+        case .open: L10n.t("open")
+        case .ended: L10n.t("ended")
+        case .depleted: L10n.t("depleted")
+        }
+    }
 }
 
 enum BudgetStatusLogic {

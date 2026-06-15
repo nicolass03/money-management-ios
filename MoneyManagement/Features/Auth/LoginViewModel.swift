@@ -42,13 +42,13 @@ final class LoginViewModel {
         let message = error.localizedDescription.lowercased()
 
         if message.contains("too many") || message.contains("rate") {
-            return "$ auth failed: too many attempts, try again later"
+            return L10n.t("$ auth failed: too many attempts, try again later")
         }
 
         if message.contains("network") || message.contains("internet") || message.contains("offline") {
-            return "$ auth failed: connection error"
+            return L10n.t("$ auth failed: connection error")
         }
 
-        return "$ auth failed: invalid credentials"
+        return L10n.t("$ auth failed: invalid credentials")
     }
 }

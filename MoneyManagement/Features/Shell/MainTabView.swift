@@ -3,6 +3,7 @@ import SwiftUI
 struct MainTabView: View {
     let sessionStore: SessionStore
     let themeManager: ThemeManager
+    let languageManager: LanguageManager
 
     @Environment(\.scenePhase) private var scenePhase
 
@@ -17,10 +18,11 @@ struct MainTabView: View {
     @State private var projectionsViewModel: ProjectionsViewModel
     @State private var settingsViewModel: SettingsViewModel
 
-    init(sessionStore: SessionStore, themeManager: ThemeManager) {
+    init(sessionStore: SessionStore, themeManager: ThemeManager, languageManager: LanguageManager) {
         self.sessionStore = sessionStore
         self.themeManager = themeManager
-        let deps = AppDependencies(sessionStore: sessionStore)
+        self.languageManager = languageManager
+        let deps = AppDependencies(sessionStore: sessionStore, languageManager: languageManager)
         _deps = State(initialValue: deps)
         _expensesViewModel = State(initialValue: ExpensesViewModel(deps: deps))
         _budgetsViewModel = State(initialValue: BudgetsViewModel(deps: deps))
@@ -74,6 +76,7 @@ struct MainTabView: View {
             SettingsView(
                 sessionStore: sessionStore,
                 themeManager: themeManager,
+                languageManager: languageManager,
                 viewModel: settingsViewModel,
                 onSaved: { settingsDidSave = true }
             )

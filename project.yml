@@ -26,6 +26,7 @@ targets:
     resources:
       - path: MoneyManagement/Resources/Assets.xcassets
       - path: MoneyManagement/Resources/Fonts
+      - path: MoneyManagement/Resources/Localizable.xcstrings
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.nicolass03.spendfly

@@ -38,7 +38,7 @@ enum LoadingIndicatorVariant {
 struct LoadingIndicator: View {
     @Environment(\.appPalette) private var palette
 
-    var label: String = "loading"
+    var label: String = L10n.t("loading")
     var variant: LoadingIndicatorVariant = .page
 
     var body: some View {
@@ -78,7 +78,7 @@ struct LoadingIndicator: View {
                 TerminalLoadingBar()
                     .frame(height: 4)
 
-                Text("// please wait...")
+                Text(L10n.t("// please wait..."))
                     .font(AppFont.mono(size: 10))
                     .foregroundStyle(palette.muted)
             }
@@ -139,7 +139,7 @@ private struct TerminalLoadingBar: View {
 struct LoadingOverlay: View {
     @Environment(\.appPalette) private var palette
 
-    var label: String = "fetching data"
+    var label: String = L10n.t("fetching data")
 
     var body: some View {
         ZStack {
@@ -156,7 +156,7 @@ struct LoadingOverlay: View {
 struct LoadingCardOverlay: View {
     @Environment(\.appPalette) private var palette
 
-    var label: String = "authenticating"
+    var label: String = L10n.t("authenticating")
 
     var body: some View {
         palette.surface.opacity(0.9)
@@ -173,7 +173,7 @@ struct LoadingCardOverlay: View {
 struct SectionLoadingMask: View {
     @Environment(\.appPalette) private var palette
 
-    var label: String = "loading"
+    var label: String = L10n.t("loading")
     var minHeight: CGFloat = 120
 
     var body: some View {

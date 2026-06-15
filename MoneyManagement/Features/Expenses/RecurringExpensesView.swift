@@ -13,19 +13,19 @@ struct RecurringExpensesView: View {
   var body: some View {
     TerminalScreen {
       VStack(alignment: .leading, spacing: 20) {
-        SectionHeader(title: "recurring", subtitle: "subscription and recurring payments")
+        SectionHeader(title: L10n.t("recurring"), subtitle: L10n.t("subscription and recurring payments"))
 
         if let error = viewModel.errorMessage {
           ErrorBanner(message: error) { Task { await viewModel.load() } }
         }
 
-        TerminalButton(title: "+ add recurring") {
+        TerminalButton(title: L10n.t("+ add recurring")) {
           viewModel.editing = nil
           viewModel.showForm = true
         }
 
         if viewModel.items.isEmpty && !viewModel.isLoading {
-          EmptyStateCard(message: "> no recurring expenses yet.")
+          EmptyStateCard(message: L10n.t("> no recurring expenses yet."))
         } else {
           ForEach(viewModel.items) { item in
             recurringCard(item)
@@ -44,11 +44,11 @@ struct RecurringExpensesView: View {
       }
       .presentationDetents([.medium, .large])
     }
-    .confirmationDialog("Delete recurring expense?", isPresented: Binding(
+    .confirmationDialog(L10n.t("Delete recurring expense?"), isPresented: Binding(
       get: { viewModel.deleteTarget != nil },
       set: { if !$0 { viewModel.deleteTarget = nil } }
     )) {
-      Button("delete", role: .destructive) {
+      Button(L10n.t("delete"), role: .destructive) {
         if let target = viewModel.deleteTarget {
           Task { await viewModel.delete(target) }
         }
@@ -64,13 +64,13 @@ struct RecurringExpensesView: View {
             .font(AppFont.mono(size: 14, weight: .medium))
             .foregroundStyle(palette.text)
           if item.isSubscription {
-            TerminalBadge(text: "sub", style: .muted)
+            TerminalBadge(text: L10n.t("sub"), style: .muted)
           }
           Spacer()
           MoneyLabel(amount: item.amount, currency: item.currency, displayCurrency: deps.displayCurrency, rates: deps.rates)
         }
 
-        Text("> \(item.frequency.label) · anchor \(item.anchorDate)")
+        Text(String(format: L10n.t("> %@ · anchor %@"), item.frequency.label, item.anchorDate))
           .font(AppFont.mono(size: 11))
           .foregroundStyle(palette.muted)
 
@@ -79,7 +79,7 @@ struct RecurringExpensesView: View {
           count: 2
         )
         if !dates.isEmpty {
-          Text("> next: \(dates.joined(separator: ", "))")
+          Text(String(format: L10n.t("> next: %@"), dates.joined(separator: ", ")))
             .font(AppFont.mono(size: 11))
             .foregroundStyle(palette.muted)
         }
@@ -87,14 +87,14 @@ struct RecurringExpensesView: View {
         TerminalTagFlow(tags: item.tags)
 
         HStack(spacing: 8) {
-          Button("edit") {
+          Button(L10n.t("edit")) {
             viewModel.editing = item
             viewModel.showForm = true
           }
           .font(AppFont.mono(size: 12))
           .foregroundStyle(palette.accent)
 
-          Button("delete") {
+          Button(L10n.t("delete")) {
             viewModel.deleteTarget = item
           }
           .font(AppFont.mono(size: 12))
@@ -122,20 +122,20 @@ private struct RecurringExpenseFormSheet: View {
 
   var body: some View {
     FormSheet(
-      title: model.isEditing ? "edit recurring" : "add recurring",
+      title: model.isEditing ? L10n.t("edit recurring") : L10n.t("add recurring"),
       isSaving: isSaving,
       canSave: model.canSave,
       onSave: { Task { await save() } }
     ) {
       if let errorMessage { ErrorBanner(message: errorMessage) }
-      TerminalTextField(label: "name", placeholder: "netflix", text: $model.name)
-      TerminalTextField(label: "anchor date", placeholder: "YYYY-MM-DD", text: $model.anchorDate, keyboardType: .numbersAndPunctuation)
+      TerminalTextField(label: L10n.t("name"), placeholder: L10n.t("netflix"), text: $model.name)
+      TerminalTextField(label: L10n.t("anchor date"), placeholder: L10n.t("YYYY-MM-DD"), text: $model.anchorDate, keyboardType: .numbersAndPunctuation)
       FrequencyPicker(selection: $model.frequency)
       AmountTextField(text: $model.amountText, placeholder: "1500.00")
       CurrencyPicker(selection: $model.currency)
       TagsInputField(tagsText: $model.tagsText, knownTags: knownTags)
       SubscriptionToggle(isSubscription: $model.isSubscription)
-      TerminalTextField(label: "last payment date (optional)", placeholder: "YYYY-MM-DD", text: $model.lastPaymentDate, keyboardType: .numbersAndPunctuation)
+      TerminalTextField(label: L10n.t("last payment date (optional)"), placeholder: L10n.t("YYYY-MM-DD"), text: $model.lastPaymentDate, keyboardType: .numbersAndPunctuation)
     }
   }
 

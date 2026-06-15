@@ -46,6 +46,6 @@ struct ThemeSwitcherButton: View {
                 .padding(.horizontal, 12)
                 .padding(.vertical, 8)
         }
-        .accessibilityLabel("Cycle theme: dark, light, or system")
+        .accessibilityLabel(L10n.t("Cycle theme: dark, light, or system"))
     }
 }

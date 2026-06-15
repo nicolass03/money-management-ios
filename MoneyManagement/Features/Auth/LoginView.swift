@@ -32,7 +32,7 @@ struct LoginView: View {
                     TerminalCard(showsGlow: false) {
                         VStack(spacing: 16) {
                             TerminalTextField(
-                                label: "enter email:",
+                                label: L10n.t("enter email:"),
                                 placeholder: "you@example.com",
                                 text: $viewModel.email,
                                 keyboardType: .emailAddress,
@@ -45,7 +45,7 @@ struct LoginView: View {
                             .focused($focusedField, equals: .email)
 
                             TerminalTextField(
-                                label: "enter password:",
+                                label: L10n.t("enter password:"),
                                 placeholder: "••••••••",
                                 text: $viewModel.password,
                                 isSecure: true,
@@ -66,7 +66,9 @@ struct LoginView: View {
                             }
 
                             TerminalButton(
-                                title: viewModel.isLoading ? "authenticating..." : "authenticate",
+                                title: viewModel.isLoading
+                                    ? L10n.t("authenticating...")
+                                    : L10n.t("authenticate"),
                                 isLoading: viewModel.isLoading,
                                 showsGlow: true
                             ) {
@@ -76,7 +78,7 @@ struct LoginView: View {
                     }
                     .overlay {
                         if viewModel.isLoading {
-                            LoadingCardOverlay(label: "authenticating")
+                            LoadingCardOverlay(label: L10n.t("authenticating"))
                         }
                     }
                 }
@@ -123,7 +125,7 @@ struct LoginView: View {
                 Image(systemName: viewModel.rememberMe ? "checkmark.square.fill" : "square")
                     .font(.system(size: 14))
                     .foregroundStyle(viewModel.rememberMe ? palette.accent : palette.muted)
-                Text("remember me")
+                Text(L10n.t("remember me"))
                     .font(AppFont.mono(size: 12))
                     .foregroundStyle(palette.muted)
                 Spacer()

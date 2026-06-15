@@ -2,7 +2,7 @@ import SwiftUI
 
 struct AmountTextField: View {
   @Binding var text: String
-  var label = "amount"
+  var label = L10n.t("amount")
   var placeholder = "0.00"
   var allowsNegative = false
 
@@ -45,7 +45,7 @@ struct CurrencyPicker: View {
   @Binding var selection: CurrencyCode
 
   var body: some View {
-    Picker("currency", selection: $selection) {
+    Picker(L10n.t("currency"), selection: $selection) {
       ForEach(CurrencyCode.allCases) { currency in
         Text(currency.label).tag(currency)
       }
@@ -58,7 +58,7 @@ struct FrequencyPicker: View {
   @Binding var selection: PayFrequency
 
   var body: some View {
-    Picker("frequency", selection: $selection) {
+    Picker(L10n.t("frequency"), selection: $selection) {
       ForEach(PayFrequency.allCases) { frequency in
         Text(frequency.label).tag(frequency)
       }
@@ -76,7 +76,7 @@ struct TagsInputField: View {
   var body: some View {
     VStack(alignment: .leading, spacing: 8) {
       TerminalTextField(
-        label: "tags (comma-separated)",
+        label: L10n.t("tags (comma-separated)"),
         placeholder: "food, bills",
         text: $tagsText
       )
@@ -114,7 +114,7 @@ struct SubscriptionToggle: View {
 
   var body: some View {
     Toggle(isOn: $isSubscription) {
-      Text("subscription")
+      Text(L10n.t("subscription"))
         .font(AppFont.mono(size: 14))
         .foregroundStyle(palette.text)
     }

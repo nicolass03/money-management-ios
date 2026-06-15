@@ -26,7 +26,7 @@ struct FormSheet<Content: View>: View {
       .navigationBarTitleDisplayMode(.inline)
       .toolbar {
         ToolbarItem(placement: .cancellationAction) {
-          Button("cancel") { dismiss() }
+          Button(L10n.t("cancel")) { dismiss() }
             .font(AppFont.mono(size: 12))
             .foregroundStyle(palette.muted)
             .disabled(isSaving)
@@ -37,7 +37,7 @@ struct FormSheet<Content: View>: View {
             .foregroundStyle(palette.text)
         }
         ToolbarItem(placement: .confirmationAction) {
-          Button(isSaving ? "..." : "save") { onSave() }
+          Button(isSaving ? "..." : L10n.t("save")) { onSave() }
             .font(AppFont.mono(size: 12, weight: .medium))
             .foregroundStyle(canSave && !isSaving ? palette.accent : palette.muted)
             .disabled(!canSave || isSaving)
@@ -62,7 +62,7 @@ struct ErrorBanner: View {
           .frame(maxWidth: .infinity, alignment: .leading)
 
         if let onRetry {
-          Button("retry", action: onRetry)
+          Button(L10n.t("retry"), action: onRetry)
             .font(AppFont.mono(size: 12, weight: .medium))
             .foregroundStyle(palette.accent)
         }

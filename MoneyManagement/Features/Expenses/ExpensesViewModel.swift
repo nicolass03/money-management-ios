@@ -272,6 +272,7 @@ final class ExpenseAmountFormModel {
 final class EarlyPayFormModel {
   var paidDate = PayPeriodLogic.todayISO()
   var amountText = ""
+  var currency: CurrencyCode
 
   private let item: PayableFutureItem
   private let deps: AppDependencies
@@ -279,13 +280,14 @@ final class EarlyPayFormModel {
   init(deps: AppDependencies, item: PayableFutureItem) {
     self.deps = deps
     self.item = item
+    currency = item.currency
     amountText = MoneyFormatter.formatMinorUnitsAsInput(item.amount, currency: item.currency)
   }
 
   var canSave: Bool { amountMinor != nil }
 
   var amountMinor: Int? {
-    MoneyFormatter.parseToMinorUnits(amountText, currency: item.currency)
+    MoneyFormatter.parseToMinorUnits(amountText, currency: currency)
   }
 
   func save() async throws {
@@ -295,7 +297,7 @@ final class EarlyPayFormModel {
       scheduledDate: item.scheduledDate,
       paidDate: paidDate,
       amount: amount,
-      currency: item.currency,
+      currency: currency,
       recurringId: item.recurringId,
       plannedExpenseId: item.plannedExpenseId
     )

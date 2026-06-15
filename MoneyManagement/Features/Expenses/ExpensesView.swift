@@ -10,8 +10,8 @@ struct ExpensesView: View {
     TerminalScreen {
       VStack(alignment: .leading, spacing: 20) {
         SectionHeader(
-          title: "expenses",
-          subtitle: viewModel.periodSubtitle ?? "analytics and spend by period",
+          title: L10n.t("expenses"),
+          subtitle: viewModel.periodSubtitle ?? L10n.t("analytics and spend by period"),
           subtitleLoading: isPeriodContentLoading && viewModel.periodSubtitle == nil
         )
 
@@ -23,10 +23,10 @@ struct ExpensesView: View {
 
         if viewModel.needsPrimarySchedule {
           EmptyStateCard(
-            message: "> set a primary pay schedule.",
-            footnote: "> required for pay-period view."
+            message: L10n.t("> set a primary pay schedule."),
+            footnote: L10n.t("> required for pay-period view.")
           )
-          TerminalButton(title: "open settings", action: onOpenSettings)
+          TerminalButton(title: L10n.t("open settings"), action: onOpenSettings)
         } else {
           heroCard
           extraSpentCard
@@ -70,11 +70,11 @@ struct ExpensesView: View {
         .presentationDetents([.medium])
       }
     }
-    .confirmationDialog("Delete expense?", isPresented: Binding(
+    .confirmationDialog(L10n.t("Delete expense?"), isPresented: Binding(
       get: { viewModel.deleteExpenseId != nil },
       set: { if !$0 { viewModel.deleteExpenseId = nil } }
     )) {
-      Button("delete", role: .destructive) {
+      Button(L10n.t("delete"), role: .destructive) {
         if let id = viewModel.deleteExpenseId {
           Task { await viewModel.deleteExpense(id: id) }
         }
@@ -89,7 +89,7 @@ struct ExpensesView: View {
       } else {
         TerminalCard {
           VStack(alignment: .leading, spacing: 8) {
-            Text("> total spent")
+            Text(L10n.t("> total spent"))
               .font(AppFont.mono(size: 12))
               .foregroundStyle(palette.muted)
 
@@ -113,7 +113,7 @@ struct ExpensesView: View {
       } else {
         TerminalCard {
           VStack(alignment: .leading, spacing: 8) {
-            Text("> extra spent")
+            Text(L10n.t("> extra spent"))
               .font(AppFont.mono(size: 12))
               .foregroundStyle(palette.muted)
 
@@ -123,7 +123,7 @@ struct ExpensesView: View {
                 .foregroundStyle(extraSpentColor)
 
               if let limit = viewModel.extraSpentLimit {
-                Text("> / \(deps.formatMoney(limit, currency: deps.displayCurrency)) limit")
+                Text(String(format: L10n.t("> / %@ limit"), deps.formatMoney(limit, currency: deps.displayCurrency)))
                   .font(AppFont.mono(size: 11))
                   .foregroundStyle(palette.muted)
               }
@@ -146,12 +146,12 @@ struct ExpensesView: View {
   private var quickActions: some View {
     LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 8) {
       NavigationLink(value: ExpensesRoute.recurring) {
-        quickActionLabel(title: "recurring", systemImage: "arrow.clockwise")
+        quickActionLabel(title: L10n.t("recurring"), systemImage: "arrow.clockwise")
       }
       .buttonStyle(.plain)
 
       NavigationLink(value: ExpensesRoute.planned) {
-        quickActionLabel(title: "one-time", systemImage: "calendar")
+        quickActionLabel(title: L10n.t("one-time"), systemImage: "calendar")
       }
       .buttonStyle(.plain)
 
@@ -161,12 +161,12 @@ struct ExpensesView: View {
           viewModel.showExpenseForm = true
         }
       } label: {
-        quickActionLabel(title: "add", systemImage: "plus")
+        quickActionLabel(title: L10n.t("add"), systemImage: "plus")
       }
       .buttonStyle(.plain)
 
       NavigationLink(value: ExpensesRoute.earlyPay) {
-        quickActionLabel(title: "early pay", systemImage: "bolt")
+        quickActionLabel(title: L10n.t("early pay"), systemImage: "bolt")
       }
       .buttonStyle(.plain)
     }
@@ -189,12 +189,12 @@ struct ExpensesView: View {
 
   private var expenseList: some View {
     VStack(alignment: .leading, spacing: 8) {
-      SectionHeader(title: "spendings")
+      SectionHeader(title: L10n.t("spendings"))
 
       if isPeriodContentLoading {
         ExpensePeriodListSkeleton()
       } else if viewModel.periodItems.isEmpty {
-        EmptyStateCard(message: "> no expenses in this period.")
+        EmptyStateCard(message: L10n.t("> no expenses in this period."))
       } else {
         ForEach(viewModel.periodItems) { item in
           expenseItemRow(item)
@@ -215,11 +215,11 @@ struct ExpensesView: View {
             .lineLimit(1)
 
           if viewModel.canDelete(item) {
-            TerminalBadge(text: "extra", style: .warning)
+            TerminalBadge(text: L10n.t("extra"), style: .warning)
           }
         }
 
-        Text(" · ")
+        Text(L10n.t(" · "))
           .font(AppFont.mono(size: 14))
           .foregroundStyle(palette.muted)
 
@@ -241,7 +241,7 @@ struct ExpensesView: View {
       if item.isSubscription || !item.tags.isEmpty {
         HStack(spacing: 6) {
           if item.isSubscription {
-            TerminalBadge(text: "subscription", style: .muted)
+            TerminalBadge(text: L10n.t("subscription"), style: .muted)
           }
           ForEach(item.tags, id: \.self) { tag in
             TerminalTagChip(tag: tag)
@@ -261,10 +261,10 @@ struct ExpensesView: View {
     }
     .contextMenu {
       if canMutate {
-        Button("edit amount") {
+        Button(L10n.t("edit amount")) {
           viewModel.beginEditAmount(for: item)
         }
-        Button("delete", role: .destructive) {
+        Button(L10n.t("delete"), role: .destructive) {
           if let id = item.itemId {
             viewModel.deleteExpenseId = id
           }
@@ -299,12 +299,12 @@ private struct ExpenseFormSheet: View {
   }
 
   var body: some View {
-    FormSheet(title: "add expense", isSaving: isSaving, canSave: model.canSave, onSave: { Task { await save() } }) {
+    FormSheet(title: L10n.t("add expense"), isSaving: isSaving, canSave: model.canSave, onSave: { Task { await save() } }) {
       if let errorMessage { ErrorBanner(message: errorMessage) }
-      TerminalTextField(label: "name", placeholder: "groceries", text: $model.name)
+      TerminalTextField(label: L10n.t("name"), placeholder: L10n.t("groceries"), text: $model.name)
       AmountTextField(text: $model.amountText, placeholder: "45.00")
       CurrencyPicker(selection: $model.currency)
-      TerminalTextField(label: "date", placeholder: "YYYY-MM-DD", text: $model.date, keyboardType: .numbersAndPunctuation)
+      TerminalTextField(label: L10n.t("date"), placeholder: L10n.t("YYYY-MM-DD"), text: $model.date, keyboardType: .numbersAndPunctuation)
       TagsInputField(tagsText: $model.tagsText, knownTags: knownTags)
       SubscriptionToggle(isSubscription: $model.isSubscription)
     }
@@ -351,7 +351,7 @@ private struct ExpenseAmountFormSheet: View {
   }
 
   var body: some View {
-    FormSheet(title: "edit amount", isSaving: isSaving, canSave: model.canSave, onSave: { Task { await save() } }) {
+    FormSheet(title: L10n.t("edit amount"), isSaving: isSaving, canSave: model.canSave, onSave: { Task { await save() } }) {
       if let errorMessage { ErrorBanner(message: errorMessage) }
       AmountTextField(text: $model.amountText, placeholder: "45.00")
     }

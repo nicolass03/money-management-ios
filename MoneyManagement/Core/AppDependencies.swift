@@ -5,6 +5,7 @@ import Observation
 @MainActor
 final class AppDependencies {
     let sessionStore: SessionStore
+    let languageManager: LanguageManager
     let api: APIService
     let dataStore: DataStore
 
@@ -32,8 +33,9 @@ final class AppDependencies {
         dataStore.moneyContext?.rates
     }
 
-    init(sessionStore: SessionStore) {
+    init(sessionStore: SessionStore, languageManager: LanguageManager) {
         self.sessionStore = sessionStore
+        self.languageManager = languageManager
         self.dataStore = DataStore()
         let client = APIClient(
             tokenProvider: { [weak sessionStore] in
@@ -73,6 +75,9 @@ final class AppDependencies {
         }
         _ = try await settingsTask
         _ = try await moneyTask
+        if let language = dataStore.settings?.language {
+            languageManager.apply(language)
+        }
         lastSeenCacheRevision = dataStore.settings?.cacheRevision
     }
 
@@ -87,6 +92,7 @@ final class AppDependencies {
             lastSeenCacheRevision = settings.cacheRevision
             if changed {
                 dataStore.invalidateAll()
+                languageManager.apply(settings.language)
             }
             return changed
         } catch {

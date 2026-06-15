@@ -1,5 +1,18 @@
 import Foundation
 
+enum AppLanguage: String, Codable, CaseIterable, Identifiable {
+    case en, es
+
+    var id: String { rawValue }
+
+    var localeIdentifier: String {
+        switch self {
+        case .en: "en"
+        case .es: "es"
+        }
+    }
+}
+
 enum CurrencyCode: String, Codable, CaseIterable, Identifiable {
     case eur, usd, cop
 
@@ -15,21 +28,29 @@ enum PayFrequency: String, Codable, CaseIterable, Identifiable {
 
     var label: String {
         switch self {
-        case .weekly: "weekly"
-        case .biweekly: "every 2 weeks"
-        case .monthly: "monthly"
-        case .yearly: "yearly"
+        case .weekly: L10n.t("weekly")
+        case .biweekly: L10n.t("every 2 weeks")
+        case .monthly: L10n.t("monthly")
+        case .yearly: L10n.t("yearly")
         }
     }
 }
 
 enum IncomeSource: String, Codable {
     case scheduled, manual
+
+    var label: String {
+        switch self {
+        case .scheduled: L10n.t("scheduled")
+        case .manual: L10n.t("manual")
+        }
+    }
 }
 
 struct UserSettings: Codable, Equatable {
     let id: String
     let displayCurrency: CurrencyCode
+    let language: AppLanguage
     let primaryScheduleId: String?
     let primarySchedule: IncomePaySchedule?
     let projectionInitialFreeMoney: Int
@@ -37,6 +58,26 @@ struct UserSettings: Codable, Equatable {
     let extraSpentLimit: Int?
     let cacheRevision: Int
     let updatedAt: String
+
+    enum CodingKeys: String, CodingKey {
+        case id, displayCurrency, language, primaryScheduleId, primarySchedule
+        case projectionInitialFreeMoney, projectionStartDate, extraSpentLimit
+        case cacheRevision, updatedAt
+    }
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        id = try container.decode(String.self, forKey: .id)
+        displayCurrency = try container.decode(CurrencyCode.self, forKey: .displayCurrency)
+        language = try container.decodeIfPresent(AppLanguage.self, forKey: .language) ?? .en
+        primaryScheduleId = try container.decodeIfPresent(String.self, forKey: .primaryScheduleId)
+        primarySchedule = try container.decodeIfPresent(IncomePaySchedule.self, forKey: .primarySchedule)
+        projectionInitialFreeMoney = try container.decode(Int.self, forKey: .projectionInitialFreeMoney)
+        projectionStartDate = try container.decodeIfPresent(String.self, forKey: .projectionStartDate)
+        extraSpentLimit = try container.decodeIfPresent(Int.self, forKey: .extraSpentLimit)
+        cacheRevision = try container.decode(Int.self, forKey: .cacheRevision)
+        updatedAt = try container.decode(String.self, forKey: .updatedAt)
+    }
 }
 
 struct IncomePaySchedule: Codable, Identifiable, Equatable {
@@ -210,6 +251,7 @@ struct ErrorResponse: Codable {
 
 struct PatchSettingsRequest: Encodable {
     var displayCurrency: CurrencyCode?
+    var language: AppLanguage?
     var primaryScheduleId: String?
     var clearPrimarySchedule = false
     var projectionInitialFreeMoney: Int?
@@ -219,7 +261,7 @@ struct PatchSettingsRequest: Encodable {
     var clearExtraSpentLimit = false
 
     enum CodingKeys: String, CodingKey {
-        case displayCurrency, primaryScheduleId
+        case displayCurrency, language, primaryScheduleId
         case projectionInitialFreeMoney, projectionStartDate
         case extraSpentLimit
     }
@@ -228,6 +270,9 @@ struct PatchSettingsRequest: Encodable {
         var container = encoder.container(keyedBy: CodingKeys.self)
         if let displayCurrency {
             try container.encode(displayCurrency, forKey: .displayCurrency)
+        }
+        if let language {
+            try container.encode(language, forKey: .language)
         }
         if clearPrimarySchedule {
             try container.encodeNil(forKey: .primaryScheduleId)
@@ -331,9 +376,9 @@ enum ExpensePeriodKey: String, CaseIterable, Identifiable {
 
     var label: String {
         switch self {
-        case .lastPeriod: "last period"
-        case .lastMonth: "last month"
-        case .last3Months: "last 3 months"
+        case .lastPeriod: L10n.t("last period")
+        case .lastMonth: L10n.t("last month")
+        case .last3Months: L10n.t("last 3 months")
         }
     }
 }

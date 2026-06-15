@@ -14,7 +14,7 @@ struct PlannedExpensesView: View {
     TerminalScreen {
       VStack(alignment: .leading, spacing: 20) {
         HStack {
-          SectionHeader(title: "one-time", subtitle: "planned future expenses")
+          SectionHeader(title: L10n.t("one-time"), subtitle: L10n.t("planned future expenses"))
           Spacer()
           TerminalBadge(text: deps.formatMoney(viewModel.upcomingTotal, currency: deps.displayCurrency), style: .accent)
         }
@@ -23,13 +23,13 @@ struct PlannedExpensesView: View {
           ErrorBanner(message: error) { Task { await viewModel.load() } }
         }
 
-        TerminalButton(title: "+ add one-time") {
+        TerminalButton(title: L10n.t("+ add one-time")) {
           viewModel.editing = nil
           viewModel.showForm = true
         }
 
         if viewModel.items.isEmpty && !viewModel.isLoading {
-          EmptyStateCard(message: "> no planned expenses yet.")
+          EmptyStateCard(message: L10n.t("> no planned expenses yet."))
         } else {
           ForEach(viewModel.items) { item in
             plannedCard(item)
@@ -48,11 +48,11 @@ struct PlannedExpensesView: View {
       }
       .presentationDetents([.medium, .large])
     }
-    .confirmationDialog("Delete planned expense?", isPresented: Binding(
+    .confirmationDialog(L10n.t("Delete planned expense?"), isPresented: Binding(
       get: { viewModel.deleteTarget != nil },
       set: { if !$0 { viewModel.deleteTarget = nil } }
     )) {
-      Button("delete", role: .destructive) {
+      Button(L10n.t("delete"), role: .destructive) {
         if let target = viewModel.deleteTarget {
           Task { await viewModel.delete(target) }
         }
@@ -68,7 +68,7 @@ struct PlannedExpensesView: View {
             Text(item.name)
               .font(AppFont.mono(size: 14, weight: .medium))
               .foregroundStyle(palette.text)
-            Text("> \(item.date)")
+            Text(String(format: L10n.t("> %@"), item.date))
               .font(AppFont.mono(size: 11))
               .foregroundStyle(palette.muted)
           }
@@ -79,14 +79,14 @@ struct PlannedExpensesView: View {
         TerminalTagFlow(tags: item.tags)
 
         HStack(spacing: 8) {
-          Button("edit") {
+          Button(L10n.t("edit")) {
             viewModel.editing = item
             viewModel.showForm = true
           }
           .font(AppFont.mono(size: 12))
           .foregroundStyle(palette.accent)
 
-          Button("delete") {
+          Button(L10n.t("delete")) {
             viewModel.deleteTarget = item
           }
           .font(AppFont.mono(size: 12))
@@ -114,14 +114,14 @@ private struct PlannedExpenseFormSheet: View {
 
   var body: some View {
     FormSheet(
-      title: model.isEditing ? "edit one-time" : "add one-time",
+      title: model.isEditing ? L10n.t("edit one-time") : L10n.t("add one-time"),
       isSaving: isSaving,
       canSave: model.canSave,
       onSave: { Task { await save() } }
     ) {
       if let errorMessage { ErrorBanner(message: errorMessage) }
-      TerminalTextField(label: "name", placeholder: "car repair", text: $model.name)
-      TerminalTextField(label: "date", placeholder: "YYYY-MM-DD", text: $model.date, keyboardType: .numbersAndPunctuation)
+      TerminalTextField(label: L10n.t("name"), placeholder: L10n.t("car repair"), text: $model.name)
+      TerminalTextField(label: L10n.t("date"), placeholder: L10n.t("YYYY-MM-DD"), text: $model.date, keyboardType: .numbersAndPunctuation)
       AmountTextField(text: $model.amountText, placeholder: "500.00")
       CurrencyPicker(selection: $model.currency)
       TagsInputField(tagsText: $model.tagsText, knownTags: knownTags)
