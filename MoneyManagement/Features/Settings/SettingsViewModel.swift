@@ -118,4 +118,8 @@ final class SettingsViewModel {
             return false
         }
     }
+
+    func clearWidgetSnapshot() {
+        deps.clearWidgetSnapshot()
+    }
 }

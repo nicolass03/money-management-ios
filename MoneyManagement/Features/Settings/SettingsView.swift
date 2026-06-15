@@ -229,6 +229,7 @@ struct SettingsView: View {
             Task {
                 isSigningOut = true
                 defer { isSigningOut = false }
+                viewModel.clearWidgetSnapshot()
                 try? await sessionStore.signOut()
                 dismiss()
             }

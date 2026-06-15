@@ -33,6 +33,14 @@ final class AppDependencies {
         dataStore.moneyContext?.rates
     }
 
+    var isAuthenticated: Bool {
+        sessionStore.isAuthenticated
+    }
+
+    private var widgetLanguage: String {
+        languageManager.language.rawValue
+    }
+
     init(sessionStore: SessionStore, languageManager: LanguageManager) {
         self.sessionStore = sessionStore
         self.languageManager = languageManager
@@ -53,6 +61,9 @@ final class AppDependencies {
 
     func invalidateAfter(_ event: InvalidationEvent) {
         dataStore.invalidateAfter(event)
+        if shouldSyncWidgets(for: event) {
+            Task { await syncWidgets() }
+        }
     }
 
     func invalidateAll() {
@@ -103,5 +114,22 @@ final class AppDependencies {
 
     func formatMoney(_ amount: Int, currency: CurrencyCode) -> String {
         MoneyFormatter.format(amount, currency: currency, displayCurrency: displayCurrency, rates: rates)
+    }
+
+    func syncWidgets() async {
+        await WidgetSyncService.sync(deps: self, language: widgetLanguage)
+    }
+
+    func clearWidgetSnapshot() {
+        WidgetSyncService.clear(language: widgetLanguage)
+    }
+
+    private func shouldSyncWidgets(for event: InvalidationEvent) -> Bool {
+        switch event {
+        case .expenseChange, .recurringChange, .plannedChange, .budgetChange, .settingsChange, .scheduleChange:
+            return true
+        case .incomeChange, .moneyContextRefresh:
+            return false
+        }
     }
 }

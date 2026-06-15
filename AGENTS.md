@@ -4,10 +4,30 @@
 
 - **App name:** spendfly (display name + in-app branding; Xcode target/project folder remains `MoneyManagement`).
 - **SwiftUI** app, iOS **17+**, committed `MoneyManagement.xcodeproj` (generated from `project.yml` via XcodeGen).
-- **Auth:** [supabase-swift](https://github.com/supabase/supabase-swift) — direct `signIn(email:password:)`, not the Next.js `/api/auth/login` proxy.
+- **Auth:** [supabase-swift](https://github.com/supabase/supabase-swift) — direct `signIn(email:password:)`, not the Next.js `/api/auth/login` proxy. New users are **invite-only** (Supabase Dashboard); invite emails must be opened in a **browser** to set a password on the web `/set-password` page — iOS has no deep-link invite handler in v1. After onboarding on web, the same email/password works in the app.
 - **Config:** `Config/Secrets.xcconfig` (gitignored) → `Info.plist` keys `SUPABASE_URL`, `SUPABASE_PUBLISHABLE_KEY`, `API_URL`.
 - **xcconfig URLs:** must use `https:/$()/host.supabase.co` or `http:/$()/127.0.0.1:8080` — `//` starts an xcconfig comment.
 - **Rust API:** `APIClient` sends `Authorization: Bearer <Session.accessToken>` to `{API_URL}/api/v1/*`. Shared state in `AppDependencies` (`DataStore` + settings/money-context).
+
+## Home screen widgets
+
+Two WidgetKit extensions (`SpendflyWidgets` target) read a **snapshot** from App Group `group.com.nicolass03.spendfly` — no Supabase or network in the extension.
+
+| Widget | Data |
+|--------|------|
+| **Month Spent** | `GET /expenses/period-view?period=last-month` → `totalSpend` |
+| **Extra Spent** | `GET /expenses/period-view?period=last-period` → `extraSpent` (+ `/ limit` when set) |
+
+- **`SpendflyShared`** framework (`WidgetSnapshot`, `WidgetSnapshotStore`, `SpendflyFont` — JetBrains Mono registration + `.mono()` helper).
+- JetBrains Mono **must** be in the widget extension bundle: `project.yml` lists the `.ttf` files under `SpendflyWidgets` `sources` with `buildPhase: resources` (XcodeGen’s `resources:` key alone does not create a Copy Bundle Resources phase for app extensions). `SpendflyFont.registerIfNeeded()` runs in `SpendflyWidgetsBundle.init`.
+- **`WidgetSyncService`** (`Core/Widgets/WidgetSyncService.swift`) fetches both period views in the main app, writes the snapshot, and calls `WidgetCenter.shared.reloadAllTimelines()`.
+- Sync triggers: `MainTabView.task` (login), foreground when `cacheRevision` changed, `invalidateAfter` for expense/recurring/planned/budget/settings/schedule changes, sign-out (`clearWidgetSnapshot`).
+- Widget data is only as fresh as the last app sync (open app, pull-to-refresh, expense write, settings save).
+- After changing `project.yml` targets/entitlements, run `xcodegen generate`. Widget `Info.plist` must include `CFBundleIdentifier` = `$(PRODUCT_BUNDLE_IDENTIFIER)` or embedded-binary validation fails with bundle id `(null)`.
+- Enable **App Groups** on both `MoneyManagement` and `SpendflyWidgets` in Apple Developer / Xcode (entitlements files are committed).
+- **`SpendflyShared` must be embedded** in both the app and widget extension (`embed: true` in `project.yml`). If the framework is only linked, the widget process fails to load it and Xcode reports `Show Notification Center Widget timed out` (deviceprocesscontrolservice Code=32).
+- **Adding widgets on device/simulator:** run the **MoneyManagement** scheme first (installs app + extension), open the app and log in once, then add widgets from the home-screen widget gallery — do not rely on the widget scheme for that flow.
+- **Debugging a widget in Xcode** (WidgetBundle has two kinds): use scheme **SpendflyWidgets** (`_XCWidgetKind=MonthSpentWidget`) or **SpendflyWidgets-ExtraSpent** (`_XCWidgetKind=ExtraSpentWidget`). Running the widget scheme without `_XCWidgetKind` times out or errors.
 
 ## Caching
 

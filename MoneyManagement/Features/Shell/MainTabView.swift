@@ -88,9 +88,19 @@ struct MainTabView: View {
             Task {
                 // Only reload when the server's cacheRevision changed while backgrounded;
                 // syncOnForeground() invalidates the caches itself when needed.
-                if await deps.syncOnForeground() {
+                let changed = await deps.syncOnForeground()
+                if changed {
                     await reloadActiveTab(force: false)
+                    await deps.syncWidgets()
                 }
+            }
+        }
+        .task {
+            await deps.syncWidgets()
+        }
+        .onChange(of: sessionStore.isAuthenticated) { _, isAuthenticated in
+            if !isAuthenticated {
+                deps.clearWidgetSnapshot()
             }
         }
     }
