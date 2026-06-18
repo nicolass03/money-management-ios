@@ -22,7 +22,11 @@ struct MainTabView: View {
         self.sessionStore = sessionStore
         self.themeManager = themeManager
         self.languageManager = languageManager
-        let deps = AppDependencies(sessionStore: sessionStore, languageManager: languageManager)
+        let deps = AppDependencies(
+            sessionStore: sessionStore,
+            languageManager: languageManager,
+            themeManager: themeManager
+        )
         _deps = State(initialValue: deps)
         _expensesViewModel = State(initialValue: ExpensesViewModel(deps: deps))
         _budgetsViewModel = State(initialValue: BudgetsViewModel(deps: deps))

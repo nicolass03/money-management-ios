@@ -1,3 +1,4 @@
+import SpendflyShared
 import SwiftUI
 
 enum AppThemeMode: String, CaseIterable {
@@ -44,23 +45,42 @@ enum AppThemeMode: String, CaseIterable {
 
 @Observable
 final class ThemeManager {
-    private static let storageKey = "theme"
+    /// Light/dark/system appearance — orthogonal to the selected theme palette.
+    static let modeStorageKey = "theme"
+    /// The selected theme palette code (e.g. "terminal"), kept in sync with user settings.
+    static let themeCodeStorageKey = "theme-code"
 
     var mode: AppThemeMode {
-        didSet { UserDefaults.standard.set(mode.rawValue, forKey: Self.storageKey) }
+        didSet { UserDefaults.standard.set(mode.rawValue, forKey: Self.modeStorageKey) }
+    }
+
+    var themeCode: String {
+        didSet { UserDefaults.standard.set(themeCode, forKey: Self.themeCodeStorageKey) }
+    }
+
+    /// The resolved theme definition for the selected code (falls back to the default theme).
+    var theme: SpendflyTheme {
+        SpendflyThemes.theme(for: themeCode)
     }
 
     init() {
-        if let raw = UserDefaults.standard.string(forKey: Self.storageKey),
+        if let raw = UserDefaults.standard.string(forKey: Self.modeStorageKey),
            let stored = AppThemeMode(rawValue: raw) {
             mode = stored
         } else {
             mode = .dark
         }
+        themeCode = UserDefaults.standard.string(forKey: Self.themeCodeStorageKey)
+            ?? SpendflyThemes.defaultCode
     }
 
     func cycle() {
         mode = mode.next
+    }
+
+    func setTheme(_ code: String) {
+        guard code != themeCode else { return }
+        themeCode = code
     }
 }
 
@@ -88,7 +108,7 @@ struct AppThemeModifier: ViewModifier {
 
     func body(content: Content) -> some View {
         content
-            .environment(\.appPalette, AppColors.palette(for: resolvedScheme))
+            .environment(\.appPalette, themeManager.theme.palette(for: resolvedScheme))
             .preferredColorScheme(themeManager.mode.colorScheme)
     }
 }

@@ -36,7 +36,12 @@ struct MonthSpentProvider: TimelineProvider {
 }
 
 struct MonthSpentWidgetView: View {
+    @Environment(\.colorScheme) private var colorScheme
     let entry: MonthSpentEntry
+
+    private var palette: ThemePalette {
+        widgetPalette(for: entry.snapshot, environmentScheme: colorScheme)
+    }
 
     var body: some View {
         Group {
@@ -53,7 +58,8 @@ struct MonthSpentWidgetView: View {
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .widgetTerminalBackground()
+        .environment(\.widgetPalette, palette)
+        .widgetTerminalBackground(palette: palette)
     }
 }
 

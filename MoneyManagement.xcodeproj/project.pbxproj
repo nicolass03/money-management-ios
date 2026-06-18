@@ -24,6 +24,7 @@
 		2F62FA004EB4F10D093CC414 /* ProjectionDisplayLogic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81E69F99471F29544BE8F31F /* ProjectionDisplayLogic.swift */; };
 		320CCD190063CB9294D6C09A /* FormSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F5953374BE80A15C205246D /* FormSheet.swift */; };
 		34E846736330210FB666CFB8 /* AppColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58908E2F82D15FBA6A852B51 /* AppColors.swift */; };
+		39060896489CF2F727C1C22C /* SpendflyTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A2AF894CF19DD835E7815A2 /* SpendflyTheme.swift */; };
 		3BE377687079E6F8E5DC939C /* DataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2306789D19BFA4F8B4BF5E0E /* DataStore.swift */; };
 		3D4966D90C74EE0508A7A698 /* ExpensesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E2AE14817F0FBFFD7037955 /* ExpensesViewModel.swift */; };
 		3DE2E8F88F86A1DE904820E6 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B89A5085FD124C4C0FE569D /* Models.swift */; };
@@ -157,7 +158,7 @@
 
 /* Begin PBXFileReference section */
 		01FDEA4728A051DB7662479F /* RecurringExpensesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecurringExpensesView.swift; sourceTree = "<group>"; };
-		02D666CF932699EAF07F0E0E /* Spendfly.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Spendfly.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		02D666CF932699EAF07F0E0E /* MoneyManagement.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = MoneyManagement.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		03A6925A0F38B30A4AD8B4C5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		071D55C1613CEC30B95901FB /* FloatingSettingsButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingSettingsButton.swift; sourceTree = "<group>"; };
 		0E645F17C001D4128F8FCB8D /* TerminalButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerminalButton.swift; sourceTree = "<group>"; };
@@ -174,6 +175,7 @@
 		2431628F389DC66D96E22381 /* MoneyManagement.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MoneyManagement.entitlements; sourceTree = "<group>"; };
 		27F6303290EFF49DCFE78DC8 /* LanguageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanguageManager.swift; sourceTree = "<group>"; };
 		29431F06A9549EC5C4D778DE /* AppConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfig.swift; sourceTree = "<group>"; };
+		2A2AF894CF19DD835E7815A2 /* SpendflyTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpendflyTheme.swift; sourceTree = "<group>"; };
 		2B3953111D13F2294C4A219B /* ExpensesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpensesView.swift; sourceTree = "<group>"; };
 		2B96714C3F865A12FC5DCC41 /* AppDependencies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDependencies.swift; sourceTree = "<group>"; };
 		316D5BAF0492291F52CFAD8B /* MoneyFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoneyFormatter.swift; sourceTree = "<group>"; };
@@ -234,7 +236,7 @@
 		E0B14DB809E79D65245E5DF9 /* PlannedExpensesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlannedExpensesViewModel.swift; sourceTree = "<group>"; };
 		E33998618326C2D23EBCFF7B /* MonthSpentWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthSpentWidget.swift; sourceTree = "<group>"; };
 		E793835025A340F1186F9316 /* PlannedExpensesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlannedExpensesView.swift; sourceTree = "<group>"; };
-		EC52BFC43D61E4AEFC3A1AA4 /* SpendflyWidgets.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = SpendflyWidgets.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		EC52BFC43D61E4AEFC3A1AA4 /* SpendflyWidgets.appex */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "wrapper.app-extension"; path = SpendflyWidgets.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		F29ED5D46BF5290D3407A115 /* SpendflyFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpendflyFont.swift; sourceTree = "<group>"; };
 		F51AE3D3030B121FBBD7DCC7 /* AppGroupConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppGroupConstants.swift; sourceTree = "<group>"; };
 		FCB1DF327484E46531684D78 /* AppTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTheme.swift; sourceTree = "<group>"; };
@@ -293,6 +295,7 @@
 				59276D1A2A5F329FB35463BB /* CurrencyCode.swift */,
 				316D5BAF0492291F52CFAD8B /* MoneyFormatter.swift */,
 				F29ED5D46BF5290D3407A115 /* SpendflyFont.swift */,
+				2A2AF894CF19DD835E7815A2 /* SpendflyTheme.swift */,
 				51F07686D92368A6034BD861 /* WidgetSnapshot.swift */,
 				19437261774D65973A57E7A4 /* WidgetSnapshotStore.swift */,
 			);
@@ -434,7 +437,7 @@
 		86F51444319A78DA9237396C /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				02D666CF932699EAF07F0E0E /* Spendfly.app */,
+				02D666CF932699EAF07F0E0E /* MoneyManagement.app */,
 				B93ADE6E53C6E3B3334AAA42 /* SpendflyShared.framework */,
 				EC52BFC43D61E4AEFC3A1AA4 /* SpendflyWidgets.appex */,
 			);
@@ -609,7 +612,7 @@
 				8B1D36C366F281581EF661C4 /* Supabase */,
 			);
 			productName = MoneyManagement;
-			productReference = 02D666CF932699EAF07F0E0E /* Spendfly.app */;
+			productReference = 02D666CF932699EAF07F0E0E /* MoneyManagement.app */;
 			productType = "com.apple.product-type.application";
 		};
 		ED859C659FB202A76179306D /* SpendflyWidgets */ = {
@@ -647,9 +650,11 @@
 						ProvisioningStyle = Automatic;
 					};
 					86B843960D6BC50ACA96B829 = {
+						DevelopmentTeam = "";
 						ProvisioningStyle = Automatic;
 					};
 					ED859C659FB202A76179306D = {
+						DevelopmentTeam = "";
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -731,6 +736,7 @@
 				9A589C6222FEFE8B9B9504B4 /* CurrencyCode.swift in Sources */,
 				4AD895AA66C9994863B32986 /* MoneyFormatter.swift in Sources */,
 				BE7507729ADD3FB8A45F74FE /* SpendflyFont.swift in Sources */,
+				39060896489CF2F727C1C22C /* SpendflyTheme.swift in Sources */,
 				3EAF123C4E60804F3BB73545 /* WidgetSnapshot.swift in Sources */,
 				C772FA6D9F5AB74E199D7A02 /* WidgetSnapshotStore.swift in Sources */,
 			);
@@ -889,7 +895,7 @@
 				CODE_SIGN_ENTITLEMENTS = SpendflyWidgets/SpendflyWidgets.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = G6Y64763QH;
+				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = SpendflyWidgets/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -914,7 +920,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = G6Y64763QH;
+				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = MoneyManagement/Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -938,7 +944,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = G6Y64763QH;
+				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = MoneyManagement/Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -960,7 +966,7 @@
 				CODE_SIGN_ENTITLEMENTS = SpendflyWidgets/SpendflyWidgets.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = G6Y64763QH;
+				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = SpendflyWidgets/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (

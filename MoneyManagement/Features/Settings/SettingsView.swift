@@ -1,3 +1,4 @@
+import SpendflyShared
 import SwiftUI
 
 struct SettingsView: View {
@@ -33,6 +34,7 @@ struct SettingsView: View {
 
                         sessionSection
                         themeSection
+                        paletteSection
                         languageSection
                         currencySection
                         projectionSection
@@ -98,6 +100,40 @@ struct SettingsView: View {
                     .frame(maxWidth: .infinity, minHeight: 44, alignment: .leading)
                 }
                 .buttonStyle(.plain)
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+        }
+    }
+
+    private var paletteSection: some View {
+        TerminalCard {
+            VStack(alignment: .leading, spacing: 12) {
+                Text(L10n.t("> theme"))
+                    .font(AppFont.mono(size: 12))
+                    .foregroundStyle(palette.muted)
+
+                ForEach(SpendflyThemes.all) { theme in
+                    let isActive = theme.code == themeManager.themeCode
+                    Button {
+                        guard !isActive else { return }
+                        themeManager.setTheme(theme.code)
+                        Task { _ = await viewModel.updateTheme(theme.code) }
+                    } label: {
+                        HStack {
+                            Text(L10n.t(theme.nameKey))
+                                .font(AppFont.mono(size: 14))
+                                .foregroundStyle(palette.text)
+                            Spacer()
+                            if isActive {
+                                Text("[✓]")
+                                    .font(AppFont.mono(size: 12))
+                                    .foregroundStyle(palette.accent)
+                            }
+                        }
+                        .frame(maxWidth: .infinity, minHeight: 44, alignment: .leading)
+                    }
+                    .buttonStyle(.plain)
+                }
             }
             .frame(maxWidth: .infinity, alignment: .leading)
         }

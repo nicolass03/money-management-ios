@@ -325,6 +325,38 @@
         }
       }
     },
+    "> theme" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "> theme"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "> tema"
+          }
+        }
+      }
+    },
+    "terminal" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "terminal"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "terminal"
+          }
+        }
+      }
+    },
     "> configure in settings to see projections." : {
       "extractionState" : "stale",
       "localizations" : {

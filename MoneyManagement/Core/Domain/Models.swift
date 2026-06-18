@@ -1,4 +1,5 @@
 import Foundation
+import SpendflyShared
 
 enum AppLanguage: String, Codable, CaseIterable, Identifiable {
     case en, es
@@ -56,13 +57,14 @@ struct UserSettings: Codable, Equatable {
     let projectionInitialFreeMoney: Int
     let projectionStartDate: String?
     let extraSpentLimit: Int?
+    let theme: String
     let cacheRevision: Int
     let updatedAt: String
 
     enum CodingKeys: String, CodingKey {
         case id, displayCurrency, language, primaryScheduleId, primarySchedule
         case projectionInitialFreeMoney, projectionStartDate, extraSpentLimit
-        case cacheRevision, updatedAt
+        case theme, cacheRevision, updatedAt
     }
 
     init(from decoder: Decoder) throws {
@@ -75,6 +77,7 @@ struct UserSettings: Codable, Equatable {
         projectionInitialFreeMoney = try container.decode(Int.self, forKey: .projectionInitialFreeMoney)
         projectionStartDate = try container.decodeIfPresent(String.self, forKey: .projectionStartDate)
         extraSpentLimit = try container.decodeIfPresent(Int.self, forKey: .extraSpentLimit)
+        theme = try container.decodeIfPresent(String.self, forKey: .theme) ?? SpendflyThemes.defaultCode
         cacheRevision = try container.decode(Int.self, forKey: .cacheRevision)
         updatedAt = try container.decode(String.self, forKey: .updatedAt)
     }
@@ -259,11 +262,12 @@ struct PatchSettingsRequest: Encodable {
     var clearProjectionStartDate = false
     var extraSpentLimit: Int?
     var clearExtraSpentLimit = false
+    var theme: String?
 
     enum CodingKeys: String, CodingKey {
         case displayCurrency, language, primaryScheduleId
         case projectionInitialFreeMoney, projectionStartDate
-        case extraSpentLimit
+        case extraSpentLimit, theme
     }
 
     func encode(to encoder: Encoder) throws {
@@ -291,6 +295,9 @@ struct PatchSettingsRequest: Encodable {
             try container.encodeNil(forKey: .extraSpentLimit)
         } else if let extraSpentLimit {
             try container.encode(extraSpentLimit, forKey: .extraSpentLimit)
+        }
+        if let theme {
+            try container.encode(theme, forKey: .theme)
         }
     }
 }

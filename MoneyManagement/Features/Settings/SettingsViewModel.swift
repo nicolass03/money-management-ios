@@ -119,6 +119,20 @@ final class SettingsViewModel {
         }
     }
 
+    func updateTheme(_ theme: String) async -> Bool {
+        do {
+            _ = try await deps.api.patchSettings(PatchSettingsRequest(theme: theme))
+            deps.invalidateAfter(.settingsChange)
+            try await deps.refreshSharedContext(force: true)
+            Haptics.success()
+            return true
+        } catch {
+            errorMessage = error.localizedDescription
+            Haptics.warning()
+            return false
+        }
+    }
+
     func clearWidgetSnapshot() {
         deps.clearWidgetSnapshot()
     }

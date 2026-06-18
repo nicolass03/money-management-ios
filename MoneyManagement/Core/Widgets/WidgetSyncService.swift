@@ -4,9 +4,9 @@ import WidgetKit
 
 @MainActor
 enum WidgetSyncService {
-    static func sync(deps: AppDependencies, language: String) async {
+    static func sync(deps: AppDependencies, language: String, theme: String, themeMode: String) async {
         guard deps.isAuthenticated else {
-            clear(language: language)
+            clear(language: language, theme: theme, themeMode: themeMode)
             return
         }
 
@@ -40,6 +40,8 @@ enum WidgetSyncService {
             updatedAt: Date(),
             displayCurrency: displayCurrency,
             language: language,
+            theme: theme,
+            themeMode: themeMode,
             monthSpent: monthSpent,
             monthPeriodLabel: monthLabel,
             extraSpent: extraSpent,
@@ -53,8 +55,8 @@ enum WidgetSyncService {
         WidgetCenter.shared.reloadAllTimelines()
     }
 
-    static func clear(language: String) {
-        WidgetSnapshotStore.save(.signedOut(language: language))
+    static func clear(language: String, theme: String, themeMode: String) {
+        WidgetSnapshotStore.save(.signedOut(language: language, theme: theme, themeMode: themeMode))
         WidgetCenter.shared.reloadAllTimelines()
     }
 

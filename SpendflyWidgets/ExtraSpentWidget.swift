@@ -36,7 +36,12 @@ struct ExtraSpentProvider: TimelineProvider {
 }
 
 struct ExtraSpentWidgetView: View {
+    @Environment(\.colorScheme) private var colorScheme
     let entry: ExtraSpentEntry
+
+    private var palette: ThemePalette {
+        widgetPalette(for: entry.snapshot, environmentScheme: colorScheme)
+    }
 
     var body: some View {
         Group {
@@ -53,7 +58,8 @@ struct ExtraSpentWidgetView: View {
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .widgetTerminalBackground()
+        .environment(\.widgetPalette, palette)
+        .widgetTerminalBackground(palette: palette)
     }
 
     @ViewBuilder
@@ -74,7 +80,7 @@ struct ExtraSpentWidgetView: View {
         WidgetMetricView(
             label: WidgetStrings.extraSpentLabel(language: snapshot.language),
             amount: SharedMoneyFormatter.format(snapshot.extraSpent, currency: snapshot.displayCurrency),
-            amountColor: extraSpentColor(extraSpent: snapshot.extraSpent, limit: limit),
+            amountColor: extraSpentColor(extraSpent: snapshot.extraSpent, limit: limit, palette: palette),
             limitFootnote: limitFootnote,
             period: snapshot.payPeriodLabel,
             progress: progress

@@ -4,7 +4,7 @@
 
 - **App name:** spendfly (display name + in-app branding; Xcode target/project folder remains `MoneyManagement`).
 - **SwiftUI** app, iOS **17+**, committed `MoneyManagement.xcodeproj` (generated from `project.yml` via XcodeGen).
-- **Auth:** [supabase-swift](https://github.com/supabase/supabase-swift) — direct `signIn(email:password:)`, not the Next.js `/api/auth/login` proxy. New users are **invite-only** (Supabase Dashboard); invite emails must be opened in a **browser** to set a password on the web `/set-password` page — iOS has no deep-link invite handler in v1. After onboarding on web, the same email/password works in the app.
+- **Auth:** [supabase-swift](https://github.com/supabase/supabase-swift) — direct `signIn(email:password:)` against Supabase (no backend auth proxy; the web app signs in directly too). New users are **invite-only** (Supabase Dashboard); invite emails must be opened in a **browser** to set a password on the web `/set-password` page — iOS has no deep-link invite handler in v1. After onboarding on web, the same email/password works in the app.
 - **Config:** `Config/Secrets.xcconfig` (gitignored) → `Info.plist` keys `SUPABASE_URL`, `SUPABASE_PUBLISHABLE_KEY`, `API_URL`.
 - **xcconfig URLs:** must use `https:/$()/host.supabase.co` or `http:/$()/127.0.0.1:8080` — `//` starts an xcconfig comment.
 - **Rust API:** `APIClient` sends `Authorization: Bearer <Session.accessToken>` to `{API_URL}/api/v1/*`. Shared state in `AppDependencies` (`DataStore` + settings/money-context).
@@ -62,7 +62,7 @@ Two WidgetKit extensions (`SpendflyWidgets` target) read a **snapshot** from App
 
 ## Design system
 
-Match the web app terminal aesthetic ([money-management `globals.css`](../money-management/src/app/globals.css)):
+Match the web app terminal aesthetic ([money-management `globals.css`](../money-management/src/globals.css)):
 
 - JetBrains Mono bundled in `MoneyManagement/Resources/Fonts/`
 - Semantic colors via `AppColors.Palette` + `@Environment(\.appPalette)`

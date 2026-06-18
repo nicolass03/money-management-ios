@@ -6,6 +6,7 @@ import Observation
 final class AppDependencies {
     let sessionStore: SessionStore
     let languageManager: LanguageManager
+    let themeManager: ThemeManager
     let api: APIService
     let dataStore: DataStore
 
@@ -41,9 +42,18 @@ final class AppDependencies {
         languageManager.language.rawValue
     }
 
-    init(sessionStore: SessionStore, languageManager: LanguageManager) {
+    private var widgetTheme: String {
+        dataStore.settings?.theme ?? themeManager.themeCode
+    }
+
+    private var widgetThemeMode: String {
+        themeManager.mode.rawValue
+    }
+
+    init(sessionStore: SessionStore, languageManager: LanguageManager, themeManager: ThemeManager) {
         self.sessionStore = sessionStore
         self.languageManager = languageManager
+        self.themeManager = themeManager
         self.dataStore = DataStore()
         let client = APIClient(
             tokenProvider: { [weak sessionStore] in
@@ -105,6 +115,10 @@ final class AppDependencies {
                 dataStore.invalidateAll()
                 languageManager.apply(settings.language)
             }
+            // Theme is applied independently of the cache-revision gate so a theme change made on
+            // another device (which still bumps cacheRevision) is reflected here, and so a no-op
+            // reload keeps the local selection aligned with the server.
+            themeManager.setTheme(settings.theme)
             return changed
         } catch {
             dataStore.invalidateAll()
@@ -117,11 +131,20 @@ final class AppDependencies {
     }
 
     func syncWidgets() async {
-        await WidgetSyncService.sync(deps: self, language: widgetLanguage)
+        await WidgetSyncService.sync(
+            deps: self,
+            language: widgetLanguage,
+            theme: widgetTheme,
+            themeMode: widgetThemeMode
+        )
     }
 
     func clearWidgetSnapshot() {
-        WidgetSyncService.clear(language: widgetLanguage)
+        WidgetSyncService.clear(
+            language: widgetLanguage,
+            theme: widgetTheme,
+            themeMode: widgetThemeMode
+        )
     }
 
     private func shouldSyncWidgets(for event: InvalidationEvent) -> Bool {
