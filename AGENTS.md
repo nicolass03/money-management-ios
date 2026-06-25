@@ -15,8 +15,8 @@ Two WidgetKit extensions (`SpendflyWidgets` target) read a **snapshot** from App
 
 | Widget | Data |
 |--------|------|
-| **Month Spent** | `GET /expenses/period-view?period=last-month` → `totalSpend` |
-| **Extra Spent** | `GET /expenses/period-view?period=last-period` → `extraSpent` (+ `/ limit` when set) |
+| **Month Spent** | `GET /expenses/period-view?period=last-month&asOf=<local>` → `totalSpend` |
+| **Extra Spent** | `GET /expenses/period-view?period=last-period&asOf=<local>` → `extraSpent` (+ `/ limit` when set) |
 
 - **`SpendflyShared`** framework (`WidgetSnapshot`, `WidgetSnapshotStore`, `SpendflyFont` — JetBrains Mono registration + `.mono()` helper).
 - JetBrains Mono **must** be in the widget extension bundle: `project.yml` lists the `.ttf` files under `SpendflyWidgets` `sources` with `buildPhase: resources` (XcodeGen’s `resources:` key alone does not create a Copy Bundle Resources phase for app extensions). `SpendflyFont.registerIfNeeded()` runs in `SpendflyWidgetsBundle.init`.
@@ -49,7 +49,7 @@ Two WidgetKit extensions (`SpendflyWidgets` target) read a **snapshot** from App
 
 - `AppDependencies` — created in `MainTabView`, holds `APIService`, `DataStore`, and exposes `settings` / `moneyContext` / `displayCurrency` / `rates`.
 - Per-tab `@Observable` ViewModels call `APIService` and domain helpers in `Core/Domain/`.
-- **Expenses tab** init: `settings` + `money-context`, then parallel `GET /expenses/period-view`, `GET /expenses/upcoming-payable`. No full expense/recurring/planned/budgets/tags fetch on the main tab. `primarySchedule` comes from embedded `GET /settings` response. Per-section **inline skeletons** (`Skeleton.swift`) replace `SectionLoadingMask` on hero and list; shell renders immediately. Tags fetch on expense-form open only.
+- **Expenses tab** init: `settings` + `money-context`, then parallel `GET /expenses/period-view`, `GET /expenses/upcoming-payable` (both pass `asOf=PayPeriodLogic.todayISO()`). No full expense/recurring/planned/budgets/tags fetch on the main tab. `primarySchedule` comes from embedded `GET /settings` response. Per-section **inline skeletons** (`Skeleton.swift`) replace `SectionLoadingMask` on hero and list; shell renders immediately. Tags fetch on expense-form open only.
 - **Budgets, income, projections** tabs use the same pattern — page shell + section skeletons; no `LoadingOverlay` on those tabs (`LoadingIndicator` / `LoadingOverlay` kept for auth, settings, sub-routes).
 - **Foreground sync:** on `scenePhase == .active`, `AppDependencies.syncOnForeground()` fetches `/settings`, compares `cacheRevision` to `lastSeenCacheRevision`, and only `invalidateAll()` + reloads the active tab when it changed (unchanged data is served from cache — no blanket refetch on every resume).
 - **Language sync:** `LanguageManager` (UserDefaults key `incm-mgmt-language`) applies `.environment(\.locale, ...)` at app root; once authenticated, `AppDependencies.refreshSharedContext()` applies API `settings.language` so web + iOS stay in sync.

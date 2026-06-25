@@ -79,7 +79,10 @@ struct APIService {
         try await client.request(
             "GET",
             path: "expenses/period-view",
-            query: [URLQueryItem(name: "period", value: period.rawValue)]
+            query: [
+                URLQueryItem(name: "period", value: period.rawValue),
+                URLQueryItem(name: "asOf", value: PayPeriodLogic.todayISO()),
+            ]
         )
     }
 
@@ -87,7 +90,10 @@ struct APIService {
         try await client.request(
             "GET",
             path: "expenses/upcoming-payable",
-            query: [URLQueryItem(name: "horizonDays", value: String(horizonDays))]
+            query: [
+                URLQueryItem(name: "horizonDays", value: String(horizonDays)),
+                URLQueryItem(name: "asOf", value: PayPeriodLogic.todayISO()),
+            ]
         )
     }
 
@@ -184,6 +190,10 @@ struct APIService {
     // MARK: - Projections
 
     func getProjections() async throws -> ProjectionsResponse {
-        try await client.request("GET", path: "projections")
+        try await client.request(
+            "GET",
+            path: "projections",
+            query: [URLQueryItem(name: "asOf", value: PayPeriodLogic.todayISO())]
+        )
     }
 }
