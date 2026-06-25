@@ -125,6 +125,14 @@ struct APIService {
         let _: SuccessResponse = try await client.request("DELETE", path: "recurring-expenses/\(id)")
     }
 
+    func setCancelReminder(id: String) async throws -> RecurringExpenseWithTags {
+        try await client.request("POST", path: "recurring-expenses/\(id)/cancel-reminder")
+    }
+
+    func clearCancelReminder(id: String) async throws {
+        let _: SuccessResponse = try await client.request("DELETE", path: "recurring-expenses/\(id)/cancel-reminder")
+    }
+
     // MARK: - Planned expenses
 
     func getPlannedExpenses() async throws -> [PlannedExpenseWithTags] {

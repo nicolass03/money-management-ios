@@ -96,11 +96,14 @@ struct MainTabView: View {
                 if changed {
                     await reloadActiveTab(force: false)
                     await deps.syncWidgets()
+                    await deps.refreshSubscriptionReminders()
                 }
             }
         }
         .task {
             await deps.syncWidgets()
+            await SubscriptionReminderScheduler.requestAuthorization()
+            await deps.refreshSubscriptionReminders()
         }
         .onChange(of: sessionStore.isAuthenticated) { _, isAuthenticated in
             if !isAuthenticated {

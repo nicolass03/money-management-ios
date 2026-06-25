@@ -126,6 +126,19 @@ final class AppDependencies {
         }
     }
 
+    /// Re-derives on-device cancellation reminders from the latest recurring expenses. Called on
+    /// launch, on foreground (when data changed), and after a reminder is toggled.
+    func refreshSubscriptionReminders() async {
+        guard
+            let recurring = try? await dataStore.getRecurringExpenses(fetch: { [api] in
+                try await api.getRecurringExpenses()
+            })
+        else {
+            return
+        }
+        await SubscriptionReminderScheduler.reschedule(from: recurring)
+    }
+
     func formatMoney(_ amount: Int, currency: CurrencyCode) -> String {
         MoneyFormatter.format(amount, currency: currency, displayCurrency: displayCurrency, rates: rates)
     }

@@ -24,6 +24,12 @@ struct RecurringExpensesView: View {
           viewModel.showForm = true
         }
 
+        if !viewModel.subscriptions.isEmpty {
+          TerminalButton(title: L10n.t("cancel reminder")) {
+            viewModel.showCancelReminderSheet = true
+          }
+        }
+
         if viewModel.items.isEmpty && !viewModel.isLoading {
           EmptyStateCard(message: L10n.t("> no recurring expenses yet."))
         } else {
@@ -53,6 +59,12 @@ struct RecurringExpensesView: View {
           Task { await viewModel.delete(target) }
         }
       }
+    }
+    .sheet(isPresented: $viewModel.showCancelReminderSheet) {
+      CancelReminderSheet(subscriptions: viewModel.subscriptions) { sub in
+        Task { await viewModel.setCancelReminder(sub, enabled: !sub.cancelReminderEnabled) }
+      }
+      .presentationDetents([.medium, .large])
     }
   }
 
@@ -150,6 +162,72 @@ private struct RecurringExpenseFormSheet: View {
       onSaved()
     } catch {
       errorMessage = error.localizedDescription
+    }
+  }
+}
+
+/// Lets the user flag (or unflag) a subscription for cancellation reminders. Tapping a row toggles
+/// it; the device then schedules 9am-local notifications 5 and 2 days before its next charge.
+private struct CancelReminderSheet: View {
+  @Environment(\.dismiss) private var dismiss
+  @Environment(\.appPalette) private var palette
+  let subscriptions: [RecurringExpenseWithTags]
+  let onToggle: (RecurringExpenseWithTags) -> Void
+
+  var body: some View {
+    NavigationStack {
+      TerminalScreen {
+        VStack(alignment: .leading, spacing: 16) {
+          SectionHeader(
+            title: L10n.t("cancel a subscription"),
+            subtitle: L10n.t("tap a subscription to toggle a cancellation reminder")
+          )
+
+          if subscriptions.isEmpty {
+            EmptyStateCard(message: L10n.t("> no subscriptions to remind about."))
+          } else {
+            ForEach(subscriptions) { sub in
+              Button {
+                onToggle(sub)
+              } label: {
+                subscriptionRow(sub)
+              }
+              .buttonStyle(.plain)
+            }
+          }
+        }
+      }
+      .navigationBarTitleDisplayMode(.inline)
+      .toolbar {
+        ToolbarItem(placement: .confirmationAction) {
+          Button(L10n.t("done")) { dismiss() }
+        }
+      }
+    }
+  }
+
+  private func subscriptionRow(_ sub: RecurringExpenseWithTags) -> some View {
+    TerminalCard {
+      HStack(spacing: 8) {
+        VStack(alignment: .leading, spacing: 4) {
+          Text(sub.name)
+            .font(AppFont.mono(size: 14, weight: .medium))
+            .foregroundStyle(palette.text)
+          if let next = PayPeriodLogic.getUpcomingPayDates(
+            schedule: PayPeriodLogic.scheduleInput(from: sub),
+            count: 1
+          ).first {
+            Text(String(format: L10n.t("next charge: %@"), next))
+              .font(AppFont.mono(size: 11))
+              .foregroundStyle(palette.muted)
+          }
+        }
+        Spacer()
+        if sub.cancelReminderEnabled {
+          TerminalBadge(text: L10n.t("reminder set"), style: .accent)
+        }
+      }
+      .frame(maxWidth: .infinity, alignment: .leading)
     }
   }
 }

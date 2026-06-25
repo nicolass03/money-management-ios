@@ -14,6 +14,11 @@ final class RecurringExpensesViewModel {
   var editing: RecurringExpenseWithTags?
   var showForm = false
   var deleteTarget: RecurringExpenseWithTags?
+  var showCancelReminderSheet = false
+
+  var subscriptions: [RecurringExpenseWithTags] {
+    items.filter(\.isSubscription)
+  }
 
   init(deps: AppDependencies) {
     self.deps = deps
@@ -50,6 +55,22 @@ final class RecurringExpensesViewModel {
       deps.invalidateAfter(.recurringChange)
       Haptics.light()
       await load()
+    } catch {
+      errorMessage = error.localizedDescription
+    }
+  }
+
+  func setCancelReminder(_ item: RecurringExpenseWithTags, enabled: Bool) async {
+    do {
+      if enabled {
+        _ = try await deps.api.setCancelReminder(id: item.id)
+      } else {
+        try await deps.api.clearCancelReminder(id: item.id)
+      }
+      deps.invalidateAfter(.recurringChange)
+      Haptics.light()
+      await load()
+      await deps.refreshSubscriptionReminders()
     } catch {
       errorMessage = error.localizedDescription
     }

@@ -47,6 +47,7 @@
 		841601698DF129A97EEB8AEE /* TerminalTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D0B39FB79500A36EDCCEF22 /* TerminalTextField.swift */; };
 		842ED1F3FF1E0A9999998149 /* JetBrainsMono-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FF0EF4032C97B0C5EF46CE4C /* JetBrainsMono-Medium.ttf */; };
 		848F051A1362645F745112A2 /* FormFields.swift in Sources */ = {isa = PBXBuildFile; fileRef = C24137F94AEA07F969F882CE /* FormFields.swift */; };
+		894BDE70B62B4E37E9BB2D78 /* SubscriptionReminderScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = F940F706E5BC5CC7BF42DDA4 /* SubscriptionReminderScheduler.swift */; };
 		89806AEA8503CA88F93DFE78 /* RecurringExpensesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FDEA4728A051DB7662479F /* RecurringExpensesView.swift */; };
 		8C2085B865A9D5F5FA3F2D80 /* IncomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5084B3EB3939ADAF5C485A70 /* IncomeViewModel.swift */; };
 		8F1635BA164844BCD6A524BF /* PlannedExpensesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0B14DB809E79D65245E5DF9 /* PlannedExpensesViewModel.swift */; };
@@ -239,6 +240,7 @@
 		EC52BFC43D61E4AEFC3A1AA4 /* SpendflyWidgets.appex */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "wrapper.app-extension"; path = SpendflyWidgets.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		F29ED5D46BF5290D3407A115 /* SpendflyFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpendflyFont.swift; sourceTree = "<group>"; };
 		F51AE3D3030B121FBBD7DCC7 /* AppGroupConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppGroupConstants.swift; sourceTree = "<group>"; };
+		F940F706E5BC5CC7BF42DDA4 /* SubscriptionReminderScheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionReminderScheduler.swift; sourceTree = "<group>"; };
 		FCB1DF327484E46531684D78 /* AppTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppTheme.swift; sourceTree = "<group>"; };
 		FF0EF4032C97B0C5EF46CE4C /* JetBrainsMono-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "JetBrainsMono-Medium.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -399,6 +401,7 @@
 				BEA686ACE22C4091D8F9B464 /* Currency */,
 				0040DC3F81501AB82A4C8488 /* Domain */,
 				E066F3633DC1474C39CD624B /* Localization */,
+				A380618DD7EA37C8CC0A0502 /* Notifications */,
 				954C56CB5CACC69F46087156 /* Storage */,
 				96EB188BE8E0583C3BA069FC /* Widgets */,
 			);
@@ -470,6 +473,14 @@
 				E024AFA18F3C159905DCAF74 /* WidgetSyncService.swift */,
 			);
 			path = Widgets;
+			sourceTree = "<group>";
+		};
+		A380618DD7EA37C8CC0A0502 /* Notifications */ = {
+			isa = PBXGroup;
+			children = (
+				F940F706E5BC5CC7BF42DDA4 /* SubscriptionReminderScheduler.swift */,
+			);
+			path = Notifications;
 			sourceTree = "<group>";
 		};
 		AA3AEA1F03886BE3B540B5BE /* Resources */ = {
@@ -796,6 +807,7 @@
 				914358B8DF73009A74235AD5 /* SettingsView.swift in Sources */,
 				25FB078DEDE811CC7ADC4049 /* SettingsViewModel.swift in Sources */,
 				24E19E8FDA4DEA8177D2668B /* Skeleton.swift in Sources */,
+				894BDE70B62B4E37E9BB2D78 /* SubscriptionReminderScheduler.swift in Sources */,
 				ABDAAD5BA16C053C0FB4DF53 /* TerminalBadge.swift in Sources */,
 				1EAB1033EAF92507B161AA55 /* TerminalButton.swift in Sources */,
 				B6C369312EBEC6F0BDB20B11 /* TerminalCard.swift in Sources */,

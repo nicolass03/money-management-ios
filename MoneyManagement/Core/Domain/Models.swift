@@ -154,6 +154,7 @@ struct RecurringExpenseWithTags: Codable, Identifiable, Equatable {
     let createdAt: String
     let updatedAt: String
     let tags: [String]
+    let cancelReminderEnabled: Bool
 }
 
 struct PlannedExpenseWithTags: Codable, Identifiable, Equatable {
