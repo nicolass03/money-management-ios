@@ -77,11 +77,6 @@ struct AccountsView: View {
             Text(name)
               .font(AppFont.mono(size: 14, weight: .medium))
               .foregroundStyle(palette.text)
-            Text(String(format: L10n.t("> initial: %@"),
-                        MoneyFormatter.format(account.initialAmount, currency: account.currency,
-                                              displayCurrency: account.currency, rates: deps.rates)))
-              .font(AppFont.mono(size: 11))
-              .foregroundStyle(palette.muted)
           }
           Spacer()
           VStack(alignment: .trailing, spacing: 2) {
