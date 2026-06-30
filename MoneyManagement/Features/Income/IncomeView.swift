@@ -240,8 +240,9 @@ private struct IncomeScheduleFormSheet: View {
       TerminalTextField(label: L10n.t("anchor date"), placeholder: L10n.t("YYYY-MM-DD"), text: $model.anchorDate, keyboardType: .numbersAndPunctuation)
       FrequencyPicker(selection: $model.frequency)
       AmountTextField(text: $model.amountText, placeholder: "1500.00")
-      CurrencyPicker(selection: $model.currency)
+      AccountPicker(accounts: model.accounts, selection: $model.accountId)
     }
+    .task { await model.loadAccounts() }
   }
 
   private func save() async {
@@ -325,8 +326,9 @@ private struct IncomeEntryFormSheet: View {
       TerminalTextField(label: L10n.t("name"), placeholder: L10n.t("bonus"), text: $model.name)
       TerminalTextField(label: L10n.t("date"), placeholder: L10n.t("YYYY-MM-DD"), text: $model.date, keyboardType: .numbersAndPunctuation)
       AmountTextField(text: $model.amountText, placeholder: "500.00")
-      CurrencyPicker(selection: $model.currency)
+      AccountPicker(accounts: model.accounts, selection: $model.accountId)
     }
+    .task { await model.loadAccounts() }
   }
 
   private func save() async {

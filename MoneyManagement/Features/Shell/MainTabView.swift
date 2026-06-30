@@ -15,6 +15,7 @@ struct MainTabView: View {
     @State private var expensesViewModel: ExpensesViewModel
     @State private var budgetsViewModel: BudgetsViewModel
     @State private var incomeViewModel: IncomeViewModel
+    @State private var accountsViewModel: AccountsViewModel
     @State private var projectionsViewModel: ProjectionsViewModel
     @State private var settingsViewModel: SettingsViewModel
 
@@ -31,6 +32,7 @@ struct MainTabView: View {
         _expensesViewModel = State(initialValue: ExpensesViewModel(deps: deps))
         _budgetsViewModel = State(initialValue: BudgetsViewModel(deps: deps))
         _incomeViewModel = State(initialValue: IncomeViewModel(deps: deps))
+        _accountsViewModel = State(initialValue: AccountsViewModel(deps: deps))
         _projectionsViewModel = State(initialValue: ProjectionsViewModel(deps: deps))
         _settingsViewModel = State(initialValue: SettingsViewModel(deps: deps))
     }
@@ -55,6 +57,11 @@ struct MainTabView: View {
                 IncomeView(viewModel: incomeViewModel, deps: deps)
             }
             .tag(AppTab.income)
+
+            NavigationStack {
+                AccountsView(viewModel: accountsViewModel, deps: deps)
+            }
+            .tag(AppTab.accounts)
 
             NavigationStack {
                 ProjectionsView(
@@ -127,6 +134,8 @@ struct MainTabView: View {
             await budgetsViewModel.load(force: force)
         case .income:
             await incomeViewModel.load(force: force)
+        case .accounts:
+            await accountsViewModel.load(force: force)
         case .projections:
             await projectionsViewModel.load(force: force)
         }

@@ -204,16 +204,30 @@ final class ExpensesViewModel {
 final class ExpenseFormModel {
   var name = ""
   var amountText = ""
-  var currency: CurrencyCode = .eur
   var date = PayPeriodLogic.todayISO()
   var tagsText = ""
   var isSubscription = false
+  var accounts: [Account] = []
+  var accountId: String?
 
   private let deps: AppDependencies
 
   init(deps: AppDependencies) {
     self.deps = deps
-    currency = deps.displayCurrency
+  }
+
+  /// Currency follows the selected account so derived balances stay single-currency.
+  var selectedAccount: Account? {
+    accounts.first { $0.id == accountId } ?? accounts.first
+  }
+
+  var currency: CurrencyCode {
+    selectedAccount?.currency ?? deps.displayCurrency
+  }
+
+  func loadAccounts() async {
+    accounts = (try? await deps.dataStore.getAccounts { [deps] in try await deps.api.getAccounts() }) ?? []
+    if accountId == nil { accountId = accounts.first?.id }
   }
 
   var canSave: Bool {
@@ -232,7 +246,8 @@ final class ExpenseFormModel {
       currency: currency,
       date: date,
       tags: TagsInputField.parseTags(tagsText),
-      isSubscription: isSubscription
+      isSubscription: isSubscription,
+      accountId: selectedAccount?.id
     )
     _ = try await deps.api.createExpense(body)
     deps.invalidateAfter(.expenseChange)

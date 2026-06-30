@@ -83,6 +83,18 @@ struct UserSettings: Codable, Equatable {
     }
 }
 
+/// A money account (cash, EUR account, USD account, …). `balance` is the server-derived current
+/// balance in the account's own currency.
+struct Account: Codable, Identifiable, Equatable {
+    let id: String
+    let name: String?
+    let currency: CurrencyCode
+    let initialAmount: Int
+    let balance: Int
+    let archivedAt: String?
+    let createdAt: String
+}
+
 struct IncomePaySchedule: Codable, Identifiable, Equatable {
     let id: String
     let name: String
@@ -90,6 +102,7 @@ struct IncomePaySchedule: Codable, Identifiable, Equatable {
     let frequency: PayFrequency
     let amount: Int
     let currency: CurrencyCode
+    let accountId: String?
     let createdAt: String
     let updatedAt: String
 }
@@ -102,6 +115,7 @@ struct Income: Codable, Identifiable, Equatable {
     let source: IncomeSource
     let date: String
     let scheduleId: String?
+    let accountId: String?
     let createdAt: String
 
     var isManual: Bool { source == .manual && scheduleId == nil }
@@ -119,6 +133,7 @@ struct Expense: Codable, Identifiable, Equatable {
     let budgetId: String?
     let amountOverridden: Bool
     let isSubscription: Bool
+    let accountId: String?
     let createdAt: String
 
     var isSystemGenerated: Bool { recurringId != nil || plannedExpenseId != nil || budgetId != nil }
@@ -136,6 +151,7 @@ struct ExpenseWithTags: Codable, Identifiable, Equatable {
     let budgetId: String?
     let amountOverridden: Bool
     let isSubscription: Bool
+    let accountId: String?
     let createdAt: String
     let tags: [String]
 
@@ -163,6 +179,7 @@ struct PlannedExpenseWithTags: Codable, Identifiable, Equatable {
     let date: String
     let amount: Int
     let currency: CurrencyCode
+    let accountId: String?
     let createdAt: String
     let updatedAt: String
     let tags: [String]
@@ -303,12 +320,19 @@ struct PatchSettingsRequest: Encodable {
     }
 }
 
+struct CreateAccountRequest: Encodable {
+    let name: String?
+    let currency: CurrencyCode
+    let initialAmount: Int
+}
+
 struct CreateIncomeScheduleRequest: Encodable {
     let name: String
     let anchorDate: String
     let frequency: PayFrequency
     let amount: Int
     let currency: CurrencyCode
+    let accountId: String?
 }
 
 struct CreateIncomeRequest: Encodable {
@@ -316,6 +340,7 @@ struct CreateIncomeRequest: Encodable {
     let amount: Int
     let currency: CurrencyCode
     let date: String
+    let accountId: String?
 }
 
 struct CreateExpenseRequest: Encodable {
@@ -325,6 +350,7 @@ struct CreateExpenseRequest: Encodable {
     let date: String
     let tags: [String]
     let isSubscription: Bool
+    let accountId: String?
 }
 
 struct UpdateExpenseAmountRequest: Encodable {
@@ -358,6 +384,7 @@ struct CreatePlannedExpenseRequest: Encodable {
     let amount: Int
     let currency: CurrencyCode
     let tags: [String]
+    let accountId: String?
 }
 
 struct CreateBudgetRequest: Encodable {

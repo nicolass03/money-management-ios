@@ -123,9 +123,10 @@ private struct PlannedExpenseFormSheet: View {
       TerminalTextField(label: L10n.t("name"), placeholder: L10n.t("car repair"), text: $model.name)
       TerminalTextField(label: L10n.t("date"), placeholder: L10n.t("YYYY-MM-DD"), text: $model.date, keyboardType: .numbersAndPunctuation)
       AmountTextField(text: $model.amountText, placeholder: "500.00")
-      CurrencyPicker(selection: $model.currency)
+      AccountPicker(accounts: model.accounts, selection: $model.accountId)
       TagsInputField(tagsText: $model.tagsText, knownTags: knownTags)
     }
+    .task { await model.loadAccounts() }
   }
 
   private func save() async {

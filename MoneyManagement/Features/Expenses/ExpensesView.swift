@@ -303,11 +303,12 @@ private struct ExpenseFormSheet: View {
       if let errorMessage { ErrorBanner(message: errorMessage) }
       TerminalTextField(label: L10n.t("name"), placeholder: L10n.t("groceries"), text: $model.name)
       AmountTextField(text: $model.amountText, placeholder: "45.00")
-      CurrencyPicker(selection: $model.currency)
+      AccountPicker(accounts: model.accounts, selection: $model.accountId)
       TerminalTextField(label: L10n.t("date"), placeholder: L10n.t("YYYY-MM-DD"), text: $model.date, keyboardType: .numbersAndPunctuation)
       TagsInputField(tagsText: $model.tagsText, knownTags: knownTags)
       SubscriptionToggle(isSubscription: $model.isSubscription)
     }
+    .task { await model.loadAccounts() }
   }
 
   private func save() async {

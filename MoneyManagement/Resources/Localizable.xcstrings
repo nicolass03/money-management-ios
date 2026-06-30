@@ -103,6 +103,7 @@
       }
     },
     "%1$@ renews on %2$@ — cancel it now if you no longer want it.": {
+      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
@@ -114,6 +115,22 @@
           "stringUnit": {
             "state": "translated",
             "value": "%1$@ se renueva el %2$@ — cancélala ahora si ya no la quieres."
+          }
+        }
+      }
+    },
+    "+ add account": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "+ add account"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "+ agregar cuenta"
           }
         }
       }
@@ -541,6 +558,22 @@
         }
       }
     },
+    "> initial: %@": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "> initial: %@"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "> inicial: %@"
+          }
+        }
+      }
+    },
     "> language": {
       "extractionState": "stale",
       "localizations": {
@@ -571,6 +604,22 @@
           "stringUnit": {
             "state": "translated",
             "value": "> próximo: %@"
+          }
+        }
+      }
+    },
+    "> no accounts yet.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "> no accounts yet."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "> aún no hay cuentas."
           }
         }
       }
@@ -729,6 +778,7 @@
       }
     },
     "> no subscriptions to remind about.": {
+      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
@@ -881,6 +931,7 @@
       }
     },
     "> theme": {
+      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
@@ -909,6 +960,22 @@
           "stringUnit": {
             "state": "translated",
             "value": "> total gastado"
+          }
+        }
+      }
+    },
+    "Archive account?": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Archive account?"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "¿archivar cuenta?"
           }
         }
       }
@@ -1082,6 +1149,7 @@
       }
     },
     "Subscription renewal": {
+      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
@@ -1114,6 +1182,7 @@
         }
       }
     },
+    "[✓]": {},
     "_": {
       "localizations": {
         "en": {
@@ -1126,6 +1195,54 @@
           "stringUnit": {
             "state": "translated",
             "value": "_"
+          }
+        }
+      }
+    },
+    "account": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "account"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "cuenta"
+          }
+        }
+      }
+    },
+    "accounts": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "accounts"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "cuentas"
+          }
+        }
+      }
+    },
+    "accounts tab": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "accounts tab"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "pestaña de cuentas"
           }
         }
       }
@@ -1177,6 +1294,22 @@
           "stringUnit": {
             "state": "translated",
             "value": "agregar"
+          }
+        }
+      }
+    },
+    "add account": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "add account"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "agregar cuenta"
           }
         }
       }
@@ -1368,6 +1501,38 @@
         }
       }
     },
+    "archive": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "archive"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "archivar"
+          }
+        }
+      }
+    },
+    "archiving keeps history but removes the account from pickers and totals.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "archiving keeps history but removes the account from pickers and totals."
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "archivar conserva el historial pero quita la cuenta de los selectores y totales."
+          }
+        }
+      }
+    },
     "authenticate": {
       "extractionState": "stale",
       "localizations": {
@@ -1415,6 +1580,22 @@
           "stringUnit": {
             "state": "translated",
             "value": "autenticando..."
+          }
+        }
+      }
+    },
+    "balance": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "balance"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "saldo"
           }
         }
       }
@@ -1488,6 +1669,7 @@
       }
     },
     "cancel a subscription": {
+      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
@@ -1504,6 +1686,7 @@
       }
     },
     "cancel reminder": {
+      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
@@ -1536,6 +1719,22 @@
         }
       }
     },
+    "cash and bank balances": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "cash and bank balances"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "saldos de efectivo y banco"
+          }
+        }
+      }
+    },
     "cash flow by pay period": {
       "extractionState": "stale",
       "localizations": {
@@ -1549,6 +1748,22 @@
           "stringUnit": {
             "state": "translated",
             "value": "flujo de caja por periodo de pago"
+          }
+        }
+      }
+    },
+    "cash, euros…": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "cash, euros…"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "efectivo, euros…"
           }
         }
       }
@@ -1753,6 +1968,22 @@
           "stringUnit": {
             "state": "translated",
             "value": "editar"
+          }
+        }
+      }
+    },
+    "edit account": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "edit account"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "editar cuenta"
           }
         }
       }
@@ -2607,6 +2838,7 @@
       }
     },
     "next charge: %@": {
+      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
@@ -2703,6 +2935,22 @@
           "stringUnit": {
             "state": "translated",
             "value": "abrir configuración"
+          }
+        }
+      }
+    },
+    "opening balance comes from your accounts": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "opening balance comes from your accounts"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "el saldo inicial proviene de tus cuentas"
           }
         }
       }
@@ -2878,6 +3126,7 @@
       }
     },
     "reminder set": {
+      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
@@ -3149,6 +3398,7 @@
       }
     },
     "tap a subscription to toggle a cancellation reminder": {
+      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
@@ -3165,6 +3415,7 @@
       }
     },
     "terminal": {
+      "extractionState": "stale",
       "localizations": {
         "en": {
           "stringUnit": {
@@ -3295,6 +3546,22 @@
           "stringUnit": {
             "state": "translated",
             "value": "desconocido"
+          }
+        }
+      }
+    },
+    "unnamed": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "unnamed"
+          }
+        },
+        "es": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "sin nombre"
           }
         }
       }

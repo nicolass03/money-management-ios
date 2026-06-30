@@ -193,7 +193,16 @@ final class BudgetExpenseFormModel {
     name = budget.name
   }
 
-  var canSave: Bool { amountMinor != nil }
+  var canSave: Bool {
+    guard let amount = amountMinor, amount > 0, amount <= remaining else {
+      return false
+    }
+    return true
+  }
+
+  var isDated: Bool { BudgetStatusLogic.isDatedBudget(budget) }
+
+  var remaining: Int { budget.amount - budget.spent }
 
   var amountMinor: Int? {
     MoneyFormatter.parseToMinorUnits(amountText, currency: budget.currency)

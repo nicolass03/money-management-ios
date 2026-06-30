@@ -216,12 +216,9 @@ struct SettingsView: View {
                     .font(AppFont.mono(size: 12))
                     .foregroundStyle(palette.muted)
 
-                AmountTextField(
-                    text: $viewModel.projectionInitialFreeMoneyText,
-                    label: L10n.t("initial free money"),
-                    placeholder: "0.00",
-                    allowsNegative: true
-                )
+                Text(L10n.t("opening balance comes from your accounts"))
+                    .font(AppFont.mono(size: 11))
+                    .foregroundStyle(palette.muted)
 
                 TerminalTextField(
                     label: L10n.t("projection start date (YYYY-MM-DD)"),

@@ -15,6 +15,7 @@ final class DataStore {
   private(set) var budgets: [BudgetWithTags]?
   private(set) var income: [Income]?
   private(set) var schedules: [IncomePaySchedule]?
+  private(set) var accounts: [Account]?
   private(set) var projections: ProjectionsResponse?
   private(set) var tags: [String]?
   private(set) var expensePeriodViews: [String: ExpensePeriodViewResponse] = [:]
@@ -34,6 +35,7 @@ final class DataStore {
       case .budgets: budgets = nil
       case .income: income = nil
       case .schedules: schedules = nil
+      case .accounts: accounts = nil
       case .projections: projections = nil
       case .tags: tags = nil
       case .expensePeriodView(let period):
@@ -57,6 +59,7 @@ final class DataStore {
     budgets = nil
     income = nil
     schedules = nil
+    accounts = nil
     projections = nil
     tags = nil
     expensePeriodViews = [:]
@@ -120,6 +123,10 @@ final class DataStore {
 
   func getSchedules(fetch: @escaping () async throws -> [IncomePaySchedule]) async throws -> [IncomePaySchedule] {
     try await get(.schedules, cached: schedules, assign: { self.schedules = $0 }, fetch: fetch)
+  }
+
+  func getAccounts(fetch: @escaping () async throws -> [Account]) async throws -> [Account] {
+    try await get(.accounts, cached: accounts, assign: { self.accounts = $0 }, fetch: fetch)
   }
 
   func getProjections(fetch: @escaping () async throws -> ProjectionsResponse) async throws -> ProjectionsResponse {
