@@ -29,6 +29,24 @@ struct APIService {
         try await client.request("GET", path: "tags")
     }
 
+    // MARK: - Accounts
+
+    func getAccounts() async throws -> [Account] {
+        try await client.request("GET", path: "accounts")
+    }
+
+    func createAccount(_ body: CreateAccountRequest) async throws -> Account {
+        try await client.request("POST", path: "accounts", body: body)
+    }
+
+    func updateAccount(id: String, _ body: CreateAccountRequest) async throws -> Account {
+        try await client.request("PATCH", path: "accounts/\(id)", body: body)
+    }
+
+    func deleteAccount(id: String) async throws {
+        let _: SuccessResponse = try await client.request("DELETE", path: "accounts/\(id)")
+    }
+
     // MARK: - Income schedules
 
     func getIncomeSchedules() async throws -> [IncomePaySchedule] {

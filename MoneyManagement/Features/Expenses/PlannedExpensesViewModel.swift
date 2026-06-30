@@ -74,8 +74,9 @@ final class PlannedExpenseFormModel {
   var name = ""
   var date = PayPeriodLogic.todayISO()
   var amountText = ""
-  var currency: CurrencyCode = .eur
   var tagsText = ""
+  var accounts: [Account] = []
+  var accountId: String?
 
   private let editing: PlannedExpenseWithTags?
   private let deps: AppDependencies
@@ -89,11 +90,23 @@ final class PlannedExpenseFormModel {
       name = editing.name
       date = editing.date
       amountText = MoneyFormatter.formatMinorUnitsAsInput(editing.amount, currency: editing.currency)
-      currency = editing.currency
+      accountId = editing.accountId
       tagsText = editing.tags.joined(separator: ", ")
-    } else {
-      currency = deps.displayCurrency
     }
+  }
+
+  /// Currency follows the selected source account.
+  var selectedAccount: Account? {
+    accounts.first { $0.id == accountId } ?? accounts.first
+  }
+
+  var currency: CurrencyCode {
+    selectedAccount?.currency ?? editing?.currency ?? deps.displayCurrency
+  }
+
+  func loadAccounts() async {
+    accounts = (try? await deps.dataStore.getAccounts { [deps] in try await deps.api.getAccounts() }) ?? []
+    if accountId == nil { accountId = accounts.first?.id }
   }
 
   var canSave: Bool {
@@ -111,7 +124,8 @@ final class PlannedExpenseFormModel {
       date: date,
       amount: amount,
       currency: currency,
-      tags: TagsInputField.parseTags(tagsText)
+      tags: TagsInputField.parseTags(tagsText),
+      accountId: selectedAccount?.id
     )
     if let editing {
       _ = try await deps.api.updatePlannedExpense(id: editing.id, body)

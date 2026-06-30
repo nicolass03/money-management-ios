@@ -54,6 +54,29 @@ struct CurrencyPicker: View {
   }
 }
 
+/// Account picker for the entry forms. Currency follows the chosen account, so forms read
+/// their currency from the selection rather than offering a separate currency picker.
+struct AccountPicker: View {
+  let accounts: [Account]
+  @Binding var selection: String?
+
+  var body: some View {
+    Picker(L10n.t("account"), selection: $selection) {
+      ForEach(accounts) { account in
+        Text(Self.label(account)).tag(Optional(account.id))
+      }
+    }
+    .pickerStyle(.menu)
+    .font(AppFont.mono(size: 14))
+  }
+
+  static func label(_ account: Account) -> String {
+    let trimmed = account.name?.trimmingCharacters(in: .whitespaces)
+    let name = (trimmed?.isEmpty == false ? trimmed : nil) ?? L10n.t("unnamed")
+    return "\(name) · \(account.currency.label)"
+  }
+}
+
 struct FrequencyPicker: View {
   @Binding var selection: PayFrequency
 

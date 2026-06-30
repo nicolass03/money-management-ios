@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		08DD72596EB8666714874A7A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 03A6925A0F38B30A4AD8B4C5 /* Assets.xcassets */; };
+		093C804AC11288431F79C593 /* AccountsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A7FA27FFE68CFD674D1961CB /* AccountsView.swift */; };
 		0BB62BB4FB3E15D5E46239B5 /* ExtraSpentWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA3785B1186C3329306828D8 /* ExtraSpentWidget.swift */; };
 		115FEE3F998D7B24DFC4AD80 /* BudgetsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6871621B60DEB376B7CC486D /* BudgetsView.swift */; };
 		1445ACD1DDBCBFFD100446D8 /* FloatingSettingsButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 071D55C1613CEC30B95901FB /* FloatingSettingsButton.swift */; };
@@ -35,6 +36,7 @@
 		4AD895AA66C9994863B32986 /* MoneyFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 316D5BAF0492291F52CFAD8B /* MoneyFormatter.swift */; };
 		5065689CF6CD9E85EC343B97 /* LoadingIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F04B35927A4113F40EB9EC /* LoadingIndicator.swift */; };
 		5389E894FE1C9E433ED5B25E /* ProjectionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3685A38DFE9C9424B05C6623 /* ProjectionsViewModel.swift */; };
+		58A0E072932B3271199FAD3B /* AccountsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B70AD51376253F676573249A /* AccountsViewModel.swift */; };
 		6594B8EAB64934B427B48A20 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 5B1530DC6E723F2BC90A9453 /* Localizable.xcstrings */; };
 		6CC9FC3C1DBEA2844098C28E /* TerminalTagChip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 75B5EC51A228D56C98AC1805 /* TerminalTagChip.swift */; };
 		6D59588BCAAE2A48B21B4BFE /* TerminalScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86974C8D4A6C1FEA7D3C7A2D /* TerminalScreen.swift */; };
@@ -159,7 +161,7 @@
 
 /* Begin PBXFileReference section */
 		01FDEA4728A051DB7662479F /* RecurringExpensesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecurringExpensesView.swift; sourceTree = "<group>"; };
-		02D666CF932699EAF07F0E0E /* MoneyManagement.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = MoneyManagement.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		02D666CF932699EAF07F0E0E /* Spendfly.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Spendfly.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		03A6925A0F38B30A4AD8B4C5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		071D55C1613CEC30B95901FB /* FloatingSettingsButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingSettingsButton.swift; sourceTree = "<group>"; };
 		0E645F17C001D4128F8FCB8D /* TerminalButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerminalButton.swift; sourceTree = "<group>"; };
@@ -214,11 +216,13 @@
 		99C59925E588F4EB9AE5E3A0 /* WidgetViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetViews.swift; sourceTree = "<group>"; };
 		9D90EAADAFE95FEE23951C8A /* TerminalProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerminalProgressBar.swift; sourceTree = "<group>"; };
 		A4A40AB07BD50CD9D7939E30 /* MoneyFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoneyFormatter.swift; sourceTree = "<group>"; };
+		A7FA27FFE68CFD674D1961CB /* AccountsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountsView.swift; sourceTree = "<group>"; };
 		A86E8A55BD25A4E3DC287E8C /* TerminalBadge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerminalBadge.swift; sourceTree = "<group>"; };
 		A8E1733F53C4CEB69295C8A9 /* QuickActionBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickActionBar.swift; sourceTree = "<group>"; };
 		AA3785B1186C3329306828D8 /* ExtraSpentWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtraSpentWidget.swift; sourceTree = "<group>"; };
 		AA5F7DA79D32DB2FF5BBB8C4 /* TerminalCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerminalCard.swift; sourceTree = "<group>"; };
 		B49FA551E714EB5E219ABBCA /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
+		B70AD51376253F676573249A /* AccountsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountsViewModel.swift; sourceTree = "<group>"; };
 		B71A7C9CEE010D6D89C27F8D /* SectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionHeader.swift; sourceTree = "<group>"; };
 		B93ADE6E53C6E3B3334AAA42 /* SpendflyShared.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SpendflyShared.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BBBF6DDD2BBCBC8490694B78 /* PayPeriodLogic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayPeriodLogic.swift; sourceTree = "<group>"; };
@@ -237,7 +241,7 @@
 		E0B14DB809E79D65245E5DF9 /* PlannedExpensesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlannedExpensesViewModel.swift; sourceTree = "<group>"; };
 		E33998618326C2D23EBCFF7B /* MonthSpentWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthSpentWidget.swift; sourceTree = "<group>"; };
 		E793835025A340F1186F9316 /* PlannedExpensesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlannedExpensesView.swift; sourceTree = "<group>"; };
-		EC52BFC43D61E4AEFC3A1AA4 /* SpendflyWidgets.appex */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "wrapper.app-extension"; path = SpendflyWidgets.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		EC52BFC43D61E4AEFC3A1AA4 /* SpendflyWidgets.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = SpendflyWidgets.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		F29ED5D46BF5290D3407A115 /* SpendflyFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpendflyFont.swift; sourceTree = "<group>"; };
 		F51AE3D3030B121FBBD7DCC7 /* AppGroupConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppGroupConstants.swift; sourceTree = "<group>"; };
 		F940F706E5BC5CC7BF42DDA4 /* SubscriptionReminderScheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionReminderScheduler.swift; sourceTree = "<group>"; };
@@ -378,6 +382,7 @@
 		4682B78E9041C9C3F55FD3BA /* Features */ = {
 			isa = PBXGroup;
 			children = (
+				5B7438A4BB866492490811C5 /* Accounts */,
 				40308494CC69A961FC1E1ED6 /* Auth */,
 				EB3228509D2AAE837B50FCA9 /* Budgets */,
 				AF05875450E1AA34807C5FE3 /* Expenses */,
@@ -417,6 +422,15 @@
 			path = Settings;
 			sourceTree = "<group>";
 		};
+		5B7438A4BB866492490811C5 /* Accounts */ = {
+			isa = PBXGroup;
+			children = (
+				A7FA27FFE68CFD674D1961CB /* AccountsView.swift */,
+				B70AD51376253F676573249A /* AccountsViewModel.swift */,
+			);
+			path = Accounts;
+			sourceTree = "<group>";
+		};
 		6E6FE5E80CD2CE9FB2790137 /* Cache */ = {
 			isa = PBXGroup;
 			children = (
@@ -440,7 +454,7 @@
 		86F51444319A78DA9237396C /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				02D666CF932699EAF07F0E0E /* MoneyManagement.app */,
+				02D666CF932699EAF07F0E0E /* Spendfly.app */,
 				B93ADE6E53C6E3B3334AAA42 /* SpendflyShared.framework */,
 				EC52BFC43D61E4AEFC3A1AA4 /* SpendflyWidgets.appex */,
 			);
@@ -623,7 +637,7 @@
 				8B1D36C366F281581EF661C4 /* Supabase */,
 			);
 			productName = MoneyManagement;
-			productReference = 02D666CF932699EAF07F0E0E /* MoneyManagement.app */;
+			productReference = 02D666CF932699EAF07F0E0E /* Spendfly.app */;
 			productType = "com.apple.product-type.application";
 		};
 		ED859C659FB202A76179306D /* SpendflyWidgets */ = {
@@ -661,11 +675,9 @@
 						ProvisioningStyle = Automatic;
 					};
 					86B843960D6BC50ACA96B829 = {
-						DevelopmentTeam = "";
 						ProvisioningStyle = Automatic;
 					};
 					ED859C659FB202A76179306D = {
-						DevelopmentTeam = "";
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -760,6 +772,8 @@
 				71FFA7379490452DF90D9739 /* APIClient.swift in Sources */,
 				76E4AEFA8AD04BF9C771C693 /* APIError.swift in Sources */,
 				CCAEEF369F6AA22FA9F4D0A1 /* APIService.swift in Sources */,
+				093C804AC11288431F79C593 /* AccountsView.swift in Sources */,
+				58A0E072932B3271199FAD3B /* AccountsViewModel.swift in Sources */,
 				34E846736330210FB666CFB8 /* AppColors.swift in Sources */,
 				B565C442162364126F1442FD /* AppConfig.swift in Sources */,
 				45FF8F423A048473AECEAA62 /* AppDependencies.swift in Sources */,
@@ -907,7 +921,7 @@
 				CODE_SIGN_ENTITLEMENTS = SpendflyWidgets/SpendflyWidgets.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = G6Y64763QH;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = SpendflyWidgets/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -932,7 +946,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = G6Y64763QH;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = MoneyManagement/Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -956,7 +970,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = G6Y64763QH;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = MoneyManagement/Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -978,7 +992,7 @@
 				CODE_SIGN_ENTITLEMENTS = SpendflyWidgets/SpendflyWidgets.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = G6Y64763QH;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = SpendflyWidgets/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (

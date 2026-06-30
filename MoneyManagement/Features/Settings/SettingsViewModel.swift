@@ -58,18 +58,11 @@ final class SettingsViewModel {
         errorMessage = nil
         defer { isSaving = false }
 
-        guard let freeMoney = MoneyFormatter.parseSignedToMinorUnits(
-            projectionInitialFreeMoneyText,
-            currency: displayCurrency
-        ) else {
-            errorMessage = L10n.t("invalid initial free money amount")
-            Haptics.warning()
-            return false
-        }
+        // The projection's opening balance is now the sum of account initial amounts (see the
+        // Accounts tab), so the settings form no longer edits projection_initial_free_money.
         var request = PatchSettingsRequest(
             displayCurrency: displayCurrency,
-            primaryScheduleId: primaryScheduleId,
-            projectionInitialFreeMoney: freeMoney
+            primaryScheduleId: primaryScheduleId
         )
         if projectionStartDate.isEmpty {
             request.clearProjectionStartDate = true

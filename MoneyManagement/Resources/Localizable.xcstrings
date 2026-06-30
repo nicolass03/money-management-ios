@@ -1,3388 +1,3677 @@
 {
-  "sourceLanguage": "en",
-  "strings": {
-    " auth --login": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": " auth --login"
+  "sourceLanguage" : "en",
+  "strings" : {
+    " · " : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : " · "
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": " auth --login"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : " · "
           }
         }
       }
     },
-    " · ": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": " · "
+    " auth --login" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : " auth --login"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": " · "
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : " auth --login"
           }
         }
       }
     },
-    "#%@": {},
-    "$": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "$"
+    "_" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "_"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "$"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "_"
           }
         }
       }
     },
-    "$ auth failed: connection error": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "$ auth failed: connection error"
+    ":" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ":"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "$ auth failed: error de conexión"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ":"
           }
         }
       }
     },
-    "$ auth failed: invalid credentials": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "$ auth failed: invalid credentials"
+    "[✓]" : {
+
+    },
+    "/" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "/"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "/"
+          }
+        }
+      }
+    },
+    "// please wait..." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "// please wait..."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "// por favor espera..."
+          }
+        }
+      }
+    },
+    "#%@" : {
+
+    },
+    "%1$@ renews on %2$@ — cancel it now if you no longer want it." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ renews on %2$@ — cancel it now if you no longer want it."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ se renueva el %2$@ — cancélala ahora si ya no la quieres."
+          }
+        }
+      }
+    },
+    "+ add account" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "+ add account"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "+ agregar cuenta"
+          }
+        }
+      }
+    },
+    "+ add budget" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "+ add budget"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "+ agregar presupuesto"
+          }
+        }
+      }
+    },
+    "+ add income" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "+ add income"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "+ agregar ingreso"
+          }
+        }
+      }
+    },
+    "+ add one-time" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "+ add one-time"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "+ agregar único"
+          }
+        }
+      }
+    },
+    "+ add recurring" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "+ add recurring"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "+ agregar recurrente"
+          }
+        }
+      }
+    },
+    "+ add schedule" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "+ add schedule"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "+ agregar calendario"
+          }
+        }
+      }
+    },
+    "+ expense" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "+ expense"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "+ gasto"
+          }
+        }
+      }
+    },
+    ">" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ">"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : ">"
+          }
+        }
+      }
+    },
+    "> " : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "> "
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "> "
+          }
+        }
+      }
+    },
+    "> / %@ limit" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "> / %@ limit"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "> / %@ límite"
+          }
+        }
+      }
+    },
+    "> %@" : {
+
+    },
+    "> %@ · %@" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "> %1$@ · %2$@"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "> %1$@ · %2$@"
+          }
+        }
+      }
+    },
+    "> %@ · anchor %@" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "> %@ · anchor %@"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "> %1$@ · ancla %2$@"
+          }
+        }
+      }
+    },
+    "> %@ → %@" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "> %1$@ → %2$@"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "> %1$@ → %2$@"
+          }
+        }
+      }
+    },
+    "> appearance" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "> appearance"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "$ auth failed: credenciales inválidas"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "> apariencia"
           }
         }
       }
     },
-    "$ auth failed: too many attempts, try again later": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "$ auth failed: too many attempts, try again later"
+    "> configure in settings to see projections." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "> configure in settings to see projections."
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "$ auth failed: demasiados intentos, inténtalo de nuevo más tarde"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "> configura en ajustes para ver proyecciones."
           }
         }
       }
     },
-    "%1$@ renews on %2$@ — cancel it now if you no longer want it.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%1$@ renews on %2$@ — cancel it now if you no longer want it."
+    "> currency" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "> currency"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "%1$@ se renueva el %2$@ — cancélala ahora si ya no la quieres."
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "> moneda"
           }
         }
       }
     },
-    "+ add budget": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "+ add budget"
+    "> extra spent" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "> extra spent"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "+ agregar presupuesto"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "> gasto extra"
           }
         }
       }
     },
-    "+ add income": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "+ add income"
+    "> extra spent limit" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "> extra spent limit"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "+ agregar ingreso"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "> límite de gasto extra"
           }
         }
       }
     },
-    "+ add one-time": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "+ add one-time"
+    "> initial: %@" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "> initial: %@"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "+ agregar único"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "> inicial: %@"
           }
         }
       }
     },
-    "+ add recurring": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "+ add recurring"
+    "> language" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "> language"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "+ agregar recurrente"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "> idioma"
           }
         }
       }
     },
-    "+ add schedule": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "+ add schedule"
+    "> next: %@" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "> next: %@"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "+ agregar calendario"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "> próximo: %@"
           }
         }
       }
     },
-    "+ expense": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "+ expense"
+    "> no accounts yet." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "> no accounts yet."
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "+ gasto"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "> aún no hay cuentas."
           }
         }
       }
     },
-    "/": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "/"
+    "> no budgets yet." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "> no budgets yet."
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "/"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "> aún no hay presupuestos."
           }
         }
       }
     },
-    "// please wait...": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "// please wait..."
+    "> no expenses in this budget." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "> no expenses in this budget."
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "// por favor espera..."
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "> no hay gastos en este presupuesto."
           }
         }
       }
     },
-    "0.00": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "0.00"
+    "> no expenses in this period." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "> no expenses in this period."
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "0.00"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "> no hay gastos en este periodo."
           }
         }
       }
     },
-    "1500.00": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "1500.00"
+    "> no income entries yet." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "> no income entries yet."
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "1500.00"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "> aún no hay registros de ingreso."
           }
         }
       }
     },
-    "45.00": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "45.00"
+    "> no pay schedules yet." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "> no pay schedules yet."
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "45.00"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "> aún no hay calendarios de pago."
           }
         }
       }
     },
-    "50.00": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "50.00"
+    "> no planned expenses yet." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "> no planned expenses yet."
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "50.00"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "> aún no hay gastos planificados."
           }
         }
       }
     },
-    "500.00": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "500.00"
+    "> no primary pay schedule." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "> no primary pay schedule."
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "500.00"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "> no hay calendario de pago principal."
           }
         }
       }
     },
-    ":": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": ":"
+    "> no projection rows." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "> no projection rows."
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": ":"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "> no hay filas de proyección."
           }
         }
       }
     },
-    ">": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": ">"
+    "> no recurring expenses yet." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "> no recurring expenses yet."
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": ">"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "> aún no hay gastos recurrentes."
           }
         }
       }
     },
-    "> ": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "> "
+    "> no subscriptions to remind about." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "> no subscriptions to remind about."
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "> "
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "> no hay suscripciones para recordar."
           }
         }
       }
     },
-    "> %@": {},
-    "> %@ · %@": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "new",
-            "value": "> %1$@ · %2$@"
+    "> no upcoming charges in the next 30 days." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "> no upcoming charges in the next 30 days."
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "> %1$@ · %2$@"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "> no hay cargos próximos en los próximos 30 días."
           }
         }
       }
     },
-    "> %@ · anchor %@": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "> %@ · anchor %@"
+    "> open-ended" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "> open-ended"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "> %1$@ · ancla %2$@"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "> sin fecha fin"
           }
         }
       }
     },
-    "> %@ → %@": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "new",
-            "value": "> %1$@ → %2$@"
+    "> optimal limit for unplanned spending (not recurring, planned, or budgets)" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "> optimal limit for unplanned spending (not recurring, planned, or budgets)"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "> %1$@ → %2$@"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "> límite óptimo para gasto no planificado (no recurrente, planificado ni presupuestos)"
           }
         }
       }
     },
-    "> / %@ limit": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "> / %@ limit"
+    "> primary pay schedule" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "> primary pay schedule"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "> / %@ límite"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "> calendario de pago principal"
           }
         }
       }
     },
-    "> appearance": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "> appearance"
+    "> projections" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "> projections"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "> apariencia"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "> proyecciones"
           }
         }
       }
     },
-    "> configure in settings to see projections.": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "> configure in settings to see projections."
+    "> required for pay-period view." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "> required for pay-period view."
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "> configura en ajustes para ver proyecciones."
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "> requerido para la vista del periodo de pago."
           }
         }
       }
     },
-    "> currency": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "> currency"
+    "> session" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "> session"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "> moneda"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "> sesión"
           }
         }
       }
     },
-    "> extra spent": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "> extra spent"
+    "> set a primary pay schedule." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "> set a primary pay schedule."
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "> gasto extra"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "> configura un calendario de pago principal."
           }
         }
       }
     },
-    "> extra spent limit": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "> extra spent limit"
+    "> theme" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "> theme"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "> límite de gasto extra"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "> tema"
           }
         }
       }
     },
-    "> language": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "> language"
+    "> total spent" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "> total spent"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "> idioma"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "> total gastado"
           }
         }
       }
     },
-    "> next: %@": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "> next: %@"
+    "~" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "~"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "> próximo: %@"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "~"
           }
         }
       }
     },
-    "> no budgets yet.": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "> no budgets yet."
+    "$" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "$"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "> aún no hay presupuestos."
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "$"
           }
         }
       }
     },
-    "> no expenses in this budget.": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "> no expenses in this budget."
+    "$ auth failed: connection error" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "$ auth failed: connection error"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "> no hay gastos en este presupuesto."
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "$ auth failed: error de conexión"
           }
         }
       }
     },
-    "> no expenses in this period.": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "> no expenses in this period."
+    "$ auth failed: invalid credentials" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "$ auth failed: invalid credentials"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "> no hay gastos en este periodo."
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "$ auth failed: credenciales inválidas"
           }
         }
       }
     },
-    "> no income entries yet.": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "> no income entries yet."
+    "$ auth failed: too many attempts, try again later" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "$ auth failed: too many attempts, try again later"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "> aún no hay registros de ingreso."
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "$ auth failed: demasiados intentos, inténtalo de nuevo más tarde"
           }
         }
       }
     },
-    "> no pay schedules yet.": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "> no pay schedules yet."
+    "0.00" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "0.00"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "> aún no hay calendarios de pago."
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "0.00"
           }
         }
       }
     },
-    "> no planned expenses yet.": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "> no planned expenses yet."
+    "45.00" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "45.00"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "> aún no hay gastos planificados."
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "45.00"
           }
         }
       }
     },
-    "> no primary pay schedule.": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "> no primary pay schedule."
+    "50.00" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "50.00"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "> no hay calendario de pago principal."
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "50.00"
           }
         }
       }
     },
-    "> no projection rows.": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "> no projection rows."
+    "500.00" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "500.00"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "> no hay filas de proyección."
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "500.00"
           }
         }
       }
     },
-    "> no recurring expenses yet.": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "> no recurring expenses yet."
+    "1500.00" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1500.00"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "> aún no hay gastos recurrentes."
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "1500.00"
           }
         }
       }
     },
-    "> no subscriptions to remind about.": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "> no subscriptions to remind about."
+    "account" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "account"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "> no hay suscripciones para recordar."
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "cuenta"
           }
         }
       }
     },
-    "> no upcoming charges in the next 30 days.": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "> no upcoming charges in the next 30 days."
+    "accounts" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "accounts"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "> no hay cargos próximos en los próximos 30 días."
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "cuentas"
           }
         }
       }
     },
-    "> open-ended": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "> open-ended"
+    "accounts tab" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "accounts tab"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "> sin fecha fin"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "pestaña de cuentas"
           }
         }
       }
     },
-    "> optimal limit for unplanned spending (not recurring, planned, or budgets)": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "> optimal limit for unplanned spending (not recurring, planned, or budgets)"
+    "accumulated" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "accumulated"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "> límite óptimo para gasto no planificado (no recurrente, planificado ni presupuestos)"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "acumulado"
           }
         }
       }
     },
-    "> primary pay schedule": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "> primary pay schedule"
+    "active" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "active"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "> calendario de pago principal"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "activo"
           }
         }
       }
     },
-    "> projections": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "> projections"
+    "add" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "add"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "> proyecciones"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "agregar"
           }
         }
       }
     },
-    "> required for pay-period view.": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "> required for pay-period view."
+    "add account" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "add account"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "> requerido para la vista del periodo de pago."
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "agregar cuenta"
           }
         }
       }
     },
-    "> session": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "> session"
+    "add budget" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "add budget"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "> sesión"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "agregar presupuesto"
           }
         }
       }
     },
-    "> set a primary pay schedule.": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "> set a primary pay schedule."
+    "add budget expense" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "add budget expense"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "> configura un calendario de pago principal."
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "agregar gasto al presupuesto"
           }
         }
       }
     },
-    "> theme": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "> theme"
+    "add expense" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "add expense"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "> tema"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "agregar gasto"
           }
         }
       }
     },
-    "> total spent": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "> total spent"
+    "add income" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "add income"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "> total gastado"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "agregar ingreso"
           }
         }
       }
     },
-    "Cycle theme: dark, light, or system": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Cycle theme: dark, light, or system"
+    "add one-time" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "add one-time"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Cambiar tema: oscuro, claro o sistema"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "agregar único"
           }
         }
       }
     },
-    "Delete budget?": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Delete budget?"
+    "add recurring" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "add recurring"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "¿Eliminar presupuesto?"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "agregar recurrente"
           }
         }
       }
     },
-    "Delete expense?": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Delete expense?"
+    "add schedule" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "add schedule"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "¿Eliminar gasto?"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "agregar calendario"
           }
         }
       }
     },
-    "Delete income?": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Delete income?"
+    "allocated spending pools" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "allocated spending pools"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "¿Eliminar ingreso?"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "pools de gasto asignados"
           }
         }
       }
     },
-    "Delete planned expense?": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Delete planned expense?"
+    "amount" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "amount"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "¿Eliminar gasto planificado?"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "monto"
           }
         }
       }
     },
-    "Delete recurring expense?": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Delete recurring expense?"
+    "analytics and spend by period" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "analytics and spend by period"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "¿Eliminar gasto recurrente?"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "análisis y gasto por periodo"
           }
         }
       }
     },
-    "Delete schedule?": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Delete schedule?"
+    "anchor date" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "anchor date"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "¿Eliminar calendario?"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "fecha ancla"
           }
         }
       }
     },
-    "English": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "English"
+    "archive" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "archive"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "English"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "archivar"
           }
         }
       }
     },
-    "Español": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Español"
+    "Archive account?" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Archive account?"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Español"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "¿archivar cuenta?"
           }
         }
       }
     },
-    "Settings": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Settings"
+    "archiving keeps history but removes the account from pickers and totals." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "archiving keeps history but removes the account from pickers and totals."
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Configuración"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "archivar conserva el historial pero quita la cuenta de los selectores y totales."
           }
         }
       }
     },
-    "Subscription renewal": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Subscription renewal"
+    "authenticate" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "authenticate"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "Renovación de suscripción"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "autenticar"
           }
         }
       }
     },
-    "YYYY-MM-DD": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "YYYY-MM-DD"
+    "authenticating" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "authenticating"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "AAAA-MM-DD"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "autenticando"
           }
         }
       }
     },
-    "_": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "_"
+    "authenticating..." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "authenticating..."
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "_"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "autenticando..."
           }
         }
       }
     },
-    "accumulated": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "accumulated"
+    "balance" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "balance"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "acumulado"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "saldo"
           }
         }
       }
     },
-    "active": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "active"
+    "bonus" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "bonus"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "activo"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "bono"
           }
         }
       }
     },
-    "add": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "add"
+    "budgets" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "budgets"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "agregar"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "presupuestos"
           }
         }
       }
     },
-    "add budget": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "add budget"
+    "budgets tab" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "budgets tab"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "agregar presupuesto"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "pestaña de presupuestos"
           }
         }
       }
     },
-    "add budget expense": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "add budget expense"
+    "cancel" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "cancel"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "agregar gasto al presupuesto"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "cancelar"
           }
         }
       }
     },
-    "add expense": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "add expense"
+    "cancel a subscription" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "cancel a subscription"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "agregar gasto"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "cancelar una suscripción"
           }
         }
       }
     },
-    "add income": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "add income"
+    "cancel reminder" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "cancel reminder"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "agregar ingreso"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "recordar cancelar"
           }
         }
       }
     },
-    "add one-time": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "add one-time"
+    "car repair" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "car repair"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "agregar único"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "reparación auto"
           }
         }
       }
     },
-    "add recurring": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "add recurring"
+    "cash and bank balances" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "cash and bank balances"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "agregar recurrente"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "saldos de efectivo y banco"
           }
         }
       }
     },
-    "add schedule": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "add schedule"
+    "cash flow by pay period" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "cash flow by pay period"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "agregar calendario"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "flujo de caja por periodo de pago"
           }
         }
       }
     },
-    "allocated spending pools": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "allocated spending pools"
+    "cash, euros…" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "cash, euros…"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "pools de gasto asignados"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "efectivo, euros…"
           }
         }
       }
     },
-    "amount": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "amount"
+    "configure app preferences" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "configure app preferences"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "monto"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "configura las preferencias de la app"
           }
         }
       }
     },
-    "analytics and spend by period": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "analytics and spend by period"
+    "connecting" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "connecting"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "análisis y gasto por periodo"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "conectando"
           }
         }
       }
     },
-    "anchor date": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "anchor date"
+    "currency" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "currency"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "fecha ancla"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "moneda"
           }
         }
       }
     },
-    "authenticate": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "authenticate"
+    "Cycle theme: dark, light, or system" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cycle theme: dark, light, or system"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "autenticar"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cambiar tema: oscuro, claro o sistema"
           }
         }
       }
     },
-    "authenticating": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "authenticating"
+    "dark" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "dark"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "autenticando"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "oscuro"
           }
         }
       }
     },
-    "authenticating...": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "authenticating..."
+    "date" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "date"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "autenticando..."
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "fecha"
           }
         }
       }
     },
-    "bonus": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "bonus"
+    "delete" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "delete"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "bono"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "eliminar"
           }
         }
       }
     },
-    "budgets": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "budgets"
+    "Delete budget?" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete budget?"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "presupuestos"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "¿Eliminar presupuesto?"
           }
         }
       }
     },
-    "budgets tab": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "budgets tab"
+    "Delete expense?" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete expense?"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "pestaña de presupuestos"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "¿Eliminar gasto?"
           }
         }
       }
     },
-    "cancel": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "cancel"
+    "Delete income?" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete income?"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "cancelar"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "¿Eliminar ingreso?"
           }
         }
       }
     },
-    "cancel a subscription": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "cancel a subscription"
+    "Delete planned expense?" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete planned expense?"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "cancelar una suscripción"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "¿Eliminar gasto planificado?"
           }
         }
       }
     },
-    "cancel reminder": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "cancel reminder"
+    "Delete recurring expense?" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete recurring expense?"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "recordar cancelar"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "¿Eliminar gasto recurrente?"
           }
         }
       }
     },
-    "car repair": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "car repair"
+    "Delete schedule?" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Delete schedule?"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "reparación auto"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "¿Eliminar calendario?"
           }
         }
       }
     },
-    "cash flow by pay period": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "cash flow by pay period"
+    "depleted" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "depleted"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "flujo de caja por periodo de pago"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "agotado"
           }
         }
       }
     },
-    "configure app preferences": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "configure app preferences"
+    "display currency" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "display currency"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "configura las preferencias de la app"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "moneda mostrada"
           }
         }
       }
     },
-    "connecting": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "connecting"
+    "done" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "done"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "conectando"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "listo"
           }
         }
       }
     },
-    "currency": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "currency"
+    "due %@" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "due %@"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "moneda"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "vence %@"
           }
         }
       }
     },
-    "dark": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "dark"
+    "early pay" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "early pay"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "oscuro"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "pago anticipado"
           }
         }
       }
     },
-    "date": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "date"
+    "edit" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "edit"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "fecha"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "editar"
           }
         }
       }
     },
-    "delete": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "delete"
+    "edit account" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "edit account"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "eliminar"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "editar cuenta"
           }
         }
       }
     },
-    "depleted": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "depleted"
+    "edit amount" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "edit amount"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "agotado"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "editar monto"
           }
         }
       }
     },
-    "display currency": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "display currency"
+    "edit budget" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "edit budget"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "moneda mostrada"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "editar presupuesto"
           }
         }
       }
     },
-    "done": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "done"
+    "edit income" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "edit income"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "listo"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "editar ingreso"
           }
         }
       }
     },
-    "due %@": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "due %@"
+    "edit one-time" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "edit one-time"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "vence %@"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "editar único"
           }
         }
       }
     },
-    "early pay": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "early pay"
+    "edit recurring" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "edit recurring"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "pago anticipado"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "editar recurrente"
           }
         }
       }
     },
-    "edit": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "edit"
+    "edit schedule" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "edit schedule"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "editar"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "editar calendario"
           }
         }
       }
     },
-    "edit amount": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "edit amount"
+    "end date (optional)" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "end date (optional)"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "editar monto"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "fecha fin (opcional)"
           }
         }
       }
     },
-    "edit budget": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "edit budget"
+    "ended" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ended"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "editar presupuesto"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "finalizado"
           }
         }
       }
     },
-    "edit income": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "edit income"
+    "English" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "English"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "editar ingreso"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "English"
           }
         }
       }
     },
-    "edit one-time": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "edit one-time"
+    "enter email:" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "enter email:"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "editar único"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ingresa correo:"
           }
         }
       }
     },
-    "edit recurring": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "edit recurring"
+    "enter password:" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "enter password:"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "editar recurrente"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ingresa contraseña:"
           }
         }
       }
     },
-    "edit schedule": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "edit schedule"
+    "entries" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "entries"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "editar calendario"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "registros"
           }
         }
       }
     },
-    "end date (optional)": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "end date (optional)"
+    "Español" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Español"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "fecha fin (opcional)"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Español"
           }
         }
       }
     },
-    "ended": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "ended"
+    "every 2 weeks" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "every 2 weeks"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "finalizado"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "cada 2 semanas"
           }
         }
       }
     },
-    "enter email:": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "enter email:"
+    "expenses" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "expenses"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "ingresa correo:"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "gastos"
           }
         }
       }
     },
-    "enter password:": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "enter password:"
+    "expenses tab" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "expenses tab"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "ingresa contraseña:"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "pestaña de gastos"
           }
         }
       }
     },
-    "entries": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "entries"
+    "extra" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "extra"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "registros"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "extra"
           }
         }
       }
     },
-    "every 2 weeks": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "every 2 weeks"
+    "fetching data" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "fetching data"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "cada 2 semanas"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "cargando datos"
           }
         }
       }
     },
-    "expenses": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "expenses"
+    "food, bills" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "food, bills"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "gastos"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "comida, facturas"
           }
         }
       }
     },
-    "expenses tab": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "expenses tab"
+    "free" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "free"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "pestaña de gastos"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "libre"
           }
         }
       }
     },
-    "extra": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "extra"
+    "frequency" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "frequency"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "extra"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "frecuencia"
           }
         }
       }
     },
-    "fetching data": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "fetching data"
+    "groceries" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "groceries"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "cargando datos"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "supermercado"
           }
         }
       }
     },
-    "food, bills": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "food, bills"
+    "guest" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "guest"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "comida, facturas"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "invitado"
           }
         }
       }
     },
-    "free": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "free"
+    "income" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "income"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "libre"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ingresos"
           }
         }
       }
     },
-    "frequency": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "frequency"
+    "income tab" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "income tab"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "frecuencia"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "pestaña de ingresos"
           }
         }
       }
     },
-    "groceries": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "groceries"
+    "initial free money" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "initial free money"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "supermercado"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "saldo libre inicial"
           }
         }
       }
     },
-    "guest": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "guest"
+    "invalid extra spent limit" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "invalid extra spent limit"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "invitado"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "límite de gasto extra inválido"
           }
         }
       }
     },
-    "income": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "income"
+    "invalid initial free money amount" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "invalid initial free money amount"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "ingresos"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "monto inicial de dinero libre inválido"
           }
         }
       }
     },
-    "income tab": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "income tab"
+    "item" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "item"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "pestaña de ingresos"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "artículo"
           }
         }
       }
     },
-    "initial free money": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "initial free money"
+    "language" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "language"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "saldo libre inicial"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "idioma"
           }
         }
       }
     },
-    "invalid extra spent limit": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "invalid extra spent limit"
+    "last 3 months" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "last 3 months"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "límite de gasto extra inválido"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "últimos 3 meses"
           }
         }
       }
     },
-    "invalid initial free money amount": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "invalid initial free money amount"
+    "last month" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "last month"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "monto inicial de dinero libre inválido"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "último mes"
           }
         }
       }
     },
-    "item": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "item"
+    "last payment date (optional)" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "last payment date (optional)"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "artículo"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "última fecha de pago (opcional)"
           }
         }
       }
     },
-    "language": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "language"
+    "last period" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "last period"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "idioma"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "último periodo"
           }
         }
       }
     },
-    "last 3 months": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "last 3 months"
+    "light" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "light"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "últimos 3 meses"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "claro"
           }
         }
       }
     },
-    "last month": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "last month"
+    "limit (empty = none)" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "limit (empty = none)"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "último mes"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "límite (vacío = ninguno)"
           }
         }
       }
     },
-    "last payment date (optional)": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "last payment date (optional)"
+    "loading" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "loading"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "última fecha de pago (opcional)"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "cargando"
           }
         }
       }
     },
-    "last period": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "last period"
+    "loading budget expenses" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "loading budget expenses"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "último periodo"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "cargando gastos del presupuesto"
           }
         }
       }
     },
-    "light": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "light"
+    "loading budgets" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "loading budgets"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "claro"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "cargando presupuestos"
           }
         }
       }
     },
-    "limit (empty = none)": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "limit (empty = none)"
+    "loading income entries" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "loading income entries"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "límite (vacío = ninguno)"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "cargando registros de ingreso"
           }
         }
       }
     },
-    "loading": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "loading"
+    "loading pay schedules" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "loading pay schedules"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "cargando"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "cargando calendarios de pago"
           }
         }
       }
     },
-    "loading budget expenses": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "loading budget expenses"
+    "loading period" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "loading period"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "cargando gastos del presupuesto"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "cargando periodo"
           }
         }
       }
     },
-    "loading budgets": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "loading budgets"
+    "loading projections" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "loading projections"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "cargando presupuestos"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "cargando proyecciones"
           }
         }
       }
     },
-    "loading income entries": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "loading income entries"
+    "loading spendings" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "loading spendings"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "cargando registros de ingreso"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "cargando gastos"
           }
         }
       }
     },
-    "loading pay schedules": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "loading pay schedules"
+    "logout" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "logout"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "cargando calendarios de pago"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "cerrar sesión"
           }
         }
       }
     },
-    "loading period": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "loading period"
+    "manual" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "manual"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "cargando periodo"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "manual"
           }
         }
       }
     },
-    "loading projections": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "loading projections"
+    "mark early pay" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "mark early pay"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "cargando proyecciones"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "marcar pago anticipado"
           }
         }
       }
     },
-    "loading spendings": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "loading spendings"
+    "mark upcoming charges as paid in this period" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "mark upcoming charges as paid in this period"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "cargando gastos"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "marca cargos próximos como pagados en este periodo"
           }
         }
       }
     },
-    "logout": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "logout"
+    "monthly" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "monthly"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "cerrar sesión"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "mensual"
           }
         }
       }
     },
-    "manual": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "manual"
+    "name" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "name"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "manual"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "nombre"
           }
         }
       }
     },
-    "mark early pay": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "mark early pay"
+    "name (optional)" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "name (optional)"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "marcar pago anticipado"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "nombre (opcional)"
           }
         }
       }
     },
-    "mark upcoming charges as paid in this period": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "mark upcoming charges as paid in this period"
+    "netflix" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "netflix"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "marca cargos próximos como pagados en este periodo"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "netflix"
           }
         }
       }
     },
-    "monthly": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "monthly"
+    "next charge: %@" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "next charge: %@"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "mensual"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "próximo cargo: %@"
           }
         }
       }
     },
-    "name": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "name"
+    "no limit" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "no limit"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "nombre"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "sin límite"
           }
         }
       }
     },
-    "name (optional)": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "name (optional)"
+    "none" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "none"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "nombre (opcional)"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "ninguno"
           }
         }
       }
     },
-    "netflix": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "netflix"
+    "one-time" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "one-time"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "netflix"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "único"
           }
         }
       }
     },
-    "next charge: %@": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "next charge: %@"
+    "open" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "open"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "próximo cargo: %@"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "abierto"
           }
         }
       }
     },
-    "no limit": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "no limit"
+    "open settings" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "open settings"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "sin límite"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "abrir configuración"
           }
         }
       }
     },
-    "none": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "none"
+    "opening balance comes from your accounts" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "opening balance comes from your accounts"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "ninguno"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "el saldo inicial proviene de tus cuentas"
           }
         }
       }
     },
-    "one-time": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "one-time"
+    "optional" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "optional"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "único"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "opcional"
           }
         }
       }
     },
-    "open": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "open"
+    "paid date" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "paid date"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "abierto"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "fecha de pago"
           }
         }
       }
     },
-    "open settings": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "open settings"
+    "pay schedules and entries" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "pay schedules and entries"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "abrir configuración"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "calendarios de pago e ingresos"
           }
         }
       }
     },
-    "optional": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "optional"
+    "planned future expenses" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "planned future expenses"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "opcional"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "gastos futuros planificados"
           }
         }
       }
     },
-    "paid date": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "paid date"
+    "primary schedule" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "primary schedule"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "fecha de pago"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "calendario principal"
           }
         }
       }
     },
-    "pay schedules and entries": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "pay schedules and entries"
+    "projection start date (YYYY-MM-DD)" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "projection start date (YYYY-MM-DD)"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "calendarios de pago e ingresos"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "fecha de inicio de proyección (AAAA-MM-DD)"
           }
         }
       }
     },
-    "planned future expenses": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "planned future expenses"
+    "projections" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "projections"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "gastos futuros planificados"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "proyecciones"
           }
         }
       }
     },
-    "primary schedule": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "primary schedule"
+    "projections tab" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "projections tab"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "calendario principal"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "pestaña de proyecciones"
           }
         }
       }
     },
-    "projection start date (YYYY-MM-DD)": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "projection start date (YYYY-MM-DD)"
+    "recurring" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "recurring"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "fecha de inicio de proyección (AAAA-MM-DD)"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "recurrente"
           }
         }
       }
     },
-    "projections": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "projections"
+    "remember me" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "remember me"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "proyecciones"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "recordarme"
           }
         }
       }
     },
-    "projections tab": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "projections tab"
+    "reminder set" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "reminder set"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "pestaña de proyecciones"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "recordatorio activo"
           }
         }
       }
     },
-    "recurring": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "recurring"
+    "retry" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "retry"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "recurrente"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "reintentar"
           }
         }
       }
     },
-    "remember me": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "remember me"
+    "salary" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "salary"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "recordarme"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "salario"
           }
         }
       }
     },
-    "reminder set": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "reminder set"
+    "save" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "save"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "recordatorio activo"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "guardar"
           }
         }
       }
     },
-    "retry": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "retry"
+    "save preferences" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "save preferences"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "reintentar"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "guardar preferencias"
           }
         }
       }
     },
-    "salary": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "salary"
+    "saving..." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "saving..."
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "salario"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "guardando..."
           }
         }
       }
     },
-    "save": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "save"
+    "scheduled" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "scheduled"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "guardar"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "programado"
           }
         }
       }
     },
-    "save preferences": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "save preferences"
+    "schedules" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "schedules"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "guardar preferencias"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "calendarios"
           }
         }
       }
     },
-    "saving...": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "saving..."
+    "settings" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "settings"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "guardando..."
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "configuración"
           }
         }
       }
     },
-    "scheduled": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "scheduled"
+    "Settings" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Settings"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "programado"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Configuración"
           }
         }
       }
     },
-    "schedules": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "schedules"
+    "signing out..." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "signing out..."
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "calendarios"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "cerrando sesión..."
           }
         }
       }
     },
-    "settings": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "settings"
+    "spendings" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "spendings"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "configuración"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "gastos"
           }
         }
       }
     },
-    "signing out...": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "signing out..."
+    "start date (optional)" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "start date (optional)"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "cerrando sesión..."
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "fecha inicio (opcional)"
           }
         }
       }
     },
-    "spendings": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "spendings"
+    "sub" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "sub"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "gastos"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "sub"
           }
         }
       }
     },
-    "start date (optional)": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "start date (optional)"
+    "subscription" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "subscription"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "fecha inicio (opcional)"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "suscripción"
           }
         }
       }
     },
-    "sub": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "sub"
+    "subscription and recurring payments" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "subscription and recurring payments"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "sub"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "suscripciones y pagos recurrentes"
           }
         }
       }
     },
-    "subscription": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "subscription"
+    "Subscription renewal" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Subscription renewal"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "suscripción"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Renovación de suscripción"
           }
         }
       }
     },
-    "subscription and recurring payments": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "subscription and recurring payments"
+    "tags (comma-separated)" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "tags (comma-separated)"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "suscripciones y pagos recurrentes"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "etiquetas (separadas por coma)"
           }
         }
       }
     },
-    "tags (comma-separated)": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "tags (comma-separated)"
+    "tap a subscription to toggle a cancellation reminder" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "tap a subscription to toggle a cancellation reminder"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "etiquetas (separadas por coma)"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "toca una suscripción para activar o quitar el recordatorio de cancelación"
           }
         }
       }
     },
-    "tap a subscription to toggle a cancellation reminder": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "tap a subscription to toggle a cancellation reminder"
+    "terminal" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "terminal"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "toca una suscripción para activar o quitar el recordatorio de cancelación"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "terminal"
           }
         }
       }
     },
-    "terminal": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "terminal"
+    "theme: dark" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "theme: dark"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "terminal"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "tema: oscuro"
           }
         }
       }
     },
-    "theme: dark": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "theme: dark"
+    "theme: light" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "theme: light"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "tema: oscuro"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "tema: claro"
           }
         }
       }
     },
-    "theme: light": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "theme: light"
+    "theme: system" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "theme: system"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "tema: claro"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "tema: sistema"
           }
         }
       }
     },
-    "theme: system": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "theme: system"
+    "theme: system (%@)" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "theme: system (%@)"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "tema: sistema"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "tema: sistema (%@)"
           }
         }
       }
     },
-    "theme: system (%@)": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "theme: system (%@)"
+    "theme: system (dark)" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "theme: system (dark)"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "tema: sistema (%@)"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "tema: sistema (oscuro)"
           }
         }
       }
     },
-    "theme: system (dark)": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "theme: system (dark)"
+    "theme: system (light)" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "theme: system (light)"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "tema: sistema (oscuro)"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "tema: sistema (claro)"
           }
         }
       }
     },
-    "theme: system (light)": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "theme: system (light)"
+    "unknown" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "unknown"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "tema: sistema (claro)"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "desconocido"
           }
         }
       }
     },
-    "unknown": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "unknown"
+    "unnamed" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "unnamed"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "desconocido"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "sin nombre"
           }
         }
       }
     },
-    "upcoming": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "upcoming"
+    "upcoming" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "upcoming"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "próximo"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "próximo"
           }
         }
       }
     },
-    "vacation": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "vacation"
+    "vacation" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "vacation"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "vacaciones"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "vacaciones"
           }
         }
       }
     },
-    "weekly": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "weekly"
+    "weekly" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "weekly"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "semanal"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "semanal"
           }
         }
       }
     },
-    "yearly": {
-      "extractionState": "stale",
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "yearly"
+    "yearly" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "yearly"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "anual"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "anual"
           }
         }
       }
     },
-    "~": {
-      "localizations": {
-        "en": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "~"
+    "YYYY-MM-DD" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "YYYY-MM-DD"
           }
         },
-        "es": {
-          "stringUnit": {
-            "state": "translated",
-            "value": "~"
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "AAAA-MM-DD"
           }
         }
       }
     }
   },
-  "version": "1.0"
+  "version" : "1.0"
 }

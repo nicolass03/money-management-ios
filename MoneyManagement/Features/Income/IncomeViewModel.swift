@@ -152,7 +152,8 @@ final class IncomeScheduleFormModel {
   var anchorDate = PayPeriodLogic.todayISO()
   var frequency: PayFrequency = .biweekly
   var amountText = ""
-  var currency: CurrencyCode = .eur
+  var accounts: [Account] = []
+  var accountId: String?
 
   private let editing: IncomePaySchedule?
   private let deps: AppDependencies
@@ -167,10 +168,22 @@ final class IncomeScheduleFormModel {
       anchorDate = editing.anchorDate
       frequency = editing.frequency
       amountText = MoneyFormatter.formatMinorUnitsAsInput(editing.amount, currency: editing.currency)
-      currency = editing.currency
-    } else {
-      currency = deps.displayCurrency
+      accountId = editing.accountId
     }
+  }
+
+  /// Scheduled income lands in the chosen account; currency follows it.
+  var selectedAccount: Account? {
+    accounts.first { $0.id == accountId } ?? accounts.first
+  }
+
+  var currency: CurrencyCode {
+    selectedAccount?.currency ?? editing?.currency ?? deps.displayCurrency
+  }
+
+  func loadAccounts() async {
+    accounts = (try? await deps.dataStore.getAccounts { [deps] in try await deps.api.getAccounts() }) ?? []
+    if accountId == nil { accountId = accounts.first?.id }
   }
 
   var canSave: Bool {
@@ -188,7 +201,8 @@ final class IncomeScheduleFormModel {
       anchorDate: anchorDate,
       frequency: frequency,
       amount: amount,
-      currency: currency
+      currency: currency,
+      accountId: selectedAccount?.id
     )
     if let editing {
       _ = try await deps.api.updateIncomeSchedule(id: editing.id, body)
@@ -205,7 +219,8 @@ final class IncomeEntryFormModel {
   var name = ""
   var date = PayPeriodLogic.todayISO()
   var amountText = ""
-  var currency: CurrencyCode = .eur
+  var accounts: [Account] = []
+  var accountId: String?
 
   private let editing: Income?
   private let deps: AppDependencies
@@ -219,10 +234,22 @@ final class IncomeEntryFormModel {
       name = editing.name
       date = editing.date
       amountText = MoneyFormatter.formatMinorUnitsAsInput(editing.amount, currency: editing.currency)
-      currency = editing.currency
-    } else {
-      currency = deps.displayCurrency
+      accountId = editing.accountId
     }
+  }
+
+  /// Income lands in the chosen account; currency follows it.
+  var selectedAccount: Account? {
+    accounts.first { $0.id == accountId } ?? accounts.first
+  }
+
+  var currency: CurrencyCode {
+    selectedAccount?.currency ?? editing?.currency ?? deps.displayCurrency
+  }
+
+  func loadAccounts() async {
+    accounts = (try? await deps.dataStore.getAccounts { [deps] in try await deps.api.getAccounts() }) ?? []
+    if accountId == nil { accountId = accounts.first?.id }
   }
 
   var canSave: Bool {
@@ -239,7 +266,8 @@ final class IncomeEntryFormModel {
       name: name.trimmingCharacters(in: .whitespaces),
       amount: amount,
       currency: currency,
-      date: date
+      date: date,
+      accountId: selectedAccount?.id
     )
     if let editing {
       _ = try await deps.api.updateIncome(id: editing.id, body)
@@ -278,7 +306,8 @@ final class IncomeAmountFormModel {
       name: entry.name,
       amount: amount,
       currency: entry.currency,
-      date: entry.date
+      date: entry.date,
+      accountId: entry.accountId
     )
     _ = try await deps.api.updateIncome(id: entry.id, body)
     deps.invalidateAfter(.incomeChange)
