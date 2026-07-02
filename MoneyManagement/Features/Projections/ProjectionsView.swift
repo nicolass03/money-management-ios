@@ -66,6 +66,10 @@ struct ProjectionsView: View {
               .font(AppFont.mono(size: 14, weight: .medium))
               .foregroundStyle(palette.text)
 
+            if isCurrent {
+              TerminalBadge(text: L10n.t("current"), style: .accent)
+            }
+
             Spacer(minLength: 12)
 
             Text(formatPeriodRange(row.startDate, row.endDate))

@@ -1498,6 +1498,22 @@
         }
       }
     },
+    "current" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "current"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "en curso"
+          }
+        }
+      }
+    },
     "finish" : {
       "localizations" : {
         "en" : {
