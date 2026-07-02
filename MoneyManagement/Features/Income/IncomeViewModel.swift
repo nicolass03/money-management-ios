@@ -172,9 +172,13 @@ final class IncomeScheduleFormModel {
     }
   }
 
-  /// Scheduled income lands in the chosen account; currency follows it.
+  /// Scheduled income lands in the chosen account; currency follows it. When editing a schedule
+  /// whose account was archived (so it is absent from `accounts`), this stays nil rather than
+  /// silently falling back to the first account — save() then preserves the row's own account id
+  /// and currency instead of reassigning it. New rows default to the first account.
   var selectedAccount: Account? {
-    accounts.first { $0.id == accountId } ?? accounts.first
+    if let match = accounts.first(where: { $0.id == accountId }) { return match }
+    return isEditing ? nil : accounts.first
   }
 
   var currency: CurrencyCode {
@@ -202,7 +206,7 @@ final class IncomeScheduleFormModel {
       frequency: frequency,
       amount: amount,
       currency: currency,
-      accountId: selectedAccount?.id
+      accountId: selectedAccount?.id ?? accountId
     )
     if let editing {
       _ = try await deps.api.updateIncomeSchedule(id: editing.id, body)
@@ -238,9 +242,13 @@ final class IncomeEntryFormModel {
     }
   }
 
-  /// Income lands in the chosen account; currency follows it.
+  /// Income lands in the chosen account; currency follows it. When editing an entry whose account
+  /// was archived (absent from `accounts`), this stays nil rather than silently falling back to
+  /// the first account — save() then preserves the row's own account id and currency instead of
+  /// reassigning it. New rows default to the first account.
   var selectedAccount: Account? {
-    accounts.first { $0.id == accountId } ?? accounts.first
+    if let match = accounts.first(where: { $0.id == accountId }) { return match }
+    return isEditing ? nil : accounts.first
   }
 
   var currency: CurrencyCode {
@@ -267,7 +275,7 @@ final class IncomeEntryFormModel {
       amount: amount,
       currency: currency,
       date: date,
-      accountId: selectedAccount?.id
+      accountId: selectedAccount?.id ?? accountId
     )
     if let editing {
       _ = try await deps.api.updateIncome(id: editing.id, body)

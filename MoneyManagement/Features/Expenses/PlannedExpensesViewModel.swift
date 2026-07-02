@@ -95,9 +95,13 @@ final class PlannedExpenseFormModel {
     }
   }
 
-  /// Currency follows the selected source account.
+  /// Currency follows the selected source account. When editing a planned expense whose account
+  /// was archived (absent from `accounts`), this stays nil rather than silently falling back to
+  /// the first account — save() then preserves the row's own account id and currency instead of
+  /// reassigning it. New rows default to the first account.
   var selectedAccount: Account? {
-    accounts.first { $0.id == accountId } ?? accounts.first
+    if let match = accounts.first(where: { $0.id == accountId }) { return match }
+    return isEditing ? nil : accounts.first
   }
 
   var currency: CurrencyCode {
@@ -125,7 +129,7 @@ final class PlannedExpenseFormModel {
       amount: amount,
       currency: currency,
       tags: TagsInputField.parseTags(tagsText),
-      accountId: selectedAccount?.id
+      accountId: selectedAccount?.id ?? accountId
     )
     if let editing {
       _ = try await deps.api.updatePlannedExpense(id: editing.id, body)

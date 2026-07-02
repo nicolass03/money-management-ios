@@ -171,6 +171,8 @@ struct RecurringExpenseWithTags: Codable, Identifiable, Equatable {
     let updatedAt: String
     let tags: [String]
     let cancelReminderEnabled: Bool
+    /// Optional pinned account. `nil` = the daily charge job picks an account by currency.
+    let accountId: String?
 }
 
 struct PlannedExpenseWithTags: Codable, Identifiable, Equatable {
@@ -378,6 +380,7 @@ struct CreateRecurringExpenseRequest: Encodable {
     let tags: [String]
     let isSubscription: Bool
     let lastPaymentDate: String?
+    let accountId: String?
 }
 
 struct CreatePlannedExpenseRequest: Encodable {

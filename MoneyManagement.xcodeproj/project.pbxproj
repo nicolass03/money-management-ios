@@ -161,7 +161,7 @@
 
 /* Begin PBXFileReference section */
 		01FDEA4728A051DB7662479F /* RecurringExpensesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecurringExpensesView.swift; sourceTree = "<group>"; };
-		02D666CF932699EAF07F0E0E /* Spendfly.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Spendfly.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		02D666CF932699EAF07F0E0E /* MoneyManagement.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = MoneyManagement.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		03A6925A0F38B30A4AD8B4C5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		071D55C1613CEC30B95901FB /* FloatingSettingsButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FloatingSettingsButton.swift; sourceTree = "<group>"; };
 		0E645F17C001D4128F8FCB8D /* TerminalButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TerminalButton.swift; sourceTree = "<group>"; };
@@ -241,7 +241,7 @@
 		E0B14DB809E79D65245E5DF9 /* PlannedExpensesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlannedExpensesViewModel.swift; sourceTree = "<group>"; };
 		E33998618326C2D23EBCFF7B /* MonthSpentWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthSpentWidget.swift; sourceTree = "<group>"; };
 		E793835025A340F1186F9316 /* PlannedExpensesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlannedExpensesView.swift; sourceTree = "<group>"; };
-		EC52BFC43D61E4AEFC3A1AA4 /* SpendflyWidgets.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = SpendflyWidgets.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		EC52BFC43D61E4AEFC3A1AA4 /* SpendflyWidgets.appex */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = "wrapper.app-extension"; path = SpendflyWidgets.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		F29ED5D46BF5290D3407A115 /* SpendflyFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpendflyFont.swift; sourceTree = "<group>"; };
 		F51AE3D3030B121FBBD7DCC7 /* AppGroupConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppGroupConstants.swift; sourceTree = "<group>"; };
 		F940F706E5BC5CC7BF42DDA4 /* SubscriptionReminderScheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionReminderScheduler.swift; sourceTree = "<group>"; };
@@ -454,7 +454,7 @@
 		86F51444319A78DA9237396C /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				02D666CF932699EAF07F0E0E /* Spendfly.app */,
+				02D666CF932699EAF07F0E0E /* MoneyManagement.app */,
 				B93ADE6E53C6E3B3334AAA42 /* SpendflyShared.framework */,
 				EC52BFC43D61E4AEFC3A1AA4 /* SpendflyWidgets.appex */,
 			);
@@ -637,7 +637,7 @@
 				8B1D36C366F281581EF661C4 /* Supabase */,
 			);
 			productName = MoneyManagement;
-			productReference = 02D666CF932699EAF07F0E0E /* Spendfly.app */;
+			productReference = 02D666CF932699EAF07F0E0E /* MoneyManagement.app */;
 			productType = "com.apple.product-type.application";
 		};
 		ED859C659FB202A76179306D /* SpendflyWidgets */ = {
@@ -675,9 +675,11 @@
 						ProvisioningStyle = Automatic;
 					};
 					86B843960D6BC50ACA96B829 = {
+						DevelopmentTeam = "";
 						ProvisioningStyle = Automatic;
 					};
 					ED859C659FB202A76179306D = {
+						DevelopmentTeam = "";
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -921,7 +923,7 @@
 				CODE_SIGN_ENTITLEMENTS = SpendflyWidgets/SpendflyWidgets.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = G6Y64763QH;
+				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = SpendflyWidgets/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -946,7 +948,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = G6Y64763QH;
+				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = MoneyManagement/Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -970,7 +972,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = G6Y64763QH;
+				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = MoneyManagement/Resources/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -992,7 +994,7 @@
 				CODE_SIGN_ENTITLEMENTS = SpendflyWidgets/SpendflyWidgets.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = G6Y64763QH;
+				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = SpendflyWidgets/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (

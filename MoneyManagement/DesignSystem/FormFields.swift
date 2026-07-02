@@ -59,15 +59,46 @@ struct CurrencyPicker: View {
 struct AccountPicker: View {
   let accounts: [Account]
   @Binding var selection: String?
+  /// When true, offer an "auto" option (nil selection). Used by recurring expenses, whose account
+  /// is optional — nil means the daily charge job picks an account by currency.
+  var includeAutoOption: Bool = false
+
+  /// True when the current selection points at an account absent from `accounts` (archived). Kept
+  /// as a selectable option so editing a row never silently rebinds it to a different account.
+  private var archivedSelection: String? {
+    guard let selection, !accounts.contains(where: { $0.id == selection }) else { return nil }
+    return selection
+  }
+
+  /// The selected account when it is active (has a known balance to surface at point of entry).
+  private var selectedAccount: Account? {
+    guard let selection else { return nil }
+    return accounts.first { $0.id == selection }
+  }
 
   var body: some View {
-    Picker(L10n.t("account"), selection: $selection) {
-      ForEach(accounts) { account in
-        Text(Self.label(account)).tag(Optional(account.id))
+    VStack(alignment: .leading, spacing: 4) {
+      Picker(L10n.t("account"), selection: $selection) {
+        if includeAutoOption {
+          Text(L10n.t("auto — pick by currency")).tag(String?.none)
+        }
+        if let archivedSelection {
+          Text(L10n.t("archived account")).tag(Optional(archivedSelection))
+        }
+        ForEach(accounts) { account in
+          Text(Self.label(account)).tag(Optional(account.id))
+        }
+      }
+      .pickerStyle(.menu)
+      .font(AppFont.mono(size: 14))
+
+      if let selectedAccount {
+        Text("\(L10n.t("balance")): \(MoneyFormatter.format(selectedAccount.balance, currency: selectedAccount.currency))")
+          .font(AppFont.mono(size: 11))
+          .foregroundStyle(.secondary)
+          .frame(maxWidth: .infinity, alignment: .leading)
       }
     }
-    .pickerStyle(.menu)
-    .font(AppFont.mono(size: 14))
   }
 
   static func label(_ account: Account) -> String {

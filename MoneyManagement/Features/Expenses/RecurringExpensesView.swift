@@ -144,11 +144,16 @@ private struct RecurringExpenseFormSheet: View {
       TerminalTextField(label: L10n.t("anchor date"), placeholder: L10n.t("YYYY-MM-DD"), text: $model.anchorDate, keyboardType: .numbersAndPunctuation)
       FrequencyPicker(selection: $model.frequency)
       AmountTextField(text: $model.amountText, placeholder: "1500.00")
-      CurrencyPicker(selection: $model.currency)
+      AccountPicker(accounts: model.accounts, selection: $model.accountId, includeAutoOption: true)
+      // A pinned account locks the currency to follow it; "auto" keeps the free currency picker.
+      if !model.currencyLocked {
+        CurrencyPicker(selection: $model.currency)
+      }
       TagsInputField(tagsText: $model.tagsText, knownTags: knownTags)
       SubscriptionToggle(isSubscription: $model.isSubscription)
       TerminalTextField(label: L10n.t("last payment date (optional)"), placeholder: L10n.t("YYYY-MM-DD"), text: $model.lastPaymentDate, keyboardType: .numbersAndPunctuation)
     }
+    .task { await model.loadAccounts() }
   }
 
   private func save() async {

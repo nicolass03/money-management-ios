@@ -88,6 +88,10 @@ final class RecurringExpenseFormModel {
   var tagsText = ""
   var isSubscription = false
   var lastPaymentDate = ""
+  var accounts: [Account] = []
+  /// Optional pinned account. `nil` = "auto": the charge job picks an account by currency at
+  /// charge time. When set, currency follows the account (currency-follows-account).
+  var accountId: String?
 
   private let editing: RecurringExpenseWithTags?
   private let deps: AppDependencies
@@ -106,9 +110,29 @@ final class RecurringExpenseFormModel {
       tagsText = editing.tags.joined(separator: ", ")
       isSubscription = editing.isSubscription
       lastPaymentDate = editing.lastPaymentDate ?? ""
+      accountId = editing.accountId
     } else {
       currency = deps.displayCurrency
     }
+  }
+
+  /// The pinned account, when it is still active. Nil for "auto" or an archived pin.
+  var selectedAccount: Account? {
+    guard let accountId else { return nil }
+    return accounts.first { $0.id == accountId }
+  }
+
+  /// Currency follows a pinned (still-active) account; otherwise the free currency picker applies.
+  /// When the pin is archived, `currency` was seeded from the row's stored (account) currency.
+  var effectiveCurrency: CurrencyCode {
+    selectedAccount?.currency ?? currency
+  }
+
+  /// A pinned account (even an archived one) locks the currency to follow it.
+  var currencyLocked: Bool { accountId != nil }
+
+  func loadAccounts() async {
+    accounts = (try? await deps.dataStore.getAccounts { [deps] in try await deps.api.getAccounts() }) ?? []
   }
 
   var canSave: Bool {
@@ -116,7 +140,7 @@ final class RecurringExpenseFormModel {
   }
 
   var amountMinor: Int? {
-    MoneyFormatter.parseToMinorUnits(amountText, currency: currency)
+    MoneyFormatter.parseToMinorUnits(amountText, currency: effectiveCurrency)
   }
 
   func save() async throws {
@@ -126,10 +150,11 @@ final class RecurringExpenseFormModel {
       anchorDate: anchorDate,
       frequency: frequency,
       amount: amount,
-      currency: currency,
+      currency: effectiveCurrency,
       tags: TagsInputField.parseTags(tagsText),
       isSubscription: isSubscription,
-      lastPaymentDate: lastPaymentDate.isEmpty ? nil : lastPaymentDate
+      lastPaymentDate: lastPaymentDate.isEmpty ? nil : lastPaymentDate,
+      accountId: accountId
     )
     if let editing {
       _ = try await deps.api.updateRecurringExpense(id: editing.id, body)

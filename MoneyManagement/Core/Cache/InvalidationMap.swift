@@ -41,7 +41,8 @@ enum InvalidationMap {
     case .expenseChange:
       return Set([.expenses, .projections, .accounts, upcoming] + periodViews)
     case .recurringChange:
-      return Set([.recurringExpenses, .expenses, .projections, upcoming] + periodViews)
+      // Materialized recurring charges land on an account, so balances can change.
+      return Set([.recurringExpenses, .expenses, .projections, .accounts, upcoming] + periodViews)
     case .plannedChange:
       return Set([.plannedExpenses, .expenses, .projections, .accounts, upcoming] + periodViews)
     case .budgetChange:

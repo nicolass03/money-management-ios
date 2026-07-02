@@ -18,16 +18,33 @@ final class AccountsViewModel {
     self.deps = deps
   }
 
-  /// Net worth: every account's current balance summed into the display currency.
-  var netWorth: Int {
-    items.reduce(0) { partial, account in
-      partial + CurrencyConverter.convert(
+  /// Net worth: every account's current balance summed into the display currency, or `nil` when a
+  /// foreign-currency account can't be converted (missing FX rates). Returning nil rather than a
+  /// raw sum avoids a meaningless total that mixes currencies (and minor-unit divisors).
+  var netWorth: Int? {
+    let displayCurrency = deps.displayCurrency
+    var sum = 0
+    for account in items {
+      if account.currency == displayCurrency {
+        sum += account.balance
+        continue
+      }
+      guard
+        let rates = deps.rates,
+        let fromRate = rates.rates[account.currency.rawValue.uppercased()],
+        rates.rates[displayCurrency.rawValue.uppercased()] != nil,
+        fromRate > 0
+      else {
+        return nil
+      }
+      sum += CurrencyConverter.convert(
         amountMinor: account.balance,
         from: account.currency,
-        to: deps.displayCurrency,
-        rates: deps.rates ?? ExchangeRates(base: "USD", rates: [:], fetchedAt: "")
+        to: displayCurrency,
+        rates: rates
       )
     }
+    return sum
   }
 
   func load(force: Bool = false) async {

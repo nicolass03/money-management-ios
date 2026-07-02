@@ -16,9 +16,9 @@ struct AccountsView: View {
         HStack {
           SectionHeader(title: L10n.t("accounts"), subtitle: L10n.t("cash and bank balances"))
           Spacer()
-          if !viewModel.items.isEmpty {
+          if !viewModel.items.isEmpty, let netWorth = viewModel.netWorth {
             TerminalBadge(
-              text: deps.formatMoney(viewModel.netWorth, currency: deps.displayCurrency),
+              text: deps.formatMoney(netWorth, currency: deps.displayCurrency),
               style: .accent
             )
           }
@@ -130,7 +130,16 @@ private struct AccountFormSheet: View {
     ) {
       if let errorMessage { ErrorBanner(message: errorMessage) }
       TerminalTextField(label: L10n.t("name (optional)"), placeholder: L10n.t("cash, euros…"), text: $model.name)
+      // Currency is fixed once an account is created: existing rows are stored in it and summed
+      // without conversion, so changing it would corrupt the balance.
       CurrencyPicker(selection: $model.currency)
+        .disabled(model.isEditing)
+      if model.isEditing {
+        Text(L10n.t("currency can't be changed after creation"))
+          .font(AppFont.mono(size: 11))
+          .foregroundStyle(.secondary)
+          .frame(maxWidth: .infinity, alignment: .leading)
+      }
       AmountTextField(text: $model.initialAmountText, placeholder: "0.00")
     }
   }
