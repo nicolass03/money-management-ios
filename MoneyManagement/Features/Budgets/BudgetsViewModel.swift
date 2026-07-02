@@ -7,7 +7,7 @@ final class BudgetsViewModel {
   private let deps: AppDependencies
 
   var budgets: [BudgetWithTags] = []
-  var groupedBudgets: [(BudgetStatus, [BudgetWithTags])] = []
+  var selectedTab: BudgetTab = .active
   var expandedBudgetIds: Set<String> = []
   var budgetExpenses: [String: [ExpenseWithTags]] = [:]
   var loadingExpenses: Set<String> = []
@@ -19,6 +19,7 @@ final class BudgetsViewModel {
   var expenseBudgetId: String?
   var showExpenseForm = false
   var deleteBudgetTarget: BudgetWithTags?
+  var finishBudgetTarget: BudgetWithTags?
   var deleteExpenseTarget: (budgetId: String, expense: ExpenseWithTags)?
 
   private var loadGeneration = LoadGeneration()
@@ -28,14 +29,24 @@ final class BudgetsViewModel {
   }
 
   var totalAllocated: Int {
-    budgets.reduce(0) { partial, budget in
-      partial + CurrencyConverter.convert(
-        amountMinor: budget.amount,
-        from: budget.currency,
-        to: deps.displayCurrency,
-        rates: deps.rates ?? ExchangeRates(base: "USD", rates: [:], fetchedAt: "")
-      )
-    }
+    budgets
+      .filter { !BudgetStatusLogic.isInHistory($0) }
+      .reduce(0) { partial, budget in
+        partial + CurrencyConverter.convert(
+          amountMinor: budget.amount,
+          from: budget.currency,
+          to: deps.displayCurrency,
+          rates: deps.rates ?? ExchangeRates(base: "USD", rates: [:], fetchedAt: "")
+        )
+      }
+  }
+
+  var visibleBudgets: [BudgetWithTags] {
+    BudgetStatusLogic.filtered(budgets, tab: selectedTab)
+  }
+
+  var groupedBudgets: [(BudgetStatus, [BudgetWithTags])] {
+    BudgetStatusLogic.grouped(visibleBudgets)
   }
 
   func load(force: Bool = false) async {
@@ -58,7 +69,6 @@ final class BudgetsViewModel {
       budgets = try await deps.dataStore.getBudgets { [deps] in
         try await deps.api.getBudgets()
       }
-      groupedBudgets = BudgetStatusLogic.grouped(budgets)
     } catch {
       guard shouldSurfaceLoadError(error, isCurrent: loadGeneration.isCurrent(token)) else { return }
       errorMessage = error.localizedDescription
@@ -109,6 +119,19 @@ final class BudgetsViewModel {
       deps.dataStore.invalidate([.budgetExpenses(budgetId)])
       Haptics.light()
       await loadExpenses(for: budgetId)
+      await load()
+    } catch {
+      errorMessage = error.localizedDescription
+    }
+  }
+
+  func finishBudget(_ budget: BudgetWithTags) async {
+    do {
+      _ = try await deps.api.completeBudget(id: budget.id)
+      deps.invalidateAfter(.budgetChange)
+      expandedBudgetIds.remove(budget.id)
+      selectedTab = .history
+      Haptics.success()
       await load()
     } catch {
       errorMessage = error.localizedDescription

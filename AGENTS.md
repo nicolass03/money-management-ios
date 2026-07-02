@@ -87,7 +87,7 @@ Match the web app terminal aesthetic ([money-management `globals.css`](../money-
 
 - **Main shell:** `MainTabView` — custom `TerminalTabBar` (4 tabs) + floating `FloatingSettingsButton` top-trailing (sheet).
 - **Tabs** (default `expenses`): expenses, budgets, income, projections. Settings is **not** a tab.
-- **Budgets tab:** expand a budget card to list expenses and add charges. Any valid expense date on write (no pay-period gate). No remaining-budget cap on write — tracking only. **Early pay** still requires paid date in the current pay period. Projection / expenses period-view display unchanged.
+- **Budgets tab:** expand a budget card to list expenses and add charges. Any valid expense date on write (no pay-period gate). No remaining-budget cap on write — tracking only. **Early pay** still requires paid date in the current pay period. **Active / History** segmented control; **Finish** calls `POST /budgets/:id/complete` (parity with web). Completed/history budgets: read-only (no edit, no `+ expense`). Projections use actual spent when `completedAt` is set.
 - **Expenses tab:** `NavigationStack` with push routes for recurring (`ExpensesRoute.recurring`) and one-time/planned (`ExpensesRoute.planned`). CRUD via sheets. Pushed sub-screens (`RecurringExpensesView`, `PlannedExpensesView`, `EarlyPayView`) must own their `@Observable` view models via `@State` in the view's `init` — do **not** construct view models inline in `.navigationDestination`, or parent `ExpensesView` re-renders recreate them and cancel `.task` loads (blank list, no error).
 - **Settings sheet:** currency, primary pay schedule, projection prefs (API-backed), language (API-backed + immediate apply), theme, logout.
 

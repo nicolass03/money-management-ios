@@ -14,12 +14,36 @@ enum BudgetStatus: String, CaseIterable, Hashable {
     }
 }
 
+enum BudgetTab: String, CaseIterable, Identifiable {
+    case active, history
+
+    var id: String { rawValue }
+
+    var label: String {
+        switch self {
+        case .active: L10n.t("active")
+        case .history: L10n.t("history")
+        }
+    }
+}
+
 enum BudgetStatusLogic {
     static func isDatedBudget(_ budget: BudgetWithTags) -> Bool {
         budget.startDate != nil && budget.endDate != nil
     }
 
+    static func isInHistory(_ budget: BudgetWithTags, today: String = PayPeriodLogic.todayISO()) -> Bool {
+        if budget.completedAt != nil { return true }
+        guard isDatedBudget(budget), let end = budget.endDate else { return false }
+        return today > end
+    }
+
+    static func isFinishable(_ budget: BudgetWithTags, today: String = PayPeriodLogic.todayISO()) -> Bool {
+        !isInHistory(budget, today: today)
+    }
+
     static func status(for budget: BudgetWithTags, today: String = PayPeriodLogic.todayISO()) -> BudgetStatus {
+        if budget.completedAt != nil { return .ended }
         if budget.spent >= budget.amount { return .depleted }
         guard isDatedBudget(budget),
               let start = budget.startDate,
@@ -39,4 +63,15 @@ enum BudgetStatusLogic {
             return (status, items.sorted { $0.name.localizedCaseInsensitiveCompare($1.name) == .orderedAscending })
         }
     }
+
+    static func filtered(_ budgets: [BudgetWithTags], tab: BudgetTab, today: String = PayPeriodLogic.todayISO()) -> [BudgetWithTags] {
+        budgets.filter { budget in
+            let inHistory = isInHistory(budget, today: today)
+            return tab == .history ? inHistory : !inHistory
+        }
+    }
+}
+
+extension BudgetTab: CustomStringConvertible {
+    var description: String { label }
 }

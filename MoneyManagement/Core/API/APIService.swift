@@ -193,6 +193,14 @@ struct APIService {
         let _: SuccessResponse = try await client.request("DELETE", path: "budgets/\(id)")
     }
 
+    func completeBudget(id: String, asOf: String? = PayPeriodLogic.todayISO()) async throws -> BudgetWithTags {
+        try await client.request(
+            "POST",
+            path: "budgets/\(id)/complete",
+            body: CompleteBudgetRequest(asOf: asOf)
+        )
+    }
+
     func getBudgetExpenses(budgetId: String) async throws -> [ExpenseWithTags] {
         try await client.request("GET", path: "budgets/\(budgetId)/expenses")
     }

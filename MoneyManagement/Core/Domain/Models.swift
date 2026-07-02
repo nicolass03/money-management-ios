@@ -194,6 +194,7 @@ struct BudgetWithTags: Codable, Identifiable, Equatable {
     let endDate: String?
     let createdAt: String
     let updatedAt: String
+    let completedAt: String?
     let tags: [String]
     let spent: Int
 }
@@ -394,6 +395,10 @@ struct CreateBudgetRequest: Encodable {
     let startDate: String?
     let endDate: String?
     let tags: [String]
+}
+
+struct CompleteBudgetRequest: Encodable {
+    let asOf: String?
 }
 
 struct CreateBudgetExpenseRequest: Encodable {

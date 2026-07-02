@@ -23,17 +23,25 @@ struct BudgetsView: View {
           ErrorBanner(message: error) { Task { await viewModel.load() } }
         }
 
-        if !viewModel.isLoading && !deps.isLoadingContext {
+        if !viewModel.isLoading && !deps.isLoadingContext && viewModel.selectedTab == .active {
           TerminalButton(title: L10n.t("+ add budget")) {
             viewModel.editingBudget = nil
             viewModel.showBudgetForm = true
           }
         }
 
+        if !viewModel.isLoading && !deps.isLoadingContext && !viewModel.budgets.isEmpty {
+          TerminalSegmentedControl(selection: $viewModel.selectedTab, options: BudgetTab.allCases)
+        }
+
         if viewModel.isLoading || deps.isLoadingContext {
           CardListSkeleton(count: 3, label: L10n.t("loading budgets"))
         } else if viewModel.budgets.isEmpty {
           EmptyStateCard(message: L10n.t("> no budgets yet."))
+        } else if viewModel.visibleBudgets.isEmpty {
+          EmptyStateCard(message: viewModel.selectedTab == .history
+            ? L10n.t("> no completed budgets yet.")
+            : L10n.t("> no active budgets."))
         } else {
           ForEach(viewModel.groupedBudgets, id: \.0) { status, items in
             VStack(alignment: .leading, spacing: 10) {
@@ -91,10 +99,24 @@ struct BudgetsView: View {
         }
       }
     }
+    .confirmationDialog(L10n.t("Finish budget?"), isPresented: Binding(
+      get: { viewModel.finishBudgetTarget != nil },
+      set: { if !$0 { viewModel.finishBudgetTarget = nil } }
+    )) {
+      Button(L10n.t("finish")) {
+        if let target = viewModel.finishBudgetTarget {
+          Task { await viewModel.finishBudget(target) }
+        }
+      }
+    } message: {
+      Text(L10n.t("This closes the budget and moves it to history. Projections will use actual spent instead of the reserved total. You won't be able to add more expenses."))
+    }
   }
 
   private func budgetCard(_ budget: BudgetWithTags) -> some View {
     let isExpanded = viewModel.expandedBudgetIds.contains(budget.id)
+    let inHistory = BudgetStatusLogic.isInHistory(budget)
+    let finishable = BudgetStatusLogic.isFinishable(budget)
 
     return TerminalCard {
       VStack(alignment: .leading, spacing: 12) {
@@ -106,6 +128,9 @@ struct BudgetsView: View {
               Text(budget.name)
                 .font(AppFont.mono(size: 14, weight: .medium))
                 .foregroundStyle(palette.text)
+              if budget.completedAt != nil {
+                TerminalBadge(text: L10n.t("completed"), style: .muted)
+              }
               Spacer()
               Image(systemName: isExpanded ? "chevron.up" : "chevron.down")
                 .font(.system(size: 12))
@@ -138,12 +163,22 @@ struct BudgetsView: View {
         if isExpanded {
           VStack(alignment: .leading, spacing: 8) {
             HStack(spacing: 8) {
-              Button(L10n.t("edit")) {
-                viewModel.editingBudget = budget
-                viewModel.showBudgetForm = true
+              if !inHistory {
+                Button(L10n.t("edit")) {
+                  viewModel.editingBudget = budget
+                  viewModel.showBudgetForm = true
+                }
+                .font(AppFont.mono(size: 12))
+                .foregroundStyle(palette.accent)
               }
-              .font(AppFont.mono(size: 12))
-              .foregroundStyle(palette.accent)
+
+              if finishable {
+                Button(L10n.t("finish")) {
+                  viewModel.finishBudgetTarget = budget
+                }
+                .font(AppFont.mono(size: 12))
+                .foregroundStyle(palette.accent)
+              }
 
               Button(L10n.t("delete")) {
                 viewModel.deleteBudgetTarget = budget
@@ -153,7 +188,7 @@ struct BudgetsView: View {
 
               Spacer()
 
-              if budget.spent < budget.amount {
+              if !inHistory {
                 Button(L10n.t("+ expense")) {
                   viewModel.expenseBudgetId = budget.id
                   viewModel.showExpenseForm = true
