@@ -248,7 +248,6 @@ private struct BudgetFormSheet: View {
 
 private struct BudgetExpenseFormSheet: View {
   @Environment(\.dismiss) private var dismiss
-  @Environment(\.appPalette) private var palette
   @State private var model: BudgetExpenseFormModel
   @State private var isSaving = false
   @State private var errorMessage: String?
@@ -267,17 +266,11 @@ private struct BudgetExpenseFormSheet: View {
       onSave: { Task { await save() } }
     ) {
       if let errorMessage { ErrorBanner(message: errorMessage) }
-      if model.remaining <= 0 {
-        Text(L10n.t("> budget fully spent."))
-          .font(AppFont.mono(size: 11))
-          .foregroundStyle(palette.muted)
-      } else {
-        if model.isDated {
-          TerminalTextField(label: L10n.t("name (optional)"), placeholder: L10n.t("item"), text: $model.name)
-        }
-        AmountTextField(text: $model.amountText, placeholder: "50.00")
-        TerminalTextField(label: L10n.t("date"), placeholder: L10n.t("YYYY-MM-DD"), text: $model.date, keyboardType: .numbersAndPunctuation)
+      if model.isDated {
+        TerminalTextField(label: L10n.t("name (optional)"), placeholder: L10n.t("item"), text: $model.name)
       }
+      AmountTextField(text: $model.amountText, placeholder: "50.00")
+      TerminalTextField(label: L10n.t("date"), placeholder: L10n.t("YYYY-MM-DD"), text: $model.date, keyboardType: .numbersAndPunctuation)
     }
   }
 
