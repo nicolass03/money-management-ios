@@ -230,6 +230,7 @@ struct ProjectionExpenseItem: Codable, Identifiable, Equatable {
     let tags: [String]
     let isSubscription: Bool
     let projected: Bool
+    let createdAt: String?
 
     enum CodingKeys: String, CodingKey {
         case itemId = "id"
@@ -237,7 +238,7 @@ struct ProjectionExpenseItem: Codable, Identifiable, Equatable {
         case budgetTotal, budgetSpent, isBudgetSummary
         case name, date, scheduledDate, amount, currency
         case originalAmount, originalCurrency, convertedAmount
-        case tags, isSubscription, projected
+        case tags, isSubscription, projected, createdAt
     }
 }
 
