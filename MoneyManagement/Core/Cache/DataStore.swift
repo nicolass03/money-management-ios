@@ -5,7 +5,10 @@ import Observation
 @MainActor
 final class DataStore {
   private var invalidatedKeys = Set<ResourceKey>()
-  private var inFlightTasks: [ResourceKey: Task<Any, Error>] = [:]
+  /// In-flight single-flight fetches, each tagged with a monotonic token so a finishing call only
+  /// clears its own task — never a newer one that replaced it after an invalidation.
+  private var inFlightTasks: [ResourceKey: (token: UInt64, task: Task<Any, Error>)] = [:]
+  private var taskCounter: UInt64 = 0
 
   private(set) var settings: UserSettings?
   private(set) var moneyContext: MoneyContextResponse?
@@ -74,12 +77,12 @@ final class DataStore {
   private func cancelInFlightTasks(for keys: Set<ResourceKey>? = nil) {
     if let keys {
       for key in keys {
-        inFlightTasks[key]?.cancel()
+        inFlightTasks[key]?.task.cancel()
         inFlightTasks.removeValue(forKey: key)
       }
     } else {
-      for task in inFlightTasks.values {
-        task.cancel()
+      for entry in inFlightTasks.values {
+        entry.task.cancel()
       }
       inFlightTasks.removeAll()
     }
@@ -172,17 +175,25 @@ final class DataStore {
     }
 
     if let existing = inFlightTasks[key] {
-      return try await existing.value as! T
+      return try await existing.task.value as! T
     }
 
+    taskCounter += 1
+    let token = taskCounter
     let task = Task<Any, Error> { @MainActor in
       let value = try await fetch()
       assign(value)
       markFresh(key)
       return value
     }
-    inFlightTasks[key] = task
-    defer { inFlightTasks.removeValue(forKey: key) }
+    inFlightTasks[key] = (token, task)
+    defer {
+      // Only clear our own entry: if an invalidation cancelled this task and a later call installed
+      // a fresh one, that newer task owns the slot and must not be orphaned.
+      if inFlightTasks[key]?.token == token {
+        inFlightTasks.removeValue(forKey: key)
+      }
+    }
 
     return try await task.value as! T
   }

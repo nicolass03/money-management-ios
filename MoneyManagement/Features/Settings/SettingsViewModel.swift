@@ -9,7 +9,6 @@ final class SettingsViewModel {
     var language: AppLanguage = .en
     var displayCurrency: CurrencyCode = .eur
     var primaryScheduleId: String?
-    var projectionInitialFreeMoneyText = "0"
     var projectionStartDate = ""
     var extraSpentLimitText = ""
     var schedules: [IncomePaySchedule] = []
@@ -36,10 +35,6 @@ final class SettingsViewModel {
                 language = settings.language
                 displayCurrency = settings.displayCurrency
                 primaryScheduleId = settings.primaryScheduleId
-                projectionInitialFreeMoneyText = MoneyFormatter.formatMinorUnitsAsInput(
-                    settings.projectionInitialFreeMoney,
-                    currency: settings.displayCurrency
-                )
                 projectionStartDate = settings.projectionStartDate ?? ""
                 extraSpentLimitText = settings.extraSpentLimit.map {
                     MoneyFormatter.formatMinorUnitsAsInput($0, currency: settings.displayCurrency)
@@ -58,8 +53,8 @@ final class SettingsViewModel {
         errorMessage = nil
         defer { isSaving = false }
 
-        // The projection's opening balance is now the sum of account initial amounts (see the
-        // Accounts tab), so the settings form no longer edits projection_initial_free_money.
+        // The projection's opening balance is the sum of account initial amounts (see the Accounts
+        // tab); the legacy projection_initial_free_money setting has been removed entirely.
         var request = PatchSettingsRequest(
             displayCurrency: displayCurrency,
             primaryScheduleId: primaryScheduleId

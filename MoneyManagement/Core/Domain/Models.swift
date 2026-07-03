@@ -54,7 +54,6 @@ struct UserSettings: Codable, Equatable {
     let language: AppLanguage
     let primaryScheduleId: String?
     let primarySchedule: IncomePaySchedule?
-    let projectionInitialFreeMoney: Int
     let projectionStartDate: String?
     let extraSpentLimit: Int?
     let theme: String
@@ -63,7 +62,7 @@ struct UserSettings: Codable, Equatable {
 
     enum CodingKeys: String, CodingKey {
         case id, displayCurrency, language, primaryScheduleId, primarySchedule
-        case projectionInitialFreeMoney, projectionStartDate, extraSpentLimit
+        case projectionStartDate, extraSpentLimit
         case theme, cacheRevision, updatedAt
     }
 
@@ -74,7 +73,6 @@ struct UserSettings: Codable, Equatable {
         language = try container.decodeIfPresent(AppLanguage.self, forKey: .language) ?? .en
         primaryScheduleId = try container.decodeIfPresent(String.self, forKey: .primaryScheduleId)
         primarySchedule = try container.decodeIfPresent(IncomePaySchedule.self, forKey: .primarySchedule)
-        projectionInitialFreeMoney = try container.decode(Int.self, forKey: .projectionInitialFreeMoney)
         projectionStartDate = try container.decodeIfPresent(String.self, forKey: .projectionStartDate)
         extraSpentLimit = try container.decodeIfPresent(Int.self, forKey: .extraSpentLimit)
         theme = try container.decodeIfPresent(String.self, forKey: .theme) ?? SpendflyThemes.defaultCode
@@ -279,7 +277,6 @@ struct PatchSettingsRequest: Encodable {
     var language: AppLanguage?
     var primaryScheduleId: String?
     var clearPrimarySchedule = false
-    var projectionInitialFreeMoney: Int?
     var projectionStartDate: String?
     var clearProjectionStartDate = false
     var extraSpentLimit: Int?
@@ -288,7 +285,7 @@ struct PatchSettingsRequest: Encodable {
 
     enum CodingKeys: String, CodingKey {
         case displayCurrency, language, primaryScheduleId
-        case projectionInitialFreeMoney, projectionStartDate
+        case projectionStartDate
         case extraSpentLimit, theme
     }
 
@@ -304,9 +301,6 @@ struct PatchSettingsRequest: Encodable {
             try container.encodeNil(forKey: .primaryScheduleId)
         } else if let primaryScheduleId {
             try container.encode(primaryScheduleId, forKey: .primaryScheduleId)
-        }
-        if let projectionInitialFreeMoney {
-            try container.encode(projectionInitialFreeMoney, forKey: .projectionInitialFreeMoney)
         }
         if clearProjectionStartDate {
             try container.encodeNil(forKey: .projectionStartDate)

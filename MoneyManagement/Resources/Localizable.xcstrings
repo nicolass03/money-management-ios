@@ -106,6 +106,16 @@
     "#%@" : {
 
     },
+    "%@: %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$@: %2$@"
+          }
+        }
+      }
+    },
     "%1$@ renews on %2$@ — cancel it now if you no longer want it." : {
       "extractionState" : "stale",
       "localizations" : {
@@ -498,6 +508,23 @@
         }
       }
     },
+    "> no active budgets." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "> no active budgets."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "> no hay presupuestos activos."
+          }
+        }
+      }
+    },
     "> no budgets yet." : {
       "extractionState" : "stale",
       "localizations" : {
@@ -511,6 +538,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "> aún no hay presupuestos."
+          }
+        }
+      }
+    },
+    "> no completed budgets yet." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "> no completed budgets yet."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "> aún no hay presupuestos completados."
           }
         }
       }
@@ -1482,134 +1526,6 @@
         }
       }
     },
-    "completed" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "completed"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "completado"
-          }
-        }
-      }
-    },
-    "current" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "current"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "en curso"
-          }
-        }
-      }
-    },
-    "finish" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "finish"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "finalizar"
-          }
-        }
-      }
-    },
-    "Finish budget?" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Finish budget?"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "¿Finalizar presupuesto?"
-          }
-        }
-      }
-    },
-    "history" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "history"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "historial"
-          }
-        }
-      }
-    },
-    "This closes the budget and moves it to history. Projections will use actual spent instead of the reserved total. You won't be able to add more expenses." : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "This closes the budget and moves it to history. Projections will use actual spent instead of the reserved total. You won't be able to add more expenses."
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Esto cierra el presupuesto y lo mueve al historial. Las proyecciones usarán el gasto real en lugar del total reservado. No podrás agregar más gastos."
-          }
-        }
-      }
-    },
-    "> no active budgets." : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "> no active budgets."
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "> no hay presupuestos activos."
-          }
-        }
-      }
-    },
-    "> no completed budgets yet." : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "> no completed budgets yet."
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "> aún no hay presupuestos completados."
-          }
-        }
-      }
-    },
     "cancel" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -1729,6 +1645,23 @@
         }
       }
     },
+    "completed" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "completed"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "completado"
+          }
+        }
+      }
+    },
     "configure app preferences" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -1776,6 +1709,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "moneda"
+          }
+        }
+      }
+    },
+    "current" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "current"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "en curso"
           }
         }
       }
@@ -2373,6 +2323,40 @@
         }
       }
     },
+    "finish" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "finish"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "finalizar"
+          }
+        }
+      }
+    },
+    "Finish budget?" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Finish budget?"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "¿Finalizar presupuesto?"
+          }
+        }
+      }
+    },
     "food, bills" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -2453,6 +2437,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "invitado"
+          }
+        }
+      }
+    },
+    "history" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "history"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "historial"
           }
         }
       }
@@ -3677,6 +3678,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "tema: sistema (claro)"
+          }
+        }
+      }
+    },
+    "This closes the budget and moves it to history. Projections will use actual spent instead of the reserved total. You won't be able to add more expenses." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This closes the budget and moves it to history. Projections will use actual spent instead of the reserved total. You won't be able to add more expenses."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Esto cierra el presupuesto y lo mueve al historial. Las proyecciones usarán el gasto real en lugar del total reservado. No podrás agregar más gastos."
           }
         }
       }
