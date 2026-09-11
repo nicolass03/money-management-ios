@@ -882,6 +882,22 @@
         }
       }
     },
+    "income already received stays; future pay dates stop." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "income already received stays; future pay dates stop."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "los ingresos ya recibidos se conservan; las fechas de pago futuras se detienen."
+          }
+        }
+      }
+    },
     "projections and account balances start on this date; earlier activity is ignored. until the next pay date only your starting balance applies (no salary). to start over, set it to today and enter current balances in accounts" : {
       "localizations" : {
         "en" : {

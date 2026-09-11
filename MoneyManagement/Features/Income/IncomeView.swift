@@ -67,6 +67,8 @@ struct IncomeView: View {
           Task { await viewModel.deleteSchedule(target) }
         }
       }
+    } message: {
+      Text(L10n.t("income already received stays; future pay dates stop."))
     }
     .confirmationDialog(L10n.t("Delete income?"), isPresented: Binding(
       get: { viewModel.deleteIncomeTarget != nil },
