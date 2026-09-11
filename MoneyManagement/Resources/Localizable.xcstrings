@@ -882,18 +882,18 @@
         }
       }
     },
-    "projections and account balances start on this date; earlier activity is ignored. to start over, set it to today and enter current balances in accounts" : {
+    "projections and account balances start on this date; earlier activity is ignored. until the next pay date only your starting balance applies (no salary). to start over, set it to today and enter current balances in accounts" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "projections and account balances start on this date; earlier activity is ignored. to start over, set it to today and enter current balances in accounts"
+            "value" : "projections and account balances start on this date; earlier activity is ignored. until the next pay date only your starting balance applies (no salary). to start over, set it to today and enter current balances in accounts"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "las proyecciones y los saldos de cuentas inician en esta fecha; se ignora la actividad anterior. para empezar de nuevo, ponla en hoy e ingresa los saldos actuales en cuentas"
+            "value" : "las proyecciones y los saldos de cuentas inician en esta fecha; se ignora la actividad anterior. hasta la próxima fecha de pago solo cuenta tu saldo inicial (sin salario). para empezar de nuevo, ponla en hoy e ingresa los saldos actuales en cuentas"
           }
         }
       }

@@ -216,7 +216,7 @@ struct SettingsView: View {
                     .font(AppFont.mono(size: 12))
                     .foregroundStyle(palette.muted)
 
-                Text(L10n.t("projections and account balances start on this date; earlier activity is ignored. to start over, set it to today and enter current balances in accounts"))
+                Text(L10n.t("projections and account balances start on this date; earlier activity is ignored. until the next pay date only your starting balance applies (no salary). to start over, set it to today and enter current balances in accounts"))
                     .font(AppFont.mono(size: 11))
                     .foregroundStyle(palette.muted)
 
