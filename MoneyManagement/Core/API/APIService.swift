@@ -171,6 +171,15 @@ struct APIService {
         try await client.request("PATCH", path: "planned-expenses/\(id)", body: body)
     }
 
+    /// Records the one-time expense as paid today (full payment; the amount may differ).
+    func payPlannedExpense(id: String, amount: Int) async throws -> ExpenseWithTags {
+        try await client.request(
+            "POST",
+            path: "planned-expenses/\(id)/pay",
+            body: PayPlannedExpenseRequest(amount: amount)
+        )
+    }
+
     func deletePlannedExpense(id: String) async throws {
         let _: SuccessResponse = try await client.request("DELETE", path: "planned-expenses/\(id)")
     }

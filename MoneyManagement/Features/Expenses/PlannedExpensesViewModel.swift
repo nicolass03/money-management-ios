@@ -14,6 +14,8 @@ final class PlannedExpensesViewModel {
   var editing: PlannedExpenseWithTags?
   var showForm = false
   var deleteTarget: PlannedExpenseWithTags?
+  var payTarget: PlannedExpenseWithTags?
+  var payAmountText = ""
 
   init(deps: AppDependencies) {
     self.deps = deps
@@ -21,7 +23,7 @@ final class PlannedExpensesViewModel {
 
   var upcomingTotal: Int {
     let today = PayPeriodLogic.todayISO()
-    return items.filter { $0.date >= today }.reduce(0) { partial, item in
+    return items.filter { !$0.paid && ($0.date.map { $0 > today } ?? false) }.reduce(0) { partial, item in
       partial + CurrencyConverter.convert(
         amountMinor: item.amount,
         from: item.currency,
@@ -48,10 +50,32 @@ final class PlannedExpensesViewModel {
       async let tagsTask = deps.dataStore.getTags { [deps] in
         try await deps.api.getTags()
       }
-      items = try await plannedTask.sorted { $0.date < $1.date }
+      // The API orders by date, undated items last.
+      items = try await plannedTask
       tags = try await tagsTask
     } catch {
       guard shouldSurfaceLoadError(error, isCurrent: true) else { return }
+      errorMessage = error.localizedDescription
+    }
+  }
+
+  func startPay(_ item: PlannedExpenseWithTags) {
+    payAmountText = MoneyFormatter.formatMinorUnitsAsInput(item.amount, currency: item.currency)
+    payTarget = item
+  }
+
+  /// Records the full payment today for `item`, with the amount from `payAmountText`.
+  func pay(_ item: PlannedExpenseWithTags) async {
+    guard let amount = MoneyFormatter.parseToMinorUnits(payAmountText, currency: item.currency), amount > 0 else {
+      errorMessage = L10n.t("invalid amount")
+      return
+    }
+    do {
+      _ = try await deps.api.payPlannedExpense(id: item.id, amount: amount)
+      deps.invalidateAfter(.plannedChange)
+      Haptics.success()
+      await load()
+    } catch {
       errorMessage = error.localizedDescription
     }
   }
@@ -72,7 +96,8 @@ final class PlannedExpensesViewModel {
 @MainActor
 final class PlannedExpenseFormModel {
   var name = ""
-  var date = PayPeriodLogic.todayISO()
+  /// Empty = undated (e.g. a debt with no due date).
+  var date = ""
   var amountText = ""
   var tagsText = ""
   var accounts: [Account] = []
@@ -88,7 +113,7 @@ final class PlannedExpenseFormModel {
     self.editing = editing
     if let editing {
       name = editing.name
-      date = editing.date
+      date = editing.date ?? ""
       amountText = MoneyFormatter.formatMinorUnitsAsInput(editing.amount, currency: editing.currency)
       accountId = editing.accountId
       tagsText = editing.tags.joined(separator: ", ")
@@ -123,9 +148,10 @@ final class PlannedExpenseFormModel {
 
   func save() async throws {
     guard let amount = amountMinor else { return }
+    let trimmedDate = date.trimmingCharacters(in: .whitespaces)
     let body = CreatePlannedExpenseRequest(
       name: name.trimmingCharacters(in: .whitespaces),
-      date: date,
+      date: trimmedDate.isEmpty ? nil : trimmedDate,
       amount: amount,
       currency: currency,
       tags: TagsInputField.parseTags(tagsText),

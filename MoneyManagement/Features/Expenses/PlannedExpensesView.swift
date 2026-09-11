@@ -58,6 +58,19 @@ struct PlannedExpensesView: View {
         }
       }
     }
+    .alert(L10n.t("pay now"), isPresented: Binding(
+      get: { viewModel.payTarget != nil },
+      set: { if !$0 { viewModel.payTarget = nil } }
+    ), presenting: viewModel.payTarget) { target in
+      TextField(L10n.t("amount"), text: $viewModel.payAmountText)
+        .keyboardType(.decimalPad)
+      Button(L10n.t("record payment")) {
+        Task { await viewModel.pay(target) }
+      }
+      Button(L10n.t("cancel"), role: .cancel) {}
+    } message: { target in
+      Text(String(format: L10n.t("amount paid in %@, recorded today"), target.currency.label))
+    }
   }
 
   private func plannedCard(_ item: PlannedExpenseWithTags) -> some View {
@@ -68,9 +81,14 @@ struct PlannedExpensesView: View {
             Text(item.name)
               .font(AppFont.mono(size: 14, weight: .medium))
               .foregroundStyle(palette.text)
-            Text(String(format: L10n.t("> %@"), item.date))
+            Text(String(format: L10n.t("> %@"), item.date ?? L10n.t("no due date")))
               .font(AppFont.mono(size: 11))
               .foregroundStyle(palette.muted)
+            if item.paid {
+              TerminalBadge(text: L10n.t("paid"), style: .success)
+            } else if let date = item.date, date <= PayPeriodLogic.todayISO() {
+              TerminalBadge(text: L10n.t("overdue"), style: .warning)
+            }
           }
           Spacer()
           MoneyLabel(amount: item.amount, currency: item.currency, displayCurrency: deps.displayCurrency, rates: deps.rates)
@@ -79,6 +97,14 @@ struct PlannedExpensesView: View {
         TerminalTagFlow(tags: item.tags)
 
         HStack(spacing: 8) {
+          if !item.paid {
+            Button(L10n.t("pay now")) {
+              viewModel.startPay(item)
+            }
+            .font(AppFont.mono(size: 12))
+            .foregroundStyle(palette.success)
+          }
+
           Button(L10n.t("edit")) {
             viewModel.editing = item
             viewModel.showForm = true
@@ -121,7 +147,7 @@ private struct PlannedExpenseFormSheet: View {
     ) {
       if let errorMessage { ErrorBanner(message: errorMessage) }
       TerminalTextField(label: L10n.t("name"), placeholder: L10n.t("car repair"), text: $model.name)
-      TerminalTextField(label: L10n.t("date"), placeholder: L10n.t("YYYY-MM-DD"), text: $model.date, keyboardType: .numbersAndPunctuation)
+      TerminalTextField(label: L10n.t("date (optional — empty = no due date)"), placeholder: L10n.t("YYYY-MM-DD"), text: $model.date, keyboardType: .numbersAndPunctuation)
       AmountTextField(text: $model.amountText, placeholder: "500.00")
       AccountPicker(accounts: model.accounts, selection: $model.accountId)
       TagsInputField(tagsText: $model.tagsText, knownTags: knownTags)

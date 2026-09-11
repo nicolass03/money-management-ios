@@ -45,15 +45,16 @@ enum UpcomingPayableLogic {
         }
 
         for planned in plannedExpenses {
-            if planned.date <= today || planned.date > windowEnd { continue }
+            // Undated items have no due date to surface; they're paid from the one-time list.
+            guard let date = planned.date, date > today, date <= windowEnd else { continue }
             if plannedMaterialized.contains(planned.id) { continue }
 
             items.append(PayableFutureItem(
-                key: "planned:\(planned.id):\(planned.date)",
+                key: "planned:\(planned.id):\(date)",
                 sourceType: "planned",
                 recurringId: nil,
                 plannedExpenseId: planned.id,
-                scheduledDate: planned.date,
+                scheduledDate: date,
                 name: planned.name,
                 amount: planned.amount,
                 currency: planned.currency,

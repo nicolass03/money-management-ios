@@ -176,13 +176,16 @@ struct RecurringExpenseWithTags: Codable, Identifiable, Equatable {
 struct PlannedExpenseWithTags: Codable, Identifiable, Equatable {
     let id: String
     let name: String
-    let date: String
+    /// `nil` = undated (e.g. a debt): kept out of projections until paid.
+    let date: String?
     let amount: Int
     let currency: CurrencyCode
     let accountId: String?
     let createdAt: String
     let updatedAt: String
     let tags: [String]
+    /// Whether an expense has been recorded for this item (paid once, in full).
+    let paid: Bool
 }
 
 struct BudgetWithTags: Codable, Identifiable, Equatable {
@@ -355,6 +358,10 @@ struct UpdateExpenseAmountRequest: Encodable {
     let amount: Int
 }
 
+struct PayPlannedExpenseRequest: Encodable {
+    let amount: Int
+}
+
 struct EarlyPayExpenseRequest: Encodable {
     let sourceType: String
     let scheduledDate: String
@@ -379,7 +386,8 @@ struct CreateRecurringExpenseRequest: Encodable {
 
 struct CreatePlannedExpenseRequest: Encodable {
     let name: String
-    let date: String
+    /// `nil` (omitted) = undated.
+    let date: String?
     let amount: Int
     let currency: CurrencyCode
     let tags: [String]

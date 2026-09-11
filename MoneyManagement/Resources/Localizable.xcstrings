@@ -882,6 +882,38 @@
         }
       }
     },
+    "amount paid in %@, recorded today" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "amount paid in %@, recorded today"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "monto pagado en %@, se registra hoy"
+          }
+        }
+      }
+    },
+    "date (optional — empty = no due date)" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "date (optional — empty = no due date)"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "fecha (opcional — vacía = sin fecha)"
+          }
+        }
+      }
+    },
     "income already received stays; future pay dates stop." : {
       "localizations" : {
         "en" : {
@@ -898,6 +930,86 @@
         }
       }
     },
+    "invalid amount" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "invalid amount"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "monto inválido"
+          }
+        }
+      }
+    },
+    "no due date" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "no due date"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "sin fecha"
+          }
+        }
+      }
+    },
+    "overdue" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "overdue"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "vencido"
+          }
+        }
+      }
+    },
+    "paid" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "paid"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "pagado"
+          }
+        }
+      }
+    },
+    "pay now" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "pay now"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "pagar ahora"
+          }
+        }
+      }
+    },
     "projections and account balances start on this date; earlier activity is ignored. until the next pay date only your starting balance applies (no salary). to start over, set it to today and enter current balances in accounts" : {
       "localizations" : {
         "en" : {
@@ -910,6 +1022,22 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "las proyecciones y los saldos de cuentas inician en esta fecha; se ignora la actividad anterior. hasta la próxima fecha de pago solo cuenta tu saldo inicial (sin salario). para empezar de nuevo, ponla en hoy e ingresa los saldos actuales en cuentas"
+          }
+        }
+      }
+    },
+    "record payment" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "record payment"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "registrar pago"
           }
         }
       }
