@@ -52,7 +52,8 @@ enum InvalidationMap {
     case .scheduleChange:
       return Set([.schedules, .income, .projections, .settings, .accounts] + periodViews)
     case .settingsChange:
-      return Set([.settings, .moneyContext, .projections, .income, .expenses, upcoming] + periodViews)
+      // Account balances only count activity from the projection start date onward.
+      return Set([.settings, .moneyContext, .projections, .income, .expenses, .accounts, upcoming] + periodViews)
     case .accountChange:
       // Account balances and the projection opening balance both derive from accounts.
       return Set([.accounts, .projections, .expenses, .income])

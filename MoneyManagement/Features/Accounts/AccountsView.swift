@@ -140,7 +140,11 @@ private struct AccountFormSheet: View {
           .foregroundStyle(.secondary)
           .frame(maxWidth: .infinity, alignment: .leading)
       }
-      AmountTextField(text: $model.initialAmountText, placeholder: "0.00")
+      AmountTextField(
+        text: $model.initialAmountText,
+        label: L10n.t("starting balance (on projection start date)"),
+        placeholder: "0.00"
+      )
     }
   }
 

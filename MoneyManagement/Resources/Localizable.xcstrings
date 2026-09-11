@@ -882,6 +882,38 @@
         }
       }
     },
+    "projections and account balances start on this date; earlier activity is ignored. to start over, set it to today and enter current balances in accounts" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "projections and account balances start on this date; earlier activity is ignored. to start over, set it to today and enter current balances in accounts"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "las proyecciones y los saldos de cuentas inician en esta fecha; se ignora la actividad anterior. para empezar de nuevo, ponla en hoy e ingresa los saldos actuales en cuentas"
+          }
+        }
+      }
+    },
+    "starting balance (on projection start date)" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "starting balance (on projection start date)"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "saldo inicial (en la fecha de inicio de proyección)"
+          }
+        }
+      }
+    },
     "~" : {
       "localizations" : {
         "en" : {
@@ -3049,23 +3081,6 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "abrir configuración"
-          }
-        }
-      }
-    },
-    "opening balance comes from your accounts" : {
-      "extractionState" : "stale",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "opening balance comes from your accounts"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "el saldo inicial proviene de tus cuentas"
           }
         }
       }
