@@ -40,6 +40,17 @@ struct ProjectionsView: View {
             .font(AppFont.mono(size: 12))
             .foregroundStyle(palette.muted)
 
+          if viewModel.projectionEndExpired {
+            TerminalCard {
+              VStack(alignment: .leading, spacing: 12) {
+                Text(L10n.t("> your projection end date has passed. recent historical periods remain available."))
+                  .font(AppFont.mono(size: 12))
+                  .foregroundStyle(palette.muted)
+                TerminalButton(title: L10n.t("extend projection in settings"), action: onOpenSettings)
+              }
+            }
+          }
+
           if viewModel.displayRows.isEmpty {
             EmptyStateCard(message: L10n.t("> no projection rows."))
           } else {

@@ -1,3 +1,4 @@
+import SpendflyShared
 import SwiftUI
 
 struct LoginView: View {

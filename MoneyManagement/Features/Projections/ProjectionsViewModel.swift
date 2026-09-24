@@ -19,14 +19,18 @@ final class ProjectionsViewModel {
   }
 
   var latestCumulativeFree: Int? {
-    guard let rows = response?.rows else { return nil }
-    return ProjectionDisplayLogic.visibleRows(from: rows).last?.cumulativeFree
-      ?? rows.last?.cumulativeFree
+    displayRows.last?.cumulativeFree
   }
 
   var displayRows: [ProjectionRow] {
     guard let rows = response?.rows else { return [] }
-    return ProjectionDisplayLogic.visibleRows(from: rows)
+    let eligibleRows = projectionEndExpired ? rows.filter(\.isPast) : rows
+    return ProjectionDisplayLogic.visibleRows(from: eligibleRows)
+  }
+
+  var projectionEndExpired: Bool {
+    guard let end = deps.settings?.projectionEndDate else { return false }
+    return end < PayPeriodLogic.todayISO()
   }
 
   func load(force: Bool = false) async {

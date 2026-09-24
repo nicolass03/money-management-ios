@@ -1,6 +1,6 @@
 # money-management-ios
 
-Native iOS client for **spendfly** — terminal-styled personal finance tracker. Companion to the [money-management](https://github.com/nicolass03/money-management) web app.
+Native iOS client for **cash.sh** — terminal-styled personal finance tracker. Companion to the [money-management](https://github.com/nicolass03/money-management) web app.
 
 **Current scope:** login screen + session shell. Data screens and Rust API integration come later.
 

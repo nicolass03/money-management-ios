@@ -52,6 +52,7 @@
 		894BDE70B62B4E37E9BB2D78 /* SubscriptionReminderScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = F940F706E5BC5CC7BF42DDA4 /* SubscriptionReminderScheduler.swift */; };
 		89806AEA8503CA88F93DFE78 /* RecurringExpensesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01FDEA4728A051DB7662479F /* RecurringExpensesView.swift */; };
 		8C2085B865A9D5F5FA3F2D80 /* IncomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5084B3EB3939ADAF5C485A70 /* IncomeViewModel.swift */; };
+		8E5C73949C2694F2E1E8AE16 /* AppBrand.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38562482D7E5A4F4EEF935FF /* AppBrand.swift */; };
 		8F1635BA164844BCD6A524BF /* PlannedExpensesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0B14DB809E79D65245E5DF9 /* PlannedExpensesViewModel.swift */; };
 		914358B8DF73009A74235AD5 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7343A7448DD1A1549AA6B37E /* SettingsView.swift */; };
 		917B106CC3174A01271692FC /* QuickActionBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = A8E1733F53C4CEB69295C8A9 /* QuickActionBar.swift */; };
@@ -183,6 +184,7 @@
 		2B96714C3F865A12FC5DCC41 /* AppDependencies.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDependencies.swift; sourceTree = "<group>"; };
 		316D5BAF0492291F52CFAD8B /* MoneyFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoneyFormatter.swift; sourceTree = "<group>"; };
 		3685A38DFE9C9424B05C6623 /* ProjectionsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectionsViewModel.swift; sourceTree = "<group>"; };
+		38562482D7E5A4F4EEF935FF /* AppBrand.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppBrand.swift; sourceTree = "<group>"; };
 		389F34068CE13A8123106CD0 /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
 		416A29705E5028F290E09342 /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
 		4351E1C24F664EE947A10B3E /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
@@ -297,6 +299,7 @@
 		1B8E655A806D83A5B644773B /* SpendflyShared */ = {
 			isa = PBXGroup;
 			children = (
+				38562482D7E5A4F4EEF935FF /* AppBrand.swift */,
 				F51AE3D3030B121FBBD7DCC7 /* AppGroupConstants.swift */,
 				59276D1A2A5F329FB35463BB /* CurrencyCode.swift */,
 				316D5BAF0492291F52CFAD8B /* MoneyFormatter.swift */,
@@ -671,7 +674,6 @@
 				LastUpgradeCheck = 1500;
 				TargetAttributes = {
 					81693FD2103FB73FAD67DCEE = {
-						DevelopmentTeam = "";
 						ProvisioningStyle = Automatic;
 					};
 					86B843960D6BC50ACA96B829 = {
@@ -755,6 +757,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8E5C73949C2694F2E1E8AE16 /* AppBrand.swift in Sources */,
 				E5F2F66E3D5D18ACCEF9979B /* AppGroupConstants.swift in Sources */,
 				9A589C6222FEFE8B9B9504B4 /* CurrencyCode.swift in Sources */,
 				4AD895AA66C9994863B32986 /* MoneyFormatter.swift in Sources */,
@@ -1075,11 +1078,11 @@
 		A0F4802500A686270C3B320F /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = G6Y64763QH;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -1102,11 +1105,11 @@
 		A58CCE51357010179326AF07 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = G6Y64763QH;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";

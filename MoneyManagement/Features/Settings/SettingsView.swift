@@ -226,6 +226,17 @@ struct SettingsView: View {
                     text: $viewModel.projectionStartDate,
                     keyboardType: .numbersAndPunctuation
                 )
+
+                TerminalTextField(
+                    label: L10n.t("projection end date (YYYY-MM-DD)"),
+                    placeholder: L10n.t("optional — rolling 12 months"),
+                    text: $viewModel.projectionEndDate,
+                    keyboardType: .numbersAndPunctuation
+                )
+
+                Text(L10n.t("the full pay period containing the end date is included. maximum: two years from today"))
+                    .font(AppFont.mono(size: 11))
+                    .foregroundStyle(palette.muted)
             }
             .frame(maxWidth: .infinity, alignment: .leading)
         }

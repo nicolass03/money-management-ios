@@ -1,12 +1,5 @@
 import Foundation
 
-enum AppBrand {
-    static let name = "spendfly"
-    static let version = "0.1.0"
-
-    static var versionLabel: String { "\(name) v\(version)" }
-}
-
 enum AppConfig {
     static var supabaseURL: URL {
         guard let raw = Bundle.main.object(forInfoDictionaryKey: "SUPABASE_URL") as? String,

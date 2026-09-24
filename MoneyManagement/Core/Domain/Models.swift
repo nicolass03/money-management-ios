@@ -55,6 +55,7 @@ struct UserSettings: Codable, Equatable {
     let primaryScheduleId: String?
     let primarySchedule: IncomePaySchedule?
     let projectionStartDate: String?
+    let projectionEndDate: String?
     let extraSpentLimit: Int?
     let theme: String
     let cacheRevision: Int
@@ -62,7 +63,7 @@ struct UserSettings: Codable, Equatable {
 
     enum CodingKeys: String, CodingKey {
         case id, displayCurrency, language, primaryScheduleId, primarySchedule
-        case projectionStartDate, extraSpentLimit
+        case projectionStartDate, projectionEndDate, extraSpentLimit
         case theme, cacheRevision, updatedAt
     }
 
@@ -74,6 +75,7 @@ struct UserSettings: Codable, Equatable {
         primaryScheduleId = try container.decodeIfPresent(String.self, forKey: .primaryScheduleId)
         primarySchedule = try container.decodeIfPresent(IncomePaySchedule.self, forKey: .primarySchedule)
         projectionStartDate = try container.decodeIfPresent(String.self, forKey: .projectionStartDate)
+        projectionEndDate = try container.decodeIfPresent(String.self, forKey: .projectionEndDate)
         extraSpentLimit = try container.decodeIfPresent(Int.self, forKey: .extraSpentLimit)
         theme = try container.decodeIfPresent(String.self, forKey: .theme) ?? SpendflyThemes.defaultCode
         cacheRevision = try container.decode(Int.self, forKey: .cacheRevision)
@@ -282,13 +284,16 @@ struct PatchSettingsRequest: Encodable {
     var clearPrimarySchedule = false
     var projectionStartDate: String?
     var clearProjectionStartDate = false
+    var projectionEndDate: String?
+    var clearProjectionEndDate = false
+    var asOf: String?
     var extraSpentLimit: Int?
     var clearExtraSpentLimit = false
     var theme: String?
 
     enum CodingKeys: String, CodingKey {
         case displayCurrency, language, primaryScheduleId
-        case projectionStartDate
+        case projectionStartDate, projectionEndDate, asOf
         case extraSpentLimit, theme
     }
 
@@ -309,6 +314,14 @@ struct PatchSettingsRequest: Encodable {
             try container.encodeNil(forKey: .projectionStartDate)
         } else if let projectionStartDate {
             try container.encode(projectionStartDate, forKey: .projectionStartDate)
+        }
+        if clearProjectionEndDate {
+            try container.encodeNil(forKey: .projectionEndDate)
+        } else if let projectionEndDate {
+            try container.encode(projectionEndDate, forKey: .projectionEndDate)
+        }
+        if let asOf {
+            try container.encode(asOf, forKey: .asOf)
         }
         if clearExtraSpentLimit {
             try container.encodeNil(forKey: .extraSpentLimit)

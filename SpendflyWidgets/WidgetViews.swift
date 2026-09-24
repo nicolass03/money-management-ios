@@ -1,5 +1,4 @@
 import SpendflyShared
-import SpendflyShared
 import SwiftUI
 import WidgetKit
 
@@ -43,7 +42,7 @@ enum WidgetStrings {
     }
 
     static func signInPrompt(language: String) -> String {
-        language == "es" ? "inicia sesión en spendfly" : "sign in to spendfly"
+        language == "es" ? "inicia sesión en \(AppBrand.name)" : "sign in to \(AppBrand.name)"
     }
 
     static func openAppPrompt(language: String) -> String {

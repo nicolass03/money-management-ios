@@ -10,6 +10,7 @@ final class SettingsViewModel {
     var displayCurrency: CurrencyCode = .eur
     var primaryScheduleId: String?
     var projectionStartDate = ""
+    var projectionEndDate = ""
     var extraSpentLimitText = ""
     var schedules: [IncomePaySchedule] = []
     var isLoading = false
@@ -36,6 +37,7 @@ final class SettingsViewModel {
                 displayCurrency = settings.displayCurrency
                 primaryScheduleId = settings.primaryScheduleId
                 projectionStartDate = settings.projectionStartDate ?? ""
+                projectionEndDate = settings.projectionEndDate ?? ""
                 extraSpentLimitText = settings.extraSpentLimit.map {
                     MoneyFormatter.formatMinorUnitsAsInput($0, currency: settings.displayCurrency)
                 } ?? ""
@@ -64,6 +66,25 @@ final class SettingsViewModel {
         } else {
             request.projectionStartDate = projectionStartDate
         }
+        if projectionEndDate.isEmpty {
+            request.clearProjectionEndDate = true
+        } else {
+            let today = PayPeriodLogic.todayISO()
+            guard Self.isValidISODate(projectionEndDate),
+                  projectionEndDate >= today,
+                  projectionEndDate <= Self.addMonths(today, 24) else {
+                errorMessage = L10n.t("projection end date must be between today and two years from today")
+                Haptics.warning()
+                return false
+            }
+            if !projectionStartDate.isEmpty && projectionEndDate < projectionStartDate {
+                errorMessage = L10n.t("projection end date cannot precede projection start date")
+                Haptics.warning()
+                return false
+            }
+            request.projectionEndDate = projectionEndDate
+        }
+        request.asOf = PayPeriodLogic.todayISO()
 
         // Empty input clears the limit; any value must be a positive amount.
         let trimmedLimit = extraSpentLimitText.trimmingCharacters(in: .whitespaces)
@@ -123,5 +144,27 @@ final class SettingsViewModel {
 
     func clearWidgetSnapshot() {
         deps.clearWidgetSnapshot()
+    }
+
+    private static func isValidISODate(_ value: String) -> Bool {
+        guard value.count == 10 else { return false }
+        let formatter = DateFormatter()
+        formatter.calendar = Calendar(identifier: .gregorian)
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        formatter.timeZone = TimeZone(secondsFromGMT: 0)
+        formatter.dateFormat = "yyyy-MM-dd"
+        formatter.isLenient = false
+        return formatter.date(from: value) != nil
+    }
+
+    private static func addMonths(_ value: String, _ months: Int) -> String {
+        let formatter = DateFormatter()
+        formatter.calendar = Calendar(identifier: .gregorian)
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        formatter.timeZone = TimeZone(secondsFromGMT: 0)
+        formatter.dateFormat = "yyyy-MM-dd"
+        let date = formatter.date(from: value)!
+        let result = formatter.calendar.date(byAdding: .month, value: months, to: date)!
+        return formatter.string(from: result)
     }
 }

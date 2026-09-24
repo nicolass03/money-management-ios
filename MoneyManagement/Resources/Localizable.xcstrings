@@ -882,178 +882,19 @@
         }
       }
     },
-    "amount paid in %@, recorded today" : {
+    "> your projection end date has passed. recent historical periods remain available." : {
+      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "amount paid in %@, recorded today"
+            "value" : "> your projection end date has passed. recent historical periods remain available."
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "monto pagado en %@, se registra hoy"
-          }
-        }
-      }
-    },
-    "date (optional — empty = no due date)" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "date (optional — empty = no due date)"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "fecha (opcional — vacía = sin fecha)"
-          }
-        }
-      }
-    },
-    "income already received stays; future pay dates stop." : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "income already received stays; future pay dates stop."
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "los ingresos ya recibidos se conservan; las fechas de pago futuras se detienen."
-          }
-        }
-      }
-    },
-    "invalid amount" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "invalid amount"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "monto inválido"
-          }
-        }
-      }
-    },
-    "no due date" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "no due date"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "sin fecha"
-          }
-        }
-      }
-    },
-    "overdue" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "overdue"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "vencido"
-          }
-        }
-      }
-    },
-    "paid" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "paid"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "pagado"
-          }
-        }
-      }
-    },
-    "pay now" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "pay now"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "pagar ahora"
-          }
-        }
-      }
-    },
-    "projections and account balances start on this date; earlier activity is ignored. until the next pay date only your starting balance applies (no salary). to start over, set it to today and enter current balances in accounts" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "projections and account balances start on this date; earlier activity is ignored. until the next pay date only your starting balance applies (no salary). to start over, set it to today and enter current balances in accounts"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "las proyecciones y los saldos de cuentas inician en esta fecha; se ignora la actividad anterior. hasta la próxima fecha de pago solo cuenta tu saldo inicial (sin salario). para empezar de nuevo, ponla en hoy e ingresa los saldos actuales en cuentas"
-          }
-        }
-      }
-    },
-    "record payment" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "record payment"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "registrar pago"
-          }
-        }
-      }
-    },
-    "starting balance (on projection start date)" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "starting balance (on projection start date)"
-          }
-        },
-        "es" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "saldo inicial (en la fecha de inicio de proyección)"
+            "value" : "> la fecha final de tu proyección ya pasó. los periodos históricos recientes siguen disponibles."
           }
         }
       }
@@ -1494,6 +1335,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "monto"
+          }
+        }
+      }
+    },
+    "amount paid in %@, recorded today" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "amount paid in %@, recorded today"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "monto pagado en %@, se registra hoy"
           }
         }
       }
@@ -1953,6 +1811,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "fecha"
+          }
+        }
+      }
+    },
+    "date (optional — empty = no due date)" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "date (optional — empty = no due date)"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "fecha (opcional — vacía = sin fecha)"
           }
         }
       }
@@ -2465,6 +2340,23 @@
         }
       }
     },
+    "extend projection in settings" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "extend projection in settings"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "extender proyección en configuración"
+          }
+        }
+      }
+    },
     "extra" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -2651,6 +2543,23 @@
         }
       }
     },
+    "income already received stays; future pay dates stop." : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "income already received stays; future pay dates stop."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "los ingresos ya recibidos se conservan; las fechas de pago futuras se detienen."
+          }
+        }
+      }
+    },
     "income tab" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -2681,6 +2590,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "saldo libre inicial"
+          }
+        }
+      }
+    },
+    "invalid amount" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "invalid amount"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "monto inválido"
           }
         }
       }
@@ -3144,6 +3070,23 @@
         }
       }
     },
+    "no due date" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "no due date"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "sin fecha"
+          }
+        }
+      }
+    },
     "no limit" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -3246,6 +3189,57 @@
         }
       }
     },
+    "optional — rolling 12 months" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "optional — rolling 12 months"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "opcional — 12 meses móviles"
+          }
+        }
+      }
+    },
+    "overdue" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "overdue"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "vencido"
+          }
+        }
+      }
+    },
+    "paid" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "paid"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "pagado"
+          }
+        }
+      }
+    },
     "paid date" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -3259,6 +3253,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "fecha de pago"
+          }
+        }
+      }
+    },
+    "pay now" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "pay now"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "pagar ahora"
           }
         }
       }
@@ -3314,6 +3325,57 @@
         }
       }
     },
+    "projection end date (YYYY-MM-DD)" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "projection end date (YYYY-MM-DD)"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "fecha final de proyección (AAAA-MM-DD)"
+          }
+        }
+      }
+    },
+    "projection end date cannot precede projection start date" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "projection end date cannot precede projection start date"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "la fecha final no puede ser anterior a la fecha inicial"
+          }
+        }
+      }
+    },
+    "projection end date must be between today and two years from today" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "projection end date must be between today and two years from today"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "la fecha final debe estar entre hoy y dos años desde hoy"
+          }
+        }
+      }
+    },
     "projection start date (YYYY-MM-DD)" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -3348,6 +3410,23 @@
         }
       }
     },
+    "projections and account balances start on this date; earlier activity is ignored. until the next pay date only your starting balance applies (no salary). to start over, set it to today and enter current balances in accounts" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "projections and account balances start on this date; earlier activity is ignored. until the next pay date only your starting balance applies (no salary). to start over, set it to today and enter current balances in accounts"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "las proyecciones y los saldos de cuentas inician en esta fecha; se ignora la actividad anterior. hasta la próxima fecha de pago solo cuenta tu saldo inicial (sin salario). para empezar de nuevo, ponla en hoy e ingresa los saldos actuales en cuentas"
+          }
+        }
+      }
+    },
     "projections tab" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -3361,6 +3440,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "pestaña de proyecciones"
+          }
+        }
+      }
+    },
+    "record payment" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "record payment"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "registrar pago"
           }
         }
       }
@@ -3620,6 +3716,23 @@
         }
       }
     },
+    "starting balance (on projection start date)" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "starting balance (on projection start date)"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "saldo inicial (en la fecha de inicio de proyección)"
+          }
+        }
+      }
+    },
     "sub" : {
       "extractionState" : "stale",
       "localizations" : {
@@ -3735,6 +3848,23 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "terminal"
+          }
+        }
+      }
+    },
+    "the full pay period containing the end date is included. maximum: two years from today" : {
+      "extractionState" : "stale",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "the full pay period containing the end date is included. maximum: two years from today"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "se incluye el periodo de pago completo que contiene la fecha final. máximo: dos años desde hoy"
           }
         }
       }
