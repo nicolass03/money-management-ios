@@ -143,12 +143,13 @@ struct TagsInputField: View {
         text: $tagsText
       )
 
-      if !knownTags.isEmpty {
+      let suggestions = self.suggestions
+      if !suggestions.isEmpty {
         TerminalScrollView(axes: .horizontal) {
           HStack(spacing: 6) {
-            ForEach(knownTags.prefix(12), id: \.self) { tag in
+            ForEach(suggestions, id: \.self) { tag in
               TerminalTagChip(tag: tag) {
-                appendTag(tag)
+                acceptTag(tag)
               }
             }
           }
@@ -157,10 +158,30 @@ struct TagsInputField: View {
     }
   }
 
-  private func appendTag(_ tag: String) {
-    let current = tagsText.split(separator: ",").map { $0.trimmingCharacters(in: .whitespaces) }.filter { !$0.isEmpty }
-    if current.contains(tag) { return }
-    tagsText = (current + [tag]).joined(separator: ", ")
+  /// Known tags not yet entered that contain the tag being typed, prefix matches first.
+  private var suggestions: [String] {
+    let (entered, pending) = Self.splitPending(tagsText)
+    let candidates = knownTags.filter { !entered.contains($0) }
+    guard !pending.isEmpty else { return Array(candidates.prefix(Self.maxSuggestions)) }
+    let prefix = candidates.filter { $0.hasPrefix(pending) }
+    let infix = candidates.filter { !$0.hasPrefix(pending) && $0.contains(pending) }
+    return Array((prefix + infix).prefix(Self.maxSuggestions))
+  }
+
+  /// Replaces the partially typed tag with `tag` and starts the next one.
+  private func acceptTag(_ tag: String) {
+    tagsText = (Self.splitPending(tagsText).entered + [tag]).joined(separator: ", ") + ", "
+  }
+
+  private static let maxSuggestions = 12
+
+  /// Splits into completed tags and the trailing tag being typed. SwiftUI's `TextField` exposes
+  /// no caret on iOS 17, so the tag after the last comma is the one being typed.
+  private static func splitPending(_ text: String) -> (entered: [String], pending: String) {
+    var parts = text.split(separator: ",", omittingEmptySubsequences: false)
+      .map { $0.trimmingCharacters(in: .whitespaces).lowercased() }
+    let pending = parts.popLast() ?? ""
+    return (parts.filter { !$0.isEmpty }, pending)
   }
 
   static func parseTags(_ text: String) -> [String] {

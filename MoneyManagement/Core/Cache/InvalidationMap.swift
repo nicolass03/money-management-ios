@@ -43,14 +43,14 @@ enum InvalidationMap {
     let upcoming: ResourceKey = .upcomingPayable(ExpenseDefaults.upcomingPayableHorizonDays)
     switch event {
     case .expenseChange:
-      return Set([.expenses, .projections, .accounts, upcoming] + periodViews)
+      return Set([.expenses, .projections, .accounts, .tags, upcoming] + periodViews)
     case .recurringChange:
       // Materialized recurring charges land on an account, so balances can change.
-      return Set([.recurringExpenses, .expenses, .projections, .accounts, upcoming] + periodViews)
+      return Set([.recurringExpenses, .expenses, .projections, .accounts, .tags, upcoming] + periodViews)
     case .plannedChange:
-      return Set([.plannedExpenses, .expenses, .projections, .accounts, upcoming] + periodViews)
+      return Set([.plannedExpenses, .expenses, .projections, .accounts, .tags, upcoming] + periodViews)
     case .budgetChange:
-      return Set([.budgets, .expenses, .projections, upcoming] + periodViews)
+      return Set([.budgets, .expenses, .projections, .tags, upcoming] + periodViews)
     case .incomeChange:
       return Set([.income, .projections, .accounts])
     case .scheduleChange:
