@@ -55,6 +55,9 @@ struct AccountsView: View {
       }
       .presentationDetents([.medium])
     }
+    .sheet(item: $viewModel.interestAccount) { account in
+      AccountInterestSheet(deps: deps, account: account)
+    }
     .sheet(item: $viewModel.transferSheet) { target in
       TransferFormSheet(deps: deps, target: target) {
         Task { await viewModel.load() }
@@ -105,6 +108,11 @@ struct AccountsView: View {
                 .font(AppFont.mono(size: 10))
                 .foregroundStyle(palette.muted)
             }
+            if let rate = account.interestRateLabel {
+              Text(rate)
+                .font(AppFont.mono(size: 10))
+                .foregroundStyle(palette.muted)
+            }
           }
           Spacer()
           VStack(alignment: .trailing, spacing: 2) {
@@ -124,6 +132,14 @@ struct AccountsView: View {
           }
           .font(AppFont.mono(size: 12))
           .foregroundStyle(palette.accent)
+
+          if account.interestRateBps > 0 {
+            Button(L10n.t("interest")) {
+              viewModel.interestAccount = account
+            }
+            .font(AppFont.mono(size: 12))
+            .foregroundStyle(palette.accent)
+          }
 
           Button(L10n.t("archive")) {
             viewModel.deleteTarget = account
@@ -173,6 +189,27 @@ private struct AccountFormSheet: View {
         label: L10n.t("starting balance (on projection start date)"),
         placeholder: "0.00"
       )
+      AmountTextField(
+        text: $model.interestRateText,
+        label: L10n.t("interest rate % (optional)"),
+        placeholder: "3.72"
+      )
+      VStack(alignment: .leading, spacing: 4) {
+        Text(L10n.t("rate type"))
+          .font(AppFont.mono(size: 12))
+          .foregroundStyle(.secondary)
+        Picker(L10n.t("rate type"), selection: $model.interestRateType) {
+          ForEach(InterestRateType.allCases) { type in
+            Text(type.label).tag(type)
+          }
+        }
+        .pickerStyle(.menu)
+        .font(AppFont.mono(size: 14))
+      }
+      Text(L10n.t("for savings accounts that pay interest every day. enter the rate your bank shows and how it quotes it. interest is added daily as income to this account, compounding on its balance. leave blank for no interest."))
+        .font(AppFont.mono(size: 11))
+        .foregroundStyle(.secondary)
+        .frame(maxWidth: .infinity, alignment: .leading)
       TerminalToggle(label: L10n.t("exclude from projections"), isOn: $model.excludeFromProjections)
       Text(L10n.t("its balance, income and expenses won't count in projections. transfers between it and your other accounts count as money in or out."))
         .font(AppFont.mono(size: 11))
@@ -190,6 +227,104 @@ private struct AccountFormSheet: View {
       Haptics.success()
       dismiss()
       onSaved()
+    } catch {
+      errorMessage = error.localizedDescription
+    }
+  }
+}
+
+/// An account's daily interest credits, grouped by month (newest first). They stay out of the
+/// income list so they don't crowd it.
+private struct AccountInterestSheet: View {
+  @Environment(\.dismiss) private var dismiss
+  @Environment(\.appPalette) private var palette
+  let deps: AppDependencies
+  let account: Account
+  @State private var credits: [InterestCredit] = []
+  @State private var isLoading = true
+  @State private var errorMessage: String?
+
+  private struct Month: Identifiable {
+    let id: String
+    var total = 0
+    var credits: [InterestCredit] = []
+  }
+
+  /// Credits grouped by `YYYY-MM`, keeping their newest-first order.
+  private var months: [Month] {
+    var groups: [Month] = []
+    for credit in credits {
+      let month = String(credit.date.prefix(7))
+      if groups.last?.id != month {
+        groups.append(Month(id: month))
+      }
+      groups[groups.count - 1].total += credit.amount
+      groups[groups.count - 1].credits.append(credit)
+    }
+    return groups
+  }
+
+  var body: some View {
+    NavigationStack {
+      TerminalScreen {
+        VStack(alignment: .leading, spacing: 16) {
+          SectionHeader(
+            title: L10n.t("interest"),
+            subtitle: [AccountPicker.label(account), account.interestRateLabel]
+              .compactMap { $0 }
+              .joined(separator: " · ")
+          )
+
+          if let errorMessage {
+            ErrorBanner(message: errorMessage) { Task { await load() } }
+          }
+
+          if credits.isEmpty && !isLoading && errorMessage == nil {
+            EmptyStateCard(message: L10n.t("> no interest credited yet — it's added each day from the day after you turn it on."))
+          } else if !credits.isEmpty {
+            row(L10n.t("total earned"), credits.reduce(0) { $0 + $1.amount }, size: 14)
+            ForEach(months) { month in
+              TerminalCard {
+                VStack(alignment: .leading, spacing: 6) {
+                  row(month.id, month.total, size: 12)
+                  Divider().overlay(palette.border)
+                  ForEach(month.credits) { credit in
+                    row(credit.date, credit.amount, size: 12, muted: true)
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+      .overlay { if isLoading { LoadingOverlay() } }
+      .task { await load() }
+      .navigationBarTitleDisplayMode(.inline)
+      .toolbar {
+        ToolbarItem(placement: .confirmationAction) {
+          Button(L10n.t("done")) { dismiss() }
+        }
+      }
+    }
+  }
+
+  private func row(_ label: String, _ amount: Int, size: CGFloat, muted: Bool = false) -> some View {
+    HStack {
+      Text(label)
+        .foregroundStyle(muted ? palette.muted : palette.text)
+      Spacer()
+      Text("+\(MoneyFormatter.format(amount, currency: account.currency))")
+        .foregroundStyle(palette.accent)
+    }
+    .font(AppFont.mono(size: size))
+  }
+
+  private func load() async {
+    isLoading = true
+    errorMessage = nil
+    defer { isLoading = false }
+    do {
+      credits = try await deps.api.getAccountInterest(id: account.id)
     } catch {
       errorMessage = error.localizedDescription
     }

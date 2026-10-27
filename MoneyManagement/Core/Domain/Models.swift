@@ -22,6 +22,40 @@ enum CurrencyCode: String, Codable, CaseIterable, Identifiable {
     var label: String { rawValue.uppercased() }
 }
 
+/// How a bank quotes an account's interest rate: APY/AER, TAE (Spain) and E.A. (Colombia) are
+/// effective annual; TIN (Spain) is nominal annual; N.A.M.V. is nominal annual compounded monthly
+/// and E.M. effective monthly (Colombia). The API converts each to a daily rate.
+enum InterestRateType: String, Codable, CaseIterable, Identifiable {
+    case apy, tae, tin, ea, namv, em
+
+    var id: String { rawValue }
+
+    /// The acronym the rate is quoted with (the same in every language).
+    var acronym: String {
+        switch self {
+        case .apy: "APY"
+        case .tae: "TAE"
+        case .tin: "TIN"
+        case .ea: "E.A."
+        case .namv: "N.A.M.V."
+        case .em: "E.M."
+        }
+    }
+
+    /// Picker label, e.g. "TAE — tasa anual equivalente (Spain)".
+    var label: String {
+        let description = switch self {
+        case .apy: L10n.t("effective annual · AER (Revolut, international)")
+        case .tae: L10n.t("tasa anual equivalente · effective annual (Spain)")
+        case .tin: L10n.t("tipo de interés nominal · nominal annual (Spain)")
+        case .ea: L10n.t("efectiva anual · effective annual (Colombia)")
+        case .namv: L10n.t("nominal anual mes vencido · nominal annual, monthly (Colombia)")
+        case .em: L10n.t("efectiva mensual · effective monthly (Colombia)")
+        }
+        return "\(acronym) — \(description)"
+    }
+}
+
 enum PayFrequency: String, Codable, CaseIterable, Identifiable {
     case weekly, biweekly, monthly, yearly
 
@@ -95,6 +129,23 @@ struct Account: Codable, Identifiable, Equatable {
     let createdAt: String
     /// Keeps the account's balance and activity out of projections.
     let excludeFromProjections: Bool
+    /// Interest credited daily, in basis points (825 = 8.25%); 0 = none.
+    let interestRateBps: Int
+    let interestRateType: InterestRateType
+
+    /// The rate as shown on the account, e.g. "8.25% E.A."; nil when it earns no interest.
+    var interestRateLabel: String? {
+        guard interestRateBps > 0 else { return nil }
+        return String(format: "%.2f%% %@", Double(interestRateBps) / 100, interestRateType.acronym)
+    }
+}
+
+/// One day's interest credited to an account, in the account's currency.
+struct InterestCredit: Codable, Identifiable, Equatable {
+    let date: String
+    let amount: Int
+
+    var id: String { date }
 }
 
 /// A transfer between two of the user's accounts. v1 transfers are same-currency, so one amount in
@@ -371,6 +422,9 @@ struct CreateAccountRequest: Encodable {
     let currency: CurrencyCode
     let initialAmount: Int
     let excludeFromProjections: Bool
+    /// 0 = no interest.
+    let interestRateBps: Int
+    let interestRateType: InterestRateType
 }
 
 /// Create / full edit of a transfer. `currency` is the currency `amount` was parsed in; the API

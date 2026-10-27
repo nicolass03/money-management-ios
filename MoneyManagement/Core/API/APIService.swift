@@ -36,12 +36,18 @@ struct APIService {
         try await client.request("GET", path: "accounts", query: asOfQuery())
     }
 
+    /// `asOf` is the day interest starts accruing when the account earns it.
     func createAccount(_ body: CreateAccountRequest) async throws -> Account {
-        try await client.request("POST", path: "accounts", body: body)
+        try await client.request("POST", path: "accounts", query: asOfQuery(), body: body)
     }
 
     func updateAccount(id: String, _ body: CreateAccountRequest) async throws -> Account {
         try await client.request("PATCH", path: "accounts/\(id)", query: asOfQuery(), body: body)
+    }
+
+    /// The account's daily interest credits, newest first.
+    func getAccountInterest(id: String) async throws -> [InterestCredit] {
+        try await client.request("GET", path: "accounts/\(id)/interest")
     }
 
     func deleteAccount(id: String) async throws {

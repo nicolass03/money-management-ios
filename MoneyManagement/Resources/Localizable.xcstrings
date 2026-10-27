@@ -1,6 +1,210 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "effective annual · AER (Revolut, international)" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "effective annual · AER (Revolut, international)"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "efectiva anual · AER (Revolut, internacional)"
+          }
+        }
+      }
+    },
+    "tasa anual equivalente · effective annual (Spain)" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "tasa anual equivalente · effective annual (Spain)"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "tasa anual equivalente (España)"
+          }
+        }
+      }
+    },
+    "tipo de interés nominal · nominal annual (Spain)" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "tipo de interés nominal · nominal annual (Spain)"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "tipo de interés nominal (España)"
+          }
+        }
+      }
+    },
+    "efectiva anual · effective annual (Colombia)" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "efectiva anual · effective annual (Colombia)"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "efectiva anual (Colombia)"
+          }
+        }
+      }
+    },
+    "nominal anual mes vencido · nominal annual, monthly (Colombia)" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "nominal anual mes vencido · nominal annual, monthly (Colombia)"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "nominal anual mes vencido (Colombia)"
+          }
+        }
+      }
+    },
+    "efectiva mensual · effective monthly (Colombia)" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "efectiva mensual · effective monthly (Colombia)"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "efectiva mensual (Colombia)"
+          }
+        }
+      }
+    },
+    "interest" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "interest"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "intereses"
+          }
+        }
+      }
+    },
+    "interest rate % (optional)" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "interest rate % (optional)"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "tasa de interés % (opcional)"
+          }
+        }
+      }
+    },
+    "rate type" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "rate type"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "tipo de tasa"
+          }
+        }
+      }
+    },
+    "for savings accounts that pay interest every day. enter the rate your bank shows and how it quotes it. interest is added daily as income to this account, compounding on its balance. leave blank for no interest." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "for savings accounts that pay interest every day. enter the rate your bank shows and how it quotes it. interest is added daily as income to this account, compounding on its balance. leave blank for no interest."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "para cuentas de ahorro que pagan intereses cada día. ingresa la tasa que muestra tu banco y cómo la expresa. el interés se suma a diario como ingreso a esta cuenta y se capitaliza sobre su saldo. déjalo vacío si no genera intereses."
+          }
+        }
+      }
+    },
+    "> no interest credited yet — it's added each day from the day after you turn it on." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "> no interest credited yet — it's added each day from the day after you turn it on."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "> aún no hay intereses — se suman cada día desde el día siguiente a activarlos."
+          }
+        }
+      }
+    },
+    "total earned" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "total earned"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "total ganado"
+          }
+        }
+      }
+    },
     " · " : {
       "extractionState" : "stale",
       "localizations" : {

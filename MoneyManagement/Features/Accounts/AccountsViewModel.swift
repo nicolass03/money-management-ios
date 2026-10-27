@@ -30,6 +30,8 @@ final class AccountsViewModel {
   var editing: Account?
   var showForm = false
   var deleteTarget: Account?
+  /// The account whose interest credits are shown.
+  var interestAccount: Account?
   var transferSheet: TransferTarget?
   var deleteTransferTarget: TransferTarget?
 
@@ -126,6 +128,9 @@ final class AccountFormModel {
   var currency: CurrencyCode = .eur
   var initialAmountText = ""
   var excludeFromProjections = false
+  /// Percent text, e.g. "8.25"; blank = no interest.
+  var interestRateText = ""
+  var interestRateType: InterestRateType = .apy
 
   private let editing: Account?
   private let deps: AppDependencies
@@ -140,12 +145,16 @@ final class AccountFormModel {
       currency = editing.currency
       initialAmountText = MoneyFormatter.formatMinorUnitsAsInput(editing.initialAmount, currency: editing.currency)
       excludeFromProjections = editing.excludeFromProjections
+      if editing.interestRateBps > 0 {
+        interestRateText = String(format: "%.2f", Double(editing.interestRateBps) / 100)
+      }
+      interestRateType = editing.interestRateType
     } else {
       currency = deps.displayCurrency
     }
   }
 
-  var canSave: Bool { amountMinor != nil }
+  var canSave: Bool { amountMinor != nil && interestRateBps != nil }
 
   /// A starting balance is allowed to be zero, so an empty field reads as 0.
   var amountMinor: Int? {
@@ -154,14 +163,27 @@ final class AccountFormModel {
     return MoneyFormatter.parseToMinorUnits(trimmed, currency: currency)
   }
 
+  /// Percent text (up to 2 decimals) → basis points. Blank means no interest (0); nil when invalid
+  /// or above 100%.
+  var interestRateBps: Int? {
+    let trimmed = interestRateText.trimmingCharacters(in: .whitespaces)
+    if trimmed.isEmpty { return 0 }
+    guard trimmed.range(of: #"^\d{1,3}(\.\d{1,2})?$"#, options: .regularExpression) != nil,
+          let percent = Double(trimmed) else { return nil }
+    let bps = Int((percent * 100).rounded())
+    return bps <= 10_000 ? bps : nil
+  }
+
   func save() async throws {
-    guard let amount = amountMinor else { return }
+    guard let amount = amountMinor, let interestRateBps else { return }
     let trimmedName = name.trimmingCharacters(in: .whitespaces)
     let body = CreateAccountRequest(
       name: trimmedName.isEmpty ? nil : trimmedName,
       currency: currency,
       initialAmount: amount,
-      excludeFromProjections: excludeFromProjections
+      excludeFromProjections: excludeFromProjections,
+      interestRateBps: interestRateBps,
+      interestRateType: interestRateType
     )
     if let editing {
       _ = try await deps.api.updateAccount(id: editing.id, body)
