@@ -931,6 +931,57 @@
         }
       }
     },
+    "exclude from projections" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "exclude from projections"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "excluir de proyecciones"
+          }
+        }
+      }
+    },
+    "its balance, income and expenses won't count in projections. transfers between it and your other accounts count as money in or out." : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "its balance, income and expenses won't count in projections. transfers between it and your other accounts count as money in or out."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "su saldo, ingresos y gastos no cuentan en las proyecciones. las transferencias entre esta y tus otras cuentas cuentan como entradas o salidas de dinero."
+          }
+        }
+      }
+    },
+    "not in projections" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "not in projections"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "fuera de proyecciones"
+          }
+        }
+      }
+    },
     "~" : {
       "localizations" : {
         "en" : {

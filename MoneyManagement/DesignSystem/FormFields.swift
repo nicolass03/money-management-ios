@@ -170,16 +170,25 @@ struct TagsInputField: View {
   }
 }
 
-struct SubscriptionToggle: View {
+struct TerminalToggle: View {
   @Environment(\.appPalette) private var palette
-  @Binding var isSubscription: Bool
+  let label: String
+  @Binding var isOn: Bool
 
   var body: some View {
-    Toggle(isOn: $isSubscription) {
-      Text(L10n.t("subscription"))
+    Toggle(isOn: $isOn) {
+      Text(label)
         .font(AppFont.mono(size: 14))
         .foregroundStyle(palette.text)
     }
     .tint(palette.accent)
+  }
+}
+
+struct SubscriptionToggle: View {
+  @Binding var isSubscription: Bool
+
+  var body: some View {
+    TerminalToggle(label: L10n.t("subscription"), isOn: $isSubscription)
   }
 }

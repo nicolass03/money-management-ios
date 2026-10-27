@@ -100,6 +100,11 @@ struct AccountsView: View {
             Text(name)
               .font(AppFont.mono(size: 14, weight: .medium))
               .foregroundStyle(palette.text)
+            if account.excludeFromProjections {
+              Text(L10n.t("not in projections"))
+                .font(AppFont.mono(size: 10))
+                .foregroundStyle(palette.muted)
+            }
           }
           Spacer()
           VStack(alignment: .trailing, spacing: 2) {
@@ -168,6 +173,11 @@ private struct AccountFormSheet: View {
         label: L10n.t("starting balance (on projection start date)"),
         placeholder: "0.00"
       )
+      TerminalToggle(label: L10n.t("exclude from projections"), isOn: $model.excludeFromProjections)
+      Text(L10n.t("its balance, income and expenses won't count in projections. transfers between it and your other accounts count as money in or out."))
+        .font(AppFont.mono(size: 11))
+        .foregroundStyle(.secondary)
+        .frame(maxWidth: .infinity, alignment: .leading)
     }
   }
 

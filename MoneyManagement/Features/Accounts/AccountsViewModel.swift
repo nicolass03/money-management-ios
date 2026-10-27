@@ -125,6 +125,7 @@ final class AccountFormModel {
   var name = ""
   var currency: CurrencyCode = .eur
   var initialAmountText = ""
+  var excludeFromProjections = false
 
   private let editing: Account?
   private let deps: AppDependencies
@@ -138,6 +139,7 @@ final class AccountFormModel {
       name = editing.name ?? ""
       currency = editing.currency
       initialAmountText = MoneyFormatter.formatMinorUnitsAsInput(editing.initialAmount, currency: editing.currency)
+      excludeFromProjections = editing.excludeFromProjections
     } else {
       currency = deps.displayCurrency
     }
@@ -158,7 +160,8 @@ final class AccountFormModel {
     let body = CreateAccountRequest(
       name: trimmedName.isEmpty ? nil : trimmedName,
       currency: currency,
-      initialAmount: amount
+      initialAmount: amount,
+      excludeFromProjections: excludeFromProjections
     )
     if let editing {
       _ = try await deps.api.updateAccount(id: editing.id, body)

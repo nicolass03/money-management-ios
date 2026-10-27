@@ -93,6 +93,8 @@ struct Account: Codable, Identifiable, Equatable {
     let balance: Int
     let archivedAt: String?
     let createdAt: String
+    /// Keeps the account's balance and activity out of projections.
+    let excludeFromProjections: Bool
 }
 
 /// A transfer between two of the user's accounts. v1 transfers are same-currency, so one amount in
@@ -368,6 +370,7 @@ struct CreateAccountRequest: Encodable {
     let name: String?
     let currency: CurrencyCode
     let initialAmount: Int
+    let excludeFromProjections: Bool
 }
 
 /// Create / full edit of a transfer. `currency` is the currency `amount` was parsed in; the API

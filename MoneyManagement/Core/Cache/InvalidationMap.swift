@@ -62,8 +62,9 @@ enum InvalidationMap {
       // Account balances and the projection opening balance both derive from accounts.
       return Set([.accounts, .projections, .expenses, .income])
     case .transferChange:
-      // Transfers only move money between accounts: balances change, spend/income/projections don't.
-      return Set([.transfers, .recurringTransfers, .accounts])
+      // Transfers move money between accounts: balances change, spend/income don't. Projections
+      // only change for transfers to or from an account excluded from them.
+      return Set([.transfers, .recurringTransfers, .accounts, .projections])
     case .moneyContextRefresh:
       return Set([.moneyContext])
     }
