@@ -33,6 +33,7 @@ Two WidgetKit extensions (`SpendflyWidgets` target) read a **snapshot** from App
 
 - In-memory **`DataStore`** (`Core/Cache/DataStore.swift`) caches API responses per resource key; invalidated keys refetch on next `load()`.
 - **`InvalidationMap`** (`Core/Cache/InvalidationMap.swift`) mirrors web `src/lib/query/invalidation.ts` — call `deps.invalidateAfter(.expenseChange)` etc. after mutations.
+- **Transfers** (accounts tab, `Features/Accounts/TransfersSection.swift` + `TransferFormModel`): one-off and recurring transfers between same-currency accounts (v1). Writes call `.transferChange` (transfers, recurring transfers, accounts only — transfers never touch spend/income/projections). A recurring occurrence's date and accounts are locked. Server rules: API `AGENTS.md` → *Transfers*.
 - **`load(force: true)`** on ViewModels clears cache and refetches everything; pull-to-refresh uses this.
 - **`scenePhase == .active`** in `MainTabView` calls `invalidateAll()` + reloads the active tab (app open / return from background — catches daily cron).
 - During an active session, switching tabs uses warm cache (no network if data unchanged).

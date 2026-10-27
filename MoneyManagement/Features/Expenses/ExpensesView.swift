@@ -48,7 +48,7 @@ struct ExpensesView: View {
       }
     }
     .sheet(isPresented: $viewModel.showExpenseForm) {
-      ExpenseFormSheet(deps: deps, knownTags: viewModel.formTags) {
+      ExpenseFormSheet(deps: deps, editing: viewModel.editingExpense, knownTags: viewModel.formTags) {
         viewModel.showExpenseForm = false
         Task { await viewModel.load() }
       }
@@ -62,7 +62,8 @@ struct ExpensesView: View {
           deps: deps,
           expenseId: id,
           initialAmount: amount,
-          currency: currency
+          currency: currency,
+          canVoid: viewModel.editAmountCanVoid
         ) {
           viewModel.showEditAmountForm = false
           Task { await viewModel.load() }
@@ -156,10 +157,7 @@ struct ExpensesView: View {
       .buttonStyle(.plain)
 
       Button {
-        Task {
-          await viewModel.loadFormTags()
-          viewModel.showExpenseForm = true
-        }
+        Task { await viewModel.beginAdd() }
       } label: {
         quickActionLabel(title: L10n.t("add"), systemImage: "plus")
       }
@@ -256,17 +254,20 @@ struct ExpensesView: View {
     .contentShape(Rectangle())
     .onTapGesture {
       if canMutate {
-        viewModel.beginEditAmount(for: item)
+        Task { await viewModel.beginEdit(for: item) }
       }
     }
     .contextMenu {
       if canMutate {
-        Button(L10n.t("edit amount")) {
-          viewModel.beginEditAmount(for: item)
+        // Manual expenses are fully editable; recurring / planned / budget charges only by amount.
+        Button(viewModel.canDelete(item) ? L10n.t("edit") : L10n.t("edit amount")) {
+          Task { await viewModel.beginEdit(for: item) }
         }
-        Button(L10n.t("delete"), role: .destructive) {
-          if let id = item.itemId {
-            viewModel.deleteExpenseId = id
+        if viewModel.canDelete(item) {
+          Button(L10n.t("delete"), role: .destructive) {
+            if let id = item.itemId {
+              viewModel.deleteExpenseId = id
+            }
           }
         }
       }
@@ -292,14 +293,19 @@ private struct ExpenseFormSheet: View {
   let knownTags: [String]
   let onSaved: () -> Void
 
-  init(deps: AppDependencies, knownTags: [String], onSaved: @escaping () -> Void) {
-    _model = State(initialValue: ExpenseFormModel(deps: deps))
+  init(
+    deps: AppDependencies,
+    editing: ProjectionExpenseItem?,
+    knownTags: [String],
+    onSaved: @escaping () -> Void
+  ) {
+    _model = State(initialValue: ExpenseFormModel(deps: deps, editing: editing))
     self.knownTags = knownTags
     self.onSaved = onSaved
   }
 
   var body: some View {
-    FormSheet(title: L10n.t("add expense"), isSaving: isSaving, canSave: model.canSave, onSave: { Task { await save() } }) {
+    FormSheet(title: model.isEditing ? L10n.t("edit expense") : L10n.t("add expense"), isSaving: isSaving, canSave: model.canSave, onSave: { Task { await save() } }) {
       if let errorMessage { ErrorBanner(message: errorMessage) }
       TerminalTextField(label: L10n.t("name"), placeholder: L10n.t("groceries"), text: $model.name)
       AmountTextField(text: $model.amountText, placeholder: "45.00")
@@ -328,6 +334,7 @@ private struct ExpenseFormSheet: View {
 
 private struct ExpenseAmountFormSheet: View {
   @Environment(\.dismiss) private var dismiss
+  @Environment(\.appPalette) private var palette
   @State private var model: ExpenseAmountFormModel
   @State private var isSaving = false
   @State private var errorMessage: String?
@@ -338,6 +345,7 @@ private struct ExpenseAmountFormSheet: View {
     expenseId: String,
     initialAmount: Int,
     currency: CurrencyCode,
+    canVoid: Bool,
     onSaved: @escaping () -> Void
   ) {
     _model = State(
@@ -345,7 +353,8 @@ private struct ExpenseAmountFormSheet: View {
         deps: deps,
         expenseId: expenseId,
         initialAmount: initialAmount,
-        currency: currency
+        currency: currency,
+        canVoid: canVoid
       )
     )
     self.onSaved = onSaved
@@ -355,6 +364,11 @@ private struct ExpenseAmountFormSheet: View {
     FormSheet(title: L10n.t("edit amount"), isSaving: isSaving, canSave: model.canSave, onSave: { Task { await save() } }) {
       if let errorMessage { ErrorBanner(message: errorMessage) }
       AmountTextField(text: $model.amountText, placeholder: "45.00")
+      if model.canVoid {
+        Text(L10n.t("> 0 = this charge didn't happen"))
+          .font(AppFont.mono(size: 11))
+          .foregroundStyle(palette.muted)
+      }
     }
   }
 

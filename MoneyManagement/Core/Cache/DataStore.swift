@@ -19,6 +19,8 @@ final class DataStore {
   private(set) var income: [Income]?
   private(set) var schedules: [IncomePaySchedule]?
   private(set) var accounts: [Account]?
+  private(set) var transfers: [Transfer]?
+  private(set) var recurringTransfers: [RecurringTransfer]?
   private(set) var projections: ProjectionsResponse?
   private(set) var tags: [String]?
   private(set) var expensePeriodViews: [String: ExpensePeriodViewResponse] = [:]
@@ -39,6 +41,8 @@ final class DataStore {
       case .income: income = nil
       case .schedules: schedules = nil
       case .accounts: accounts = nil
+      case .transfers: transfers = nil
+      case .recurringTransfers: recurringTransfers = nil
       case .projections: projections = nil
       case .tags: tags = nil
       case .expensePeriodView(let period):
@@ -63,6 +67,8 @@ final class DataStore {
     income = nil
     schedules = nil
     accounts = nil
+    transfers = nil
+    recurringTransfers = nil
     projections = nil
     tags = nil
     expensePeriodViews = [:]
@@ -130,6 +136,16 @@ final class DataStore {
 
   func getAccounts(fetch: @escaping () async throws -> [Account]) async throws -> [Account] {
     try await get(.accounts, cached: accounts, assign: { self.accounts = $0 }, fetch: fetch)
+  }
+
+  func getTransfers(fetch: @escaping () async throws -> [Transfer]) async throws -> [Transfer] {
+    try await get(.transfers, cached: transfers, assign: { self.transfers = $0 }, fetch: fetch)
+  }
+
+  func getRecurringTransfers(
+    fetch: @escaping () async throws -> [RecurringTransfer]
+  ) async throws -> [RecurringTransfer] {
+    try await get(.recurringTransfers, cached: recurringTransfers, assign: { self.recurringTransfers = $0 }, fetch: fetch)
   }
 
   func getProjections(fetch: @escaping () async throws -> ProjectionsResponse) async throws -> ProjectionsResponse {

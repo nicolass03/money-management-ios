@@ -31,8 +31,9 @@ struct APIService {
 
     // MARK: - Accounts
 
+    /// Balances are computed as of the local today.
     func getAccounts() async throws -> [Account] {
-        try await client.request("GET", path: "accounts")
+        try await client.request("GET", path: "accounts", query: asOfQuery())
     }
 
     func createAccount(_ body: CreateAccountRequest) async throws -> Account {
@@ -40,11 +41,45 @@ struct APIService {
     }
 
     func updateAccount(id: String, _ body: CreateAccountRequest) async throws -> Account {
-        try await client.request("PATCH", path: "accounts/\(id)", body: body)
+        try await client.request("PATCH", path: "accounts/\(id)", query: asOfQuery(), body: body)
     }
 
     func deleteAccount(id: String) async throws {
         let _: SuccessResponse = try await client.request("DELETE", path: "accounts/\(id)")
+    }
+
+    // MARK: - Transfers
+
+    func getTransfers() async throws -> [Transfer] {
+        try await client.request("GET", path: "transfers")
+    }
+
+    func createTransfer(_ body: TransferRequest) async throws -> Transfer {
+        try await client.request("POST", path: "transfers", body: body)
+    }
+
+    func updateTransfer(id: String, _ body: TransferRequest) async throws -> Transfer {
+        try await client.request("PATCH", path: "transfers/\(id)", body: body)
+    }
+
+    func deleteTransfer(id: String) async throws {
+        let _: SuccessResponse = try await client.request("DELETE", path: "transfers/\(id)")
+    }
+
+    func getRecurringTransfers() async throws -> [RecurringTransfer] {
+        try await client.request("GET", path: "recurring-transfers")
+    }
+
+    func createRecurringTransfer(_ body: RecurringTransferRequest) async throws -> RecurringTransfer {
+        try await client.request("POST", path: "recurring-transfers", body: body)
+    }
+
+    func updateRecurringTransfer(id: String, _ body: RecurringTransferRequest) async throws -> RecurringTransfer {
+        try await client.request("PATCH", path: "recurring-transfers/\(id)", body: body)
+    }
+
+    func deleteRecurringTransfer(id: String) async throws {
+        let _: SuccessResponse = try await client.request("DELETE", path: "recurring-transfers/\(id)")
     }
 
     // MARK: - Income schedules
@@ -119,6 +154,11 @@ struct APIService {
         try await client.request("POST", path: "expenses", body: body)
     }
 
+    /// Full edit of a manual expense (no recurring / planned / budget source).
+    func updateExpense(id: String, _ body: CreateExpenseRequest) async throws -> ExpenseWithTags {
+        try await client.request("PATCH", path: "expenses/\(id)", body: body)
+    }
+
     func updateExpenseAmount(id: String, amount: Int) async throws -> ExpenseWithTags {
         try await client.request("PATCH", path: "expenses/\(id)", body: UpdateExpenseAmountRequest(amount: amount))
     }
@@ -128,7 +168,9 @@ struct APIService {
     }
 
     func earlyPayExpense(_ body: EarlyPayExpenseRequest) async throws -> ExpenseWithTags {
-        try await client.request("POST", path: "expenses/early-pay", body: body)
+        var body = body
+        body.asOf = PayPeriodLogic.todayISO()
+        return try await client.request("POST", path: "expenses/early-pay", body: body)
     }
 
     // MARK: - Recurring expenses
@@ -164,7 +206,9 @@ struct APIService {
     }
 
     func createPlannedExpense(_ body: CreatePlannedExpenseRequest) async throws -> PlannedExpenseWithTags {
-        try await client.request("POST", path: "planned-expenses", body: body)
+        var body = body
+        body.asOf = PayPeriodLogic.todayISO()
+        return try await client.request("POST", path: "planned-expenses", body: body)
     }
 
     func updatePlannedExpense(id: String, _ body: CreatePlannedExpenseRequest) async throws -> PlannedExpenseWithTags {
@@ -176,7 +220,7 @@ struct APIService {
         try await client.request(
             "POST",
             path: "planned-expenses/\(id)/pay",
-            body: PayPlannedExpenseRequest(amount: amount)
+            body: PayPlannedExpenseRequest(amount: amount, asOf: PayPeriodLogic.todayISO())
         )
     }
 
@@ -230,5 +274,9 @@ struct APIService {
             path: "projections",
             query: [URLQueryItem(name: "asOf", value: PayPeriodLogic.todayISO())]
         )
+    }
+
+    private func asOfQuery() -> [URLQueryItem] {
+        [URLQueryItem(name: "asOf", value: PayPeriodLogic.todayISO())]
     }
 }

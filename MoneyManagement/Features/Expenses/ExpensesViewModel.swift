@@ -23,9 +23,13 @@ final class ExpensesViewModel {
   var errorMessage: String?
 
   var showExpenseForm = false
+  /// Manual expense open in the full form; nil = adding a new one.
+  var editingExpense: ProjectionExpenseItem?
   var editAmountExpenseId: String?
   var editAmountInitial: Int?
   var editAmountCurrency: CurrencyCode?
+  /// Recurring charges may be set to 0 when the charge didn't happen.
+  var editAmountCanVoid = false
   var showEditAmountForm = false
   var deleteExpenseId: String?
 
@@ -185,16 +189,36 @@ final class ExpensesViewModel {
     item.itemId != nil && !item.projected && item.isBudgetSummary != true
   }
 
+  /// A recorded manual expense (no recurring / planned / budget source): fully editable and deletable.
   func canDelete(_ item: ProjectionExpenseItem) -> Bool {
     guard canEdit(item) else { return false }
     return item.recurringId == nil && item.plannedExpenseId == nil && item.budgetId == nil
   }
 
-  func beginEditAmount(for item: ProjectionExpenseItem) {
+  func beginAdd() async {
+    editingExpense = nil
+    await loadFormTags()
+    showExpenseForm = true
+  }
+
+  /// Manual expenses open the full form; recurring / planned / budget charges only take an amount.
+  func beginEdit(for item: ProjectionExpenseItem) async {
+    guard canEdit(item) else { return }
+    if canDelete(item) {
+      editingExpense = item
+      await loadFormTags()
+      showExpenseForm = true
+    } else {
+      beginEditAmount(for: item)
+    }
+  }
+
+  private func beginEditAmount(for item: ProjectionExpenseItem) {
     guard let id = item.itemId else { return }
     editAmountExpenseId = id
     editAmountInitial = item.amount
     editAmountCurrency = item.currency
+    editAmountCanVoid = item.recurringId != nil
     showEditAmountForm = true
   }
 }
@@ -210,19 +234,34 @@ final class ExpenseFormModel {
   var accounts: [Account] = []
   var accountId: String?
 
+  private let editing: ProjectionExpenseItem?
   private let deps: AppDependencies
 
-  init(deps: AppDependencies) {
+  var isEditing: Bool { editing != nil }
+
+  init(deps: AppDependencies, editing: ProjectionExpenseItem? = nil) {
     self.deps = deps
+    self.editing = editing
+    if let editing {
+      name = editing.name
+      amountText = MoneyFormatter.formatMinorUnitsAsInput(editing.amount, currency: editing.currency)
+      date = editing.date
+      tagsText = editing.tags.joined(separator: ", ")
+      isSubscription = editing.isSubscription
+      accountId = editing.accountId
+    }
   }
 
-  /// Currency follows the selected account so derived balances stay single-currency.
+  /// Currency follows the selected account so derived balances stay single-currency. When editing
+  /// an expense whose account was archived (absent from `accounts`), this stays nil rather than
+  /// falling back to the first account — save() then keeps the row's own account and currency.
   var selectedAccount: Account? {
-    accounts.first { $0.id == accountId } ?? accounts.first
+    if let match = accounts.first(where: { $0.id == accountId }) { return match }
+    return isEditing ? nil : accounts.first
   }
 
   var currency: CurrencyCode {
-    selectedAccount?.currency ?? deps.displayCurrency
+    selectedAccount?.currency ?? editing?.currency ?? deps.displayCurrency
   }
 
   func loadAccounts() async {
@@ -231,7 +270,9 @@ final class ExpenseFormModel {
   }
 
   var canSave: Bool {
-    !name.trimmingCharacters(in: .whitespaces).isEmpty && amountMinor != nil && !TagsInputField.parseTags(tagsText).isEmpty
+    !name.trimmingCharacters(in: .whitespaces).isEmpty
+      && (amountMinor ?? 0) > 0
+      && !TagsInputField.parseTags(tagsText).isEmpty
   }
 
   var amountMinor: Int? {
@@ -247,9 +288,13 @@ final class ExpenseFormModel {
       date: date,
       tags: TagsInputField.parseTags(tagsText),
       isSubscription: isSubscription,
-      accountId: selectedAccount?.id
+      accountId: selectedAccount?.id ?? accountId
     )
-    _ = try await deps.api.createExpense(body)
+    if let id = editing?.itemId {
+      _ = try await deps.api.updateExpense(id: id, body)
+    } else {
+      _ = try await deps.api.createExpense(body)
+    }
     deps.invalidateAfter(.expenseChange)
   }
 }
@@ -258,18 +303,33 @@ final class ExpenseFormModel {
 @MainActor
 final class ExpenseAmountFormModel {
   var amountText = ""
+  /// Recurring charges may be set to 0 (the charge didn't happen); others need a positive amount.
+  let canVoid: Bool
   private let expenseId: String
   private let currency: CurrencyCode
   private let deps: AppDependencies
 
-  init(deps: AppDependencies, expenseId: String, initialAmount: Int, currency: CurrencyCode) {
+  init(
+    deps: AppDependencies,
+    expenseId: String,
+    initialAmount: Int,
+    currency: CurrencyCode,
+    canVoid: Bool
+  ) {
     self.deps = deps
     self.expenseId = expenseId
     self.currency = currency
+    self.canVoid = canVoid
     amountText = MoneyFormatter.formatMinorUnitsAsInput(initialAmount, currency: currency)
   }
 
-  var canSave: Bool { amountMinor != nil }
+  var canSave: Bool {
+    // An empty field parses as 0, so a void needs an explicit "0".
+    guard let amount = amountMinor, !amountText.trimmingCharacters(in: .whitespaces).isEmpty else {
+      return false
+    }
+    return amount > 0 || canVoid
+  }
 
   var amountMinor: Int? {
     MoneyFormatter.parseToMinorUnits(amountText, currency: currency)

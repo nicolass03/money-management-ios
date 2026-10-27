@@ -62,6 +62,9 @@ struct AccountPicker: View {
   /// When true, offer an "auto" option (nil selection). Used by recurring expenses, whose account
   /// is optional — nil means the daily charge job picks an account by currency.
   var includeAutoOption: Bool = false
+  /// Visible caption above the picker (a menu picker hides its own label). Used where the
+  /// account's role needs naming, e.g. a transfer's "from" / "to".
+  var label: String?
 
   /// True when the current selection points at an account absent from `accounts` (archived). Kept
   /// as a selectable option so editing a row never silently rebinds it to a different account.
@@ -78,7 +81,12 @@ struct AccountPicker: View {
 
   var body: some View {
     VStack(alignment: .leading, spacing: 4) {
-      Picker(L10n.t("account"), selection: $selection) {
+      if let label {
+        Text(label)
+          .font(AppFont.mono(size: 12))
+          .foregroundStyle(.secondary)
+      }
+      Picker(label ?? L10n.t("account"), selection: $selection) {
         if includeAutoOption {
           Text(L10n.t("auto — pick by currency")).tag(String?.none)
         }

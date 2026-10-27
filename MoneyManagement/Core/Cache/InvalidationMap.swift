@@ -10,6 +10,8 @@ enum ResourceKey: Hashable {
   case income
   case schedules
   case accounts
+  case transfers
+  case recurringTransfers
   case projections
   case tags
   case expensePeriodView(String)
@@ -27,6 +29,8 @@ enum ResourceKey: Hashable {
       .income,
       .schedules,
       .accounts,
+      .transfers,
+      .recurringTransfers,
       .projections,
       .tags,
     ]
@@ -57,6 +61,9 @@ enum InvalidationMap {
     case .accountChange:
       // Account balances and the projection opening balance both derive from accounts.
       return Set([.accounts, .projections, .expenses, .income])
+    case .transferChange:
+      // Transfers only move money between accounts: balances change, spend/income/projections don't.
+      return Set([.transfers, .recurringTransfers, .accounts])
     case .moneyContextRefresh:
       return Set([.moneyContext])
     }
@@ -72,5 +79,6 @@ enum InvalidationEvent {
   case scheduleChange
   case settingsChange
   case accountChange
+  case transferChange
   case moneyContextRefresh
 }

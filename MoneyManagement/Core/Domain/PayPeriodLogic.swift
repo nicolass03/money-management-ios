@@ -19,6 +19,17 @@ enum PayPeriodLogic {
         )
     }
 
+    static func scheduleInput(from transfer: RecurringTransfer) -> ScheduleInput {
+        ScheduleInput(anchorDate: transfer.anchorDate, frequency: transfer.frequency, lastPaymentDate: nil)
+    }
+
+    /// The next `count` real occurrences from today, never before the schedule's anchor (its first
+    /// occurrence) — `getUpcomingPayDates` alone follows the pay-period grid, which extends before
+    /// it. Mirrors the API's `get_next_occurrence`.
+    static func getUpcomingOccurrences(schedule: ScheduleInput, count: Int) -> [String] {
+        getUpcomingPayDates(schedule: schedule, count: count, fromDate: max(todayISO(), schedule.anchorDate))
+    }
+
     static func getUpcomingPayDates(schedule: ScheduleInput, count: Int, fromDate: String? = nil) -> [String] {
         let start = fromDate ?? todayISO()
         var dates: [String] = []

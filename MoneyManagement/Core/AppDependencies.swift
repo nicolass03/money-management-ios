@@ -164,7 +164,7 @@ final class AppDependencies {
         switch event {
         case .expenseChange, .recurringChange, .plannedChange, .budgetChange, .settingsChange, .scheduleChange:
             return true
-        case .incomeChange, .accountChange, .moneyContextRefresh:
+        case .incomeChange, .accountChange, .transferChange, .moneyContextRefresh:
             return false
         }
     }

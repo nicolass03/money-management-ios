@@ -40,6 +40,8 @@ struct AccountsView: View {
             accountCard(account)
           }
         }
+
+        TransfersSection(viewModel: viewModel, deps: deps)
       }
     }
     .overlay { if viewModel.isLoading { LoadingOverlay() } }
@@ -52,6 +54,27 @@ struct AccountsView: View {
         Task { await viewModel.load() }
       }
       .presentationDetents([.medium])
+    }
+    .sheet(item: $viewModel.transferSheet) { target in
+      TransferFormSheet(deps: deps, target: target) {
+        Task { await viewModel.load() }
+      }
+    }
+    .confirmationDialog(L10n.t("Delete transfer?"), isPresented: Binding(
+      get: { viewModel.deleteTransferTarget != nil },
+      set: { if !$0 { viewModel.deleteTransferTarget = nil } }
+    )) {
+      Button(L10n.t("delete"), role: .destructive) {
+        if let target = viewModel.deleteTransferTarget {
+          Task { await viewModel.deleteTransfer(target) }
+        }
+      }
+    } message: {
+      if case .recurring = viewModel.deleteTransferTarget {
+        Text(L10n.t("stops future transfers; past transfers are kept."))
+      } else {
+        Text(L10n.t("both balances go back to before it."))
+      }
     }
     .confirmationDialog(L10n.t("Archive account?"), isPresented: Binding(
       get: { viewModel.deleteTarget != nil },

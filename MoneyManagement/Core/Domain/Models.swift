@@ -95,6 +95,34 @@ struct Account: Codable, Identifiable, Equatable {
     let createdAt: String
 }
 
+/// A transfer between two of the user's accounts. v1 transfers are same-currency, so one amount in
+/// the shared currency moves out of the source and into the destination.
+struct Transfer: Codable, Identifiable, Equatable {
+    let id: String
+    let name: String?
+    let fromAccountId: String
+    let toAccountId: String
+    let amount: Int
+    let currency: CurrencyCode
+    let date: String
+    /// Set when the daily job created this occurrence from a recurring transfer.
+    let recurringTransferId: String?
+    let createdAt: String
+}
+
+struct RecurringTransfer: Codable, Identifiable, Equatable {
+    let id: String
+    let name: String?
+    let fromAccountId: String
+    let toAccountId: String
+    let amount: Int
+    let currency: CurrencyCode
+    let anchorDate: String
+    let frequency: PayFrequency
+    let createdAt: String
+    let updatedAt: String
+}
+
 struct IncomePaySchedule: Codable, Identifiable, Equatable {
     let id: String
     let name: String
@@ -221,6 +249,8 @@ struct ProjectionExpenseItem: Codable, Identifiable, Equatable {
     let recurringId: String?
     let plannedExpenseId: String?
     let budgetId: String?
+    /// Source account of a recorded expense (prefills the edit form).
+    let accountId: String?
     let budgetTotal: Int?
     let budgetSpent: Int?
     let isBudgetSummary: Bool?
@@ -239,7 +269,7 @@ struct ProjectionExpenseItem: Codable, Identifiable, Equatable {
 
     enum CodingKeys: String, CodingKey {
         case itemId = "id"
-        case recurringId, plannedExpenseId, budgetId
+        case recurringId, plannedExpenseId, budgetId, accountId
         case budgetTotal, budgetSpent, isBudgetSummary
         case name, date, scheduledDate, amount, currency
         case originalAmount, originalCurrency, convertedAmount
@@ -340,6 +370,27 @@ struct CreateAccountRequest: Encodable {
     let initialAmount: Int
 }
 
+/// Create / full edit of a transfer. `currency` is the currency `amount` was parsed in; the API
+/// checks it against both accounts.
+struct TransferRequest: Encodable {
+    let name: String?
+    let fromAccountId: String
+    let toAccountId: String
+    let amount: Int
+    let currency: CurrencyCode
+    let date: String
+}
+
+struct RecurringTransferRequest: Encodable {
+    let name: String?
+    let fromAccountId: String
+    let toAccountId: String
+    let amount: Int
+    let currency: CurrencyCode
+    let anchorDate: String
+    let frequency: PayFrequency
+}
+
 struct CreateIncomeScheduleRequest: Encodable {
     let name: String
     let anchorDate: String
@@ -373,6 +424,8 @@ struct UpdateExpenseAmountRequest: Encodable {
 
 struct PayPlannedExpenseRequest: Encodable {
     let amount: Int
+    /// Local today: the payment is recorded on this date.
+    let asOf: String
 }
 
 struct EarlyPayExpenseRequest: Encodable {
@@ -383,6 +436,8 @@ struct EarlyPayExpenseRequest: Encodable {
     let currency: CurrencyCode
     let recurringId: String?
     let plannedExpenseId: String?
+    /// Local today; set by `APIService.earlyPayExpense`.
+    var asOf: String?
 }
 
 struct CreateRecurringExpenseRequest: Encodable {
@@ -405,6 +460,8 @@ struct CreatePlannedExpenseRequest: Encodable {
     let currency: CurrencyCode
     let tags: [String]
     let accountId: String?
+    /// Local today (a dated item must be after it); set by `APIService.createPlannedExpense`.
+    var asOf: String?
 }
 
 struct CreateBudgetRequest: Encodable {
